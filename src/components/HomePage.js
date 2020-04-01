@@ -1,16 +1,21 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const HomePage = () => {
+function HomePage() {
 	return (
 		<div>
-			<h1>React Slingshot</h1>
-
-			<h2>Get Started</h2>
-			<ol>
-				<li>Review the <Link to="/fuel-savings">demo app</Link></li>
-				<li>Remove the demo and start coding: npm run remove-demo</li>
-			</ol>
+			<h1>Matthew Graham</h1>
+			<h2>Full-Stack Engineer</h2>
+			<ul>
+				<li>CodePen</li>
+				<li>LinkedIn</li>
+				<li>GitHub</li>
+				<li>Twitter</li>
+			</ul>
+			<div>
+				<Link to='/projects'>View Projects</Link>
+				<Link to='/experience'>View Experience</Link>
+			</div>
 		</div>
 	)
 }

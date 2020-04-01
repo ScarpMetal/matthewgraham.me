@@ -1,38 +1,78 @@
 /* eslint-disable import/no-named-as-default */
-import { NavLink, Route, Switch } from "react-router-dom"
+import { NavLink, Route, Switch } from 'react-router-dom'
 
-import AboutPage from "./AboutPage"
-import FuelSavingsPage from "./containers/FuelSavingsPage"
-import HomePage from "./HomePage"
-import NotFoundPage from "./NotFoundPage"
-import PropTypes from "prop-types"
-import React from "react"
-import { hot } from "react-hot-loader"
+import HomePage from './HomePage'
+import ProjectsPage from './containers/ProjectsPage'
+import ExperiencePage from './containers/ExperiencePage'
+import ContactPage from './ContactPage'
+import NotFoundPage from './NotFoundPage'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { hot } from 'react-hot-loader'
 
 // This is a class-based component because the current
 // version of hot reloading won't hot reload a stateless
 // component at the top-level.
 
 class App extends React.Component {
+	constructor(props) {
+		super(props)
+
+		this.state = {
+			hamburgerExpanded: false
+		}
+
+		this.expandHamburger = this.expandHamburger.bind(this)
+	}
+
 	render() {
-		const activeStyle = { color: 'blue' }
+		const activeStyle = { fontWeight: 'bold' }
+		const { hamburgerExpanded } = this.state
 		return (
 			<div>
-				<div>
-					<NavLink exact to="/" activeStyle={activeStyle}>Home</NavLink>
-					{' | '}
-					<NavLink to="/fuel-savings" activeStyle={activeStyle}>Demo App</NavLink>
-					{' | '}
-					<NavLink to="/about" activeStyle={activeStyle}>About</NavLink>
-				</div>
+				<nav>
+					<NavLink exact to='/' activeStyle={activeStyle}>Home</NavLink>
+					<span>
+						<NavLink to='/projects' activeStyle={activeStyle}>Projects</NavLink>
+						<NavLink to='/experience' activeStyle={activeStyle}>Experience</NavLink>
+						<NavLink to='/contact' activeStyle={activeStyle}>Contact</NavLink>
+						<a href='#'>Resume</a>
+					</span>
+
+
+					<button type='button' onClick={this.expandHamburger} style={{ display: 'none' }}>Hamburger</button>
+					{hamburgerExpanded &&
+						<div>
+							<NavLink to='/projects' activeStyle={activeStyle}>Projects</NavLink>
+							<NavLink to='/experience' activeStyle={activeStyle}>Experience</NavLink>
+							<NavLink to='/contact' activeStyle={activeStyle}>Contact</NavLink>
+							<a href='#'>Resume</a>
+							<ul>
+								<li>CodePen</li>
+								<li>LinkedIn</li>
+								<li>GitHub</li>
+								<li>Twitter</li>
+							</ul>
+						</div>
+					}
+				</nav>
+
 				<Switch>
-					<Route exact path="/" component={HomePage} />
-					<Route path="/fuel-savings" component={FuelSavingsPage} />
-					<Route path="/about" component={AboutPage} />
+					<Route exact path='/' component={HomePage} />
+					<Route path='/projects' component={ProjectsPage} />
+					<Route path='/experience' component={ExperiencePage} />
+					<Route path='/contact' component={ContactPage} />
 					<Route component={NotFoundPage} />
 				</Switch>
+				<footer>
+					<p>Copyright © 2020 Matthew Graham • <a href='#'>Privacy & Terms</a></p>
+				</footer>
 			</div>
 		)
+	}
+
+	expandHamburger() {
+		this.setState(prevState => ({ hamburgerExpanded: !prevState.hamburgerExpanded }))
 	}
 }
 
