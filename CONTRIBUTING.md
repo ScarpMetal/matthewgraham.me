@@ -13,16 +13,16 @@ Submit a pull request to the master branch to request merging your change.
 
 ## Branch Organization
 
-All features should be worked out of a well named feature branch. Branch off the master branch.  Submit a pull request to merge your work into the master branch when your work is ready for review.
+All features should be worked out of a well named feature branch. Branch off the master branch. Submit a pull request to merge your work into the master branch when your work is ready for review.
 
 ## npm Scripts
 
 This project uses npm scripts for automation
 
-|Script|Description|
-|------|-----------|
-|start|Start local webserver to host the docs at localhost:3000|
-|test|Run tests|
+| Script | Description                                              |
+| ------ | -------------------------------------------------------- |
+| start  | Start local webserver to host the docs at localhost:3000 |
+| test   | Run tests                                                |
 
 There are many other scripts in package.json, but these are the two you're most likely to run.
 
@@ -42,6 +42,6 @@ However, there are still some styles that the linter cannot pick up. If you are 
 
 ## Code Conventions
 
-- Use semicolons ;
-- 2 spaces for indentation (no tabs). Install the [Editorconfig](http://editorconfig.org) plugin for your editor to enforce this automatically.
-- Prefer ' over "
+-   Use semicolons ;
+-   2 spaces for indentation (no tabs). Install the [Editorconfig](http://editorconfig.org) plugin for your editor to enforce this automatically.
+-   Prefer ' over "
