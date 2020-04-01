@@ -1,4 +1,4 @@
-import * as types from '../constants/actionTypes'
+import * as types from '../global/types'
 
 import { getFormattedDateTime } from '../utils/dates'
 
