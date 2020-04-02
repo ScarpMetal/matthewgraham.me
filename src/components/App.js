@@ -32,14 +32,26 @@ class App extends React.Component {
 			<div>
 				<nav>
 					<NavLink exact to='/' activeStyle={activeStyle}>Home</NavLink>
-					<span>
-						<NavLink to='/projects' activeStyle={activeStyle}>Projects</NavLink>
-						<NavLink to='/experience' activeStyle={activeStyle}>Experience</NavLink>
-						<NavLink to='/contact' activeStyle={activeStyle}>Contact</NavLink>
-						<a href='#'>Resume</a>
-					</span>
-
-
+					<ul>
+						<li><NavLink to='/projects' activeStyle={activeStyle}>Projects</NavLink></li>
+						<li><NavLink to='/experience' activeStyle={activeStyle}>Experience</NavLink></li>
+						<li><NavLink to='/contact' activeStyle={activeStyle}>Contact</NavLink></li>
+						<li><a href='#'>Resume</a></li>
+					</ul>
+					<aside class='social-vertical'>
+						<li><a href='https://codepen.io/ScarpMetal'>Codepen
+							<img src='' />
+						</a></li>
+						<li><a href='#'>LinkedIn
+							<img src='' />
+						</a></li>
+						<li><a href='#'>Github
+							<img src='' />
+						</a></li>
+						<li><a href='#'>Twitter
+							<img src='' />
+						</a></li>
+					</aside>
 					<button type='button' onClick={this.expandHamburger} style={{ display: 'none' }}>Hamburger</button>
 					{hamburgerExpanded &&
 						<div>

@@ -10,23 +10,26 @@ class ExperiencePage extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<h1>Experience</h1>
-				<ul>
-					<li>Featured</li>
-					<li>Javascript</li>
-					<li>Java</li>
-					<li>Python</li>
-				</ul>
-				<div>
-					<Experience />
-					<Experience />
-					<Experience />
-					<Experience />
-					<Experience />
-					<Experience />
-				</div>
-			</div>
+			<>
+				<aside className='timeline-scrollbar'>Timeline Scrollbar</aside>
+				<article className='content'>
+					<h1>Experience</h1>
+					<ul>
+						<li>Featured</li>
+						<li>Javascript</li>
+						<li>Java</li>
+						<li>Python</li>
+					</ul>
+					<div>
+						<Experience />
+						<Experience />
+						<Experience />
+						<Experience />
+						<Experience />
+						<Experience />
+					</div>
+				</article>
+			</>
 		)
 	}
 }
