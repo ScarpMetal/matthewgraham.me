@@ -1,0 +1,45 @@
+@import '../global/styles.scss';
+
+.project {
+	border-radius: 5px;
+	font-size: 1em;
+
+	h2 {
+		font-size: 2em;
+		margin-top: 10px;	
+	}
+
+	.info {
+		margin-top: 0;
+		color: $secondary-text-color;
+	}
+
+	.description {
+		margin-top: 4px;
+	}
+
+	.tags {
+		margin-top: 6px;
+	}
+}
+
+.project.large {
+	grid-row-end: span 2;
+
+	.images {
+		display: flex;
+		overflow-x: auto;
+
+		span {
+			border: solid 1px;
+			width: 80px;
+			height: 160px;
+			margin-right: 10px;
+
+			&:last-child {
+				width: 160px;
+				margin-right: 0;
+			}
+		}
+	}
+}

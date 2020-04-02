@@ -1,25 +1,24 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import './SocialHorizontal'
+import './ContactPage.scss'
+import SocialHorizontal from './SocialHorizontal'
+
 function ContactPage() {
 	return (
-		<div>
+		<article className='content contact-page'>
 			<h1>Contact</h1>
 
-			<h3>Write to me</h3>
+			<h2>Write to me</h2>
 			<p>mpgraham917@gmail.com</p>
 
-			<h3>Want to talk?</h3>
+			<h2>Want to talk?</h2>
 			<p>(914) 610-8631</p>
 
-			<h3>Check me out on social media!</h3>
-			<ul>
-				<li>CodePen</li>
-				<li>LinkedIn</li>
-				<li>GitHub</li>
-				<li>Twitter</li>
-			</ul>
-		</div>
+			<h2>Check me out on social media!</h2>
+			<SocialHorizontal />
+		</article>
 	)
 }
 

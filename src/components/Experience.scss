@@ -1,0 +1,41 @@
+@import '../global/styles.scss';
+
+.experience {
+	border-radius: 5px;
+	font-size: 1em;
+
+	h2 {
+		font-size: 2em;
+		margin-top: 10px;	
+	}
+
+	.info {
+		margin-top: 0;
+		color: $secondary-text-color;
+	}
+
+	.description {
+		margin-top: 4px;
+	}
+
+	.tags {
+		margin-top: 6px;
+	}
+
+	.images {
+		display: flex;
+		overflow-x: auto;
+
+		span {
+			border: solid 1px;
+			width: 144px;
+			height: 288px;
+			margin-right: 10px;
+
+			&:last-child {
+				width: 288px;
+				margin-right: 0;
+			}
+		}
+	}
+}

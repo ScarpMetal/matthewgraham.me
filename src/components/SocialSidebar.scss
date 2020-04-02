@@ -1,0 +1,35 @@
+@import '../global/variables.scss';
+
+.social-sidebar {
+	display: none;
+	flex-direction: column;
+	position: fixed;
+	align-items: center;
+	width: $sidebar-width;
+	top: $navbar-height;
+	bottom: 0;
+	left: 0;
+
+	li {
+		list-style-type: none;
+		margin-bottom: 24px;
+
+		a {
+			img {
+				vertical-align: middle;
+				fill: white;
+				width: 24px;
+			}
+		}
+
+		&:first-child {
+			margin-top: 30px;
+		}
+	}
+}
+
+@media (min-width: 600px) {
+	.social-sidebar {
+		display: flex;
+	}
+}
