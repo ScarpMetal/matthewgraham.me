@@ -33,6 +33,7 @@
 	"dependencies": {
 		"@hot-loader/react-dom": "16.10.2",
 		"connected-react-router": "6.5.2",
+		"firebase": "7.13.2",
 		"object-assign": "4.1.1",
 		"react": "16.11.0",
 		"react-dom": "16.11.0",

@@ -1,59 +1,49 @@
-import { NavLink, Route, Switch } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import React from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { hot } from 'react-hot-loader'
+import PropTypes from 'prop-types'
+import { NavLink, Link, Route, Switch } from 'react-router-dom'
 
 import logoSVG from '../assets/logo.svg'
+import NavbarItems from './NavbarItems'
 import HomePage from './HomePage'
+import AdminPage from './containers/AdminPage'
 import ProjectsPage from './containers/ProjectsPage'
 import ExperiencesPage from './containers/ExperiencesPage'
 import ContactPage from './ContactPage'
 import NotFoundPage from './NotFoundPage'
+import * as apiActions from '../actions/firebaseActions'
 
 class App extends React.Component {
-	constructor(props) {
-		super(props)
 
-		this.state = {
-			hamburgerExpanded: false
-		}
-
-		this.expandHamburger = this.expandHamburger.bind(this)
+	componentDidMount() {
+		const { apiActions } = this.props
+		console.log('apiActions', apiActions)
+		//apiActions.fetchTags()
+		apiActions.fetchProjects()
+		//apiActions.fetchExperiences()
 	}
 
 	render() {
-		const activeStyle = { fontWeight: 'bold' }
-		const { hamburgerExpanded } = this.state
+
 		return (
 			<>
 				<nav className='main-nav'>
-					<NavLink className='logo' exact to='/' activeStyle={activeStyle}>
+					<Link className='logo' to='/'>
 						<img src={logoSVG} />
-					</NavLink>
-					<ul className='horizontal-nav-items'>
-						<li><NavLink to='/projects' activeStyle={activeStyle}>Projects</NavLink></li>
-						<li><NavLink to='/experience' activeStyle={activeStyle}>Experience</NavLink></li>
-						<li><NavLink to='/contact' activeStyle={activeStyle}>Contact</NavLink></li>
-						<li><a href='#'>Resume</a></li>
-					</ul>
-					<button type='button' onClick={this.expandHamburger} style={{ display: 'none' }}>Hamburger</button>
-					{hamburgerExpanded &&
-						<div>
-							<NavLink to='/projects' activeStyle={activeStyle}>Projects</NavLink>
-							<NavLink to='/experience' activeStyle={activeStyle}>Experience</NavLink>
-							<NavLink to='/contact' activeStyle={activeStyle}>Contact</NavLink>
-							<a href='#'>Resume</a>
-							<ul>
-								<li>CodePen</li>
-								<li>LinkedIn</li>
-								<li>GitHub</li>
-								<li>Twitter</li>
-							</ul>
-						</div>
-					}
+					</Link>
+					<Switch>
+						<Route path='/admin' component={() =>
+							<span className='admin-console-label'>Admin Console</span>
+						} />
+						<Route component={NavbarItems} />
+					</Switch>
+
 				</nav>
 				<Switch>
 					<Route exact path='/' component={HomePage} />
+					<Route path='/admin' component={AdminPage} />
 					<Route path='/projects' component={ProjectsPage} />
 					<Route path='/experience' component={ExperiencesPage} />
 					<Route path='/contact' component={ContactPage} />
@@ -65,14 +55,23 @@ class App extends React.Component {
 			</>
 		)
 	}
-
-	expandHamburger() {
-		this.setState(prevState => ({ hamburgerExpanded: !prevState.hamburgerExpanded }))
-	}
 }
 
 App.propTypes = {
 	children: PropTypes.element
 }
 
-export default hot(module)(App)
+function mapStateToProps(state) {
+	console.log('state', state)
+	return {}
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		apiActions: bindActionCreators(apiActions, dispatch)
+	}
+}
+
+export default hot(module)(
+	connect(mapStateToProps, mapDispatchToProps)(App)
+)
