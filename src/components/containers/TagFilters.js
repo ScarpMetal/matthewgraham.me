@@ -1,9 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-import Tags from '../Tags'
+import * as tagActions from '../../actions/tagActions'
+import Tags from './Tags'
 
 class TagFilters extends React.Component {
+
+	loadingTags = new Array(4).fill({ name: '\u00A0\u00A0\u00A0\u00A0\u00A0', color: '#b7b7b7' })
+
 	constructor(props) {
 		super(props)
 
@@ -11,20 +16,41 @@ class TagFilters extends React.Component {
 	}
 
 	render() {
-		return (
-			<Tags tags={this.props.tags} onClick={this.handleTagSelect} />
-		)
+		const { isLoading, tags } = this.props
+
+		if (isLoading) {
+			return <Tags tags={this.loadingTags} />
+		}
+
+		return <Tags tags={tags} onSelectTag={this.handleTagSelect} />
 	}
 
-	handleTagSelect() {
+	handleTagSelect(tagName) {
+		this.props.tagActions.selectTag(tagName)
 		// TODO: Handle Tag Filter
 	}
 }
 
-function mapStateToProps(state, props) {
+TagFilters.defaultProps = {
+	tags: [],
+	isLoading: false
+}
+
+function mapStateToProps(state) {
+	const tagsArray = []
+	for (let tagName in state.tags.data) {
+		tagsArray.push(tagName)
+	}
 	return {
-		tags: []
+		tags: tagsArray,
+		isLoading: state.tags.isLoading
 	}
 }
 
-export default connect(mapStateToProps)(TagFilters)
+function mapDispatchToProps(dispatch) {
+	return {
+		tagActions: bindActionCreators(tagActions, dispatch)
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TagFilters)

@@ -20,12 +20,7 @@ class ExperiencesPage extends React.Component {
 					<h1>Experience</h1>
 					<TagFilters />
 					<div className='experiences-wrapper'>
-						<Experience />
-						<Experience experience={{ images: ['yo', 'wassup'] }} />
-						<Experience />
-						<Experience experience={{ images: ['yo', 'wassup', 'hey'] }} />
-						<Experience experience={{ images: ['yo', 'wassup'] }} />
-						<Experience />
+						{this.props.experiences.map((exp, i) => <Experience key={i} experience={exp} />)}
 					</div>
 				</article>
 			</>
@@ -33,8 +28,16 @@ class ExperiencesPage extends React.Component {
 	}
 }
 
-function mapStateToProps(props) {
-	return {}
+ExperiencesPage.defaultProps = {
+	experiences: [],
+	isLoading: false
+}
+
+function mapStateToProps(state) {
+	return {
+		experiences: state.experiences.data,
+		isLoading: state.experiences.isLoading
+	}
 }
 
 export default connect(mapStateToProps)(ExperiencesPage)

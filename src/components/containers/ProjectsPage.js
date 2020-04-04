@@ -22,12 +22,7 @@ class ProjectsPage extends React.Component {
 					<TagFilters />
 
 					<div className='projects-wrapper'>
-						<Project project={{ images: ['hi', 'yeah'] }} />
-						<Project project={{ images: [] }} />
-						<Project project={{ images: [] }} />
-						<Project project={{ images: ['hi', 'yeah', 'okay'] }} />
-						<Project project={{ images: [] }} />
-						<Project project={{ images: ['hi', 'yeah'] }} />
+						{this.props.projects.map((proj, i) => <Project key={i} project={proj} />)}
 					</div>
 				</article>
 			</>
@@ -35,8 +30,16 @@ class ProjectsPage extends React.Component {
 	}
 }
 
-function mapStateToProps(props) {
-	return {}
+ProjectsPage.defaultProps = {
+	projects: [],
+	isLoading: false
+}
+
+function mapStateToProps(state) {
+	return {
+		projects: state.projects.data,
+		isLoading: state.projects.isLoading
+	}
 }
 
 export default connect(mapStateToProps)(ProjectsPage)

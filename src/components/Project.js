@@ -1,18 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Tags from './Tags'
+import Tags from './containers/Tags'
 import './Project.scss'
 
 function Project(props) {
 	const { project } = props
-	const hasImages = !!project.images.length
+	const hasImages = project.images && !!project.images.length
 	return (
 		<div className={`project ${hasImages ? 'large' : ''}`}>
-			<h2>Title</h2>
-			<p className='info'><a>Source</a> • Mar 2020</p>
-			<p className='description'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-			<Tags tags={[]} />
+			<h2>{project.title}</h2>
+			<p className='info'><a>{project.source}</a> • {project.date_info}</p>
+			<p className='description'>{project.description}</p>
+			<Tags tags={project.tags} />
 			{hasImages &&
 				<div className='images'>
 					{project.images.map(imageURL => <span>{imageURL}</span>)}
@@ -28,9 +28,5 @@ Project.defaultProps = {
 		images: []
 	}
 }
-
-Project.propTypes = PropTypes.shape({
-	images: PropTypes.arrayOf(PropTypes.string)
-})
 
 export default Project

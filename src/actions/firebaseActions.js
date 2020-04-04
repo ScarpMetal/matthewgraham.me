@@ -4,7 +4,7 @@ const fetchStart = (type) => ({ type })
 const fetchSuccess = (type, payload) => ({ type, payload })
 const fetchFailure = (type, error) => ({ type, error })
 
-function fetchCollection(collectionName) {
+function fetchCollectionArray(collectionName) {
 	const upperName = collectionName.toUpperCase()
 	return dispatch => {
 		dispatch(fetchStart(`FETCH_${upperName}_START`))
@@ -20,6 +20,21 @@ function fetchCollection(collectionName) {
 	}
 }
 
-export const fetchTags = () => fetchCollection('tags')
-export const fetchProjects = () => fetchCollection('projects')
-export const fetchExperiences = () => fetchCollection('experiences')
+export function fetchTags() {
+	return dispatch => {
+		dispatch(fetchStart(`FETCH_TAGS_START`))
+		return db.collection('tags').get()
+			.then(qs => {
+				const tags = {}
+				qs.forEach(doc => {
+					tags[doc.id] = { ...doc.data(), selected: true }
+				})
+				return dispatch(fetchSuccess(`FETCH_TAGS_SUCCESS`, { tags }))
+			})
+			.catch(err => dispatch(fetchFailure(`FETCH_TAGS_FAILURE`, err)))
+	}
+}
+
+//export const fetchTags = () => fetchCollection('tags')
+export const fetchProjects = () => fetchCollectionArray('projects')
+export const fetchExperiences = () => fetchCollectionArray('experiences')

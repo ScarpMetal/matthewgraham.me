@@ -19,10 +19,9 @@ class App extends React.Component {
 
 	componentDidMount() {
 		const { apiActions } = this.props
-		console.log('apiActions', apiActions)
-		//apiActions.fetchTags()
+		apiActions.fetchTags()
 		apiActions.fetchProjects()
-		//apiActions.fetchExperiences()
+		apiActions.fetchExperiences()
 	}
 
 	render() {
@@ -62,7 +61,7 @@ App.propTypes = {
 }
 
 function mapStateToProps(state) {
-	console.log('state', state)
+	console.log('App state', state)
 	return {}
 }
 
