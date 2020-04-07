@@ -1,4 +1,4 @@
-import { SELECT_TAG } from '../global/actionTypes'
+import { SELECT_TAG, ADD_TAG } from '../global/actionTypes'
 
 export function selectTag(tagName) {
 	return {

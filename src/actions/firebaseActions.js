@@ -20,6 +20,9 @@ function fetchCollectionArray(collectionName) {
 	}
 }
 
+export const fetchProjects = () => fetchCollectionArray('projects')
+export const fetchExperiences = () => fetchCollectionArray('experiences')
+
 export function fetchTags() {
 	return dispatch => {
 		dispatch(fetchStart(`FETCH_TAGS_START`))
@@ -35,6 +38,6 @@ export function fetchTags() {
 	}
 }
 
-//export const fetchTags = () => fetchCollection('tags')
-export const fetchProjects = () => fetchCollectionArray('projects')
-export const fetchExperiences = () => fetchCollectionArray('experiences')
+export function addTag(data) {
+	//return func
+}

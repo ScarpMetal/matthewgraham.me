@@ -1,0 +1,95 @@
+@import '../../global/styles.scss';
+
+.editable-item {
+	display: flex;
+	color: $secondary-text-color;
+	//span, img, div { border: solid 1px red; }
+
+	button {
+		background-color: transparent;
+		border: none;
+		color: inherit;
+		padding: 0;
+		position: relative;
+		
+		img {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			margin: auto;
+		}
+	}
+
+	.hamburger {
+		width: 20px;
+		margin-left: 12px;
+	}
+
+	.date-info {
+		line-height: 40px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		font-size: 1.33em;
+		padding-left: 44px;
+		width: 120px;
+	}
+
+	.title {
+		line-height: 40px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		font-size: 1.33em;
+		font-weight: bold;
+		color: $primary-text-color;
+		padding-left: 22px;
+		width: 260px;
+	}
+
+	.description {
+		line-height: 40px;
+		flex: 1;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		padding-left: 22px;
+	}
+
+	.item-tags,
+	.item-images {
+		height: 40px;
+		padding-left: 15px;
+		padding-right: 20px;
+		line-height: 40px;
+		position: relative;
+
+		span {
+			font-size: 1.33em;
+			font-weight: bold;
+			margin-right: 6px;
+		}
+
+		img {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			margin: auto;
+		}
+	}
+
+	.delete {
+		padding: 0;
+		position: relative;
+		margin-left: 15px;
+		margin-right: 12px;
+		//width: 18px;
+		
+		img {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			margin: auto;
+		}
+	}
+}

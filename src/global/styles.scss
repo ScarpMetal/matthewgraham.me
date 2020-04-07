@@ -28,6 +28,10 @@ p {
 	margin: .5em 0 0 0;
 }
 
+button {
+	cursor: pointer;
+}
+
 #app {
 	position: relative;
 	overflow: auto;
@@ -54,7 +58,7 @@ p {
 	}
 
 	.admin-console-label {
-		margin: 0 24px 0 auto;
+		margin: 0 24px 0 24px;
 		text-decoration: none;
 		color: $secondary-text-color;
 		font-size: 1.33em;
