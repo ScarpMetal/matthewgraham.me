@@ -1,95 +1,112 @@
-@import '../../global/styles.scss';
+@import '../../global/variables.scss';
 
 .editable-item {
-	display: flex;
 	color: $secondary-text-color;
 	//span, img, div { border: solid 1px red; }
 
-	button {
-		background-color: transparent;
-		border: none;
-		color: inherit;
-		padding: 0;
-		position: relative;
+	.info-row {
 		
-		img {
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			margin: auto;
+		cursor: pointer;
+		display: flex;
+
+		&:hover {
+			background-color: rgba(255, 255, 255, .1);
 		}
-	}
 
-	.hamburger {
-		width: 20px;
-		margin-left: 12px;
-	}
-
-	.date-info {
-		line-height: 40px;
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
-		font-size: 1.33em;
-		padding-left: 44px;
-		width: 120px;
-	}
-
-	.title {
-		line-height: 40px;
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
-		font-size: 1.33em;
-		font-weight: bold;
-		color: $primary-text-color;
-		padding-left: 22px;
-		width: 260px;
-	}
-
-	.description {
-		line-height: 40px;
-		flex: 1;
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
-		padding-left: 22px;
-	}
-
-	.item-tags,
-	.item-images {
-		height: 40px;
-		padding-left: 15px;
-		padding-right: 20px;
-		line-height: 40px;
-		position: relative;
-
-		span {
+		button {
+			background-color: transparent;
+			border: none;
+			color: inherit;
+			padding: 0;
+			
+			img {
+				vertical-align: middle;
+			}
+		}
+	
+		.hamburger {
+			margin-left: 12px;
+		}
+	
+		.date-info {
+			line-height: 40px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			font-size: 1.33em;
+			padding-left: 44px;
+			width: 120px;
+		}
+	
+		.title {
+			line-height: 40px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
 			font-size: 1.33em;
 			font-weight: bold;
-			margin-right: 6px;
+			color: $primary-text-color;
+			padding-left: 22px;
+			width: 260px;
 		}
-
-		img {
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			margin: auto;
+	
+		.description {
+			line-height: 40px;
+			flex: 1;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			padding-left: 22px;
+		}
+	
+		.item-tags,
+		.item-images {
+			height: 40px;
+			padding-left: 15px;
+			padding-right: 20px;
+			line-height: 40px;
+			position: relative;
+	
+			span {
+				font-size: 1.33em;
+				font-weight: bold;
+				margin-right: 6px;
+			}
+	
+			img {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				margin: auto;
+			}
+		}
+	
+		.delete {
+			margin-left: 15px;
+			margin-right: 12px;
 		}
 	}
+	
+	.form {
 
-	.delete {
-		padding: 0;
-		position: relative;
-		margin-left: 15px;
-		margin-right: 12px;
-		//width: 18px;
-		
-		img {
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			margin: auto;
+		.save-button,
+		.cancel-button {
+			font-size: 1.33em;
+			background-color: transparent;
+		}
+
+		.save-button {
+			padding: 10px 40px;
+			margin-left: 12px;
+			color: $primary-color;
+			border: solid 1px $primary-color;
+			border-radius: 10px;
+		}
+
+		.cancel-button {
+			padding: 10px 30px;
+			border: none;
+			color: $secondary-text-color;
 		}
 	}
 }

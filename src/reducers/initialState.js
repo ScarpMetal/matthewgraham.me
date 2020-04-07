@@ -1,18 +1,24 @@
 export default {
 	tags: {
 		isLoading: false,
-		isUpdating: false,
+		isCreating: false,
+		isEditing: false,
+		isDeleting: false,
 		data: {}
 	},
 	projects: {
 		isLoading: false,
-		isUpdating: false,
+		isCreating: false,
+		isEditing: false,
+		isDeleting: false,
 		selectedIndex: -1,
 		data: []
 	},
 	experiences: {
 		isLoading: false,
-		isUpdating: false,
+		isCreating: false,
+		isEditing: false,
+		isDeleting: false,
 		selectedIndex: -1,
 		data: []
 	}

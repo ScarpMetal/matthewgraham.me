@@ -1,11 +1,10 @@
-import objectAssign from 'object-assign'
 import produce from 'immer'
 
 import {
 	FETCH_TAGS_START, FETCH_TAGS_SUCCESS, FETCH_TAGS_FAILURE,
 	FETCH_PROJECTS_START, FETCH_PROJECTS_SUCCESS, FETCH_PROJECTS_FAILURE,
 	FETCH_EXPERIENCES_START, FETCH_EXPERIENCES_SUCCESS, FETCH_EXPERIENCES_FAILURE,
-	SELECT_TAG
+	SELECT_TAG, SELECT_PROJECT, SELECT_EXPERIENCE
 } from '../global/actionTypes'
 import initialState from './initialState'
 
@@ -36,49 +35,46 @@ export const tagsReducer = produce((draft, action) => {
 	}
 }, initialState.tags)
 
-export function projectsReducer(state = initialState.projects, action) {
-	let newState
+export const projectsReducer = produce((draft, action) => {
 	switch (action.type) {
 		case FETCH_PROJECTS_START:
-			return objectAssign({}, state, { isLoading: true })
+			draft.isLoading = true
+			break
 
 		case FETCH_PROJECTS_SUCCESS:
-			newState = objectAssign({}, state)
-			newState.isLoading = false
-			newState.data = action.payload.data
-			return newState
+			draft.isLoading = false
+			draft.data = action.payload.data
+			break
 
 		case FETCH_PROJECTS_FAILURE:
-			newState = objectAssign({}, state)
-			newState.isLoading = false
-			newState.error = action.error
-			return newState
+			draft.isLoading = false
+			draft.error = action.error
+			break
 
-		default:
-			return state
+		case SELECT_PROJECT:
+			draft.selectedIndex = action.payload !== draft.selectedIndex ? action.payload : -1
+			break
 	}
-}
+}, initialState.projects)
 
-export function experiencesReducer(state = initialState.experiences, action) {
-	let newState
-
+export const experiencesReducer = produce((draft, action) => {
 	switch (action.type) {
 		case FETCH_EXPERIENCES_START:
-			return objectAssign({}, state, { isLoading: true })
+			draft.isLoading = true
+			break
 
 		case FETCH_EXPERIENCES_SUCCESS:
-			newState = objectAssign({}, state)
-			newState.isLoading = false
-			newState.data = action.payload.data
-			return newState
+			draft.isLoading = false
+			draft.data = action.payload.data
+			break
 
 		case FETCH_EXPERIENCES_FAILURE:
-			newState = objectAssign({}, state)
-			newState.isLoading = false
-			newState.error = action.error
-			return newState
+			draft.isLoading = false
+			draft.error = action.error
+			break
 
-		default:
-			return state
+		case SELECT_EXPERIENCE:
+			draft.selectedIndex = action.payload !== draft.selectedIndex ? action.payload : -1
+			break
 	}
-}
+}, initialState.experiences)

@@ -1,0 +1,48 @@
+@import '../../global/variables.scss';
+
+.editable-item-text-input,
+.editable-item-tags-input {
+	padding-top: 10px;
+	margin: 0 12px 0 12px;
+	flex: 1;
+
+	h2 {
+		font-size: 1.167em;
+		margin-bottom: 5px;
+	}
+
+	.input-border {
+		display: flex;
+		align-items: center;
+		padding: 4px 8px;
+		border: solid 1px $secondary-text-color;
+		border-radius: 2px;
+
+		input {
+			border: none;
+			color: $primary-text-color;
+			background-color: transparent;
+			flex: 1;
+		}
+
+		.tags {
+			margin: 0;
+
+			label {
+				margin-bottom: 0;
+			}
+		}
+	}
+}
+
+.editable-item-tags-input {
+	input {
+		width: 100%;
+	}
+
+	.suggestions {
+		margin-top: 10px;
+		flex: 1;
+		position: absolute;
+	}
+}

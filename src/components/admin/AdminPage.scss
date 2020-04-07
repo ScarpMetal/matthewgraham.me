@@ -10,7 +10,9 @@
 	.editable-tags,
 	.editable-projects,
 	.editable-experiences {
-		button:last-child {
+		.add-another-button {
+			margin-left: 12px;
+			padding: 0;
 			line-height: 40px;
 			background-color: transparent;
 			border: none;

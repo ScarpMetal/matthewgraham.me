@@ -33,8 +33,9 @@ Tags.defaultProps = {
 }
 
 function mapStateToProps(state, props) {
-	const tags = props.tags.filter(tagName => state.tags.data[tagName])
-		.map(tagName => state.tags.data[tagName])
+	console.log('props.tags', props.tags)
+	const tags = props.tags ? props.tags.filter(tagName => state.tags.data[tagName])
+		.map(tagName => state.tags.data[tagName]) : []
 	tags.sort((a, b) => a.sort_order - b.sort_order)
 	return { tags }
 }
