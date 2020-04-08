@@ -10,7 +10,6 @@ import {
 } from '../../actions/firebaseActions'
 import { selectProject, selectExperience } from '../../actions/basicActions'
 import './AdminPage.scss'
-import produce from 'immer'
 
 class AdminPage extends React.Component {
 
@@ -26,7 +25,7 @@ class AdminPage extends React.Component {
 						)
 					})}
 				</div>
-				<button type='button' className='add-another-button'
+				<button type='button' className='add-another-button' key='add-tag-button'
 					onClick={() => {
 						let sort_order = Infinity
 						if (this.props.tags) {
@@ -53,7 +52,8 @@ class AdminPage extends React.Component {
 						)
 					})}
 				</div>
-				<button type='button' className='add-another-button' disabled={projects.isCreating}
+				<button type='button' className='add-another-button' key='add-project-button'
+					disabled={projects.isCreating}
 					onClick={() => {
 						let sort_order = Infinity
 						if (this.props.projects.data) {
@@ -80,7 +80,7 @@ class AdminPage extends React.Component {
 						)
 					})}
 				</div>
-				<button type='button' className='add-another-button'
+				<button type='button' className='add-another-button' key='add-experience-button'
 					disabled={experiences.isCreating}
 					onClick={() => {
 						let sort_order = Infinity
@@ -102,7 +102,6 @@ function mapStateToProps(state) {
 		tags.push(state.tags.data[tagName])
 	}
 	tags.sort((a, b) => a.sort_order - b.sort_order)
-	console.log('projects', state.projects)
 	return {
 		tags: tags,
 		projects: state.projects,

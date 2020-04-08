@@ -6,13 +6,22 @@ import {
 	DELETE_TAG_START, DELETE_TAG_SUCCESS, DELETE_TAG_FAILURE,
 } from '../global/actionTypes'
 
-
+const debug = true
 /* 
 	Generic Action Types for Async Actions 
 */
-const asyncStart = (type, payload) => ({ type, payload })
-const asyncSuccess = (type, payload) => ({ type, payload })
-const asyncFailure = (type, error) => ({ type, error })
+const asyncStart = (type, payload) => {
+	if (debug) console.log({ type, payload })
+	return { type, payload }
+}
+const asyncSuccess = (type, payload) => {
+	if (debug) console.log({ type, payload })
+	return { type, payload }
+}
+const asyncFailure = (type, error) => {
+	if (debug) console.log({ type, error })
+	return { type, error }
+}
 
 
 /* 
@@ -58,6 +67,7 @@ export const fetchExperiences = () => fetchCollectionArray('experiences')
 	CREATE Functions 
 */
 export function createTag(data = {}) {
+	if (debug) console.log('createTag', data)
 	return dispatch => {
 		dispatch(asyncStart(CREATE_TAG_START))
 		const newDoc = {
@@ -73,6 +83,7 @@ export function createTag(data = {}) {
 }
 
 function createCollectionItem(collectionName, data = {}) {
+	if (debug) console.log('createCollectionItem', collectionName, data)
 	const upperName = collectionName.toUpperCase().slice(0, -1)
 	return dispatch => {
 		dispatch(asyncStart(`CREATE_${upperName}_START`))
@@ -100,6 +111,7 @@ export const createExperience = data => createCollectionItem('experiences', data
 	EDIT Functions
 */
 function editCollectionItem(collectionName, id, data) {
+	if (debug) console.log('editCollectionItem', collectionName, id, data)
 	const upperName = collectionName.toUpperCase().slice(0, -1)
 	return dispatch => {
 		dispatch(asyncStart(`EDIT_${upperName}_START`, id))
@@ -117,6 +129,7 @@ export const editExperience = (id, data) => editCollectionItem('experiences', id
 	DELETE Functions
 */
 function deleteCollectionItem(collectionName, id) {
+	if (debug) console.log('deleteCollectionItem', collectionName, id)
 	const upperName = collectionName.toUpperCase().slice(0, -1)
 	return dispatch => {
 		dispatch(asyncStart(`DELETE_${upperName}_START`, id))

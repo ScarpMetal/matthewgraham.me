@@ -17,14 +17,14 @@ class EditableItem extends React.Component {
 
 		const { item } = props
 		this.state = {
-			title: item.title,
-			source_name: item.source_name,
-			source_url: item.source_url,
-			date_info: item.date_info,
-			description: item.description,
-			tags: item.tags,
-			images: item.images,
-			sort_order: item.sort_order
+			title: item.title || '',
+			source_name: item.source_name || '',
+			source_url: item.source_url || '',
+			date_info: item.date_info || '',
+			description: item.description || '',
+			tags: item.tags || [],
+			images: item.images || [],
+			sort_order: item.sort_order || Infinity
 		}
 	}
 
