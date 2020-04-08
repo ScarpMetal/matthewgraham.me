@@ -20,6 +20,7 @@
 
 		input {
 			border: none;
+			outline: none;
 			color: $primary-text-color;
 			background-color: transparent;
 			flex: 1;
@@ -31,6 +32,14 @@
 			label {
 				margin-bottom: 0;
 			}
+		}
+
+		&.has-changes {
+			border-color: $primary-color;
+		}
+
+		&.focused {
+			outline: auto 3px rgb(59, 153, 252);
 		}
 	}
 }

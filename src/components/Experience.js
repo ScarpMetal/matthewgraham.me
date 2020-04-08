@@ -10,7 +10,11 @@ function Experience(props) {
 	return (
 		<div className='experience'>
 			<h2>{experience.title}</h2>
-			<p className='info'><a href={experience.source_url}>{experience.source_name}</a> • {experience.date_info}</p>
+			<p className='info'>
+				{experience.source_name && <a href={experience.source_url}>{experience.source_name}</a>}
+				{experience.source_name && experience.date_info && <span>&nbsp;•&nbsp;</span>}
+				{experience.date_info}
+			</p>
 			<p className='description'>{experience.description}</p>
 			<Tags tags={[]} />
 			{hasImages &&

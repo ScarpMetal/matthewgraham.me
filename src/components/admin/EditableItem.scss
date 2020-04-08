@@ -101,6 +101,11 @@
 			color: $primary-color;
 			border: solid 1px $primary-color;
 			border-radius: 10px;
+
+			&:disabled {
+				color: $secondary-text-color;
+				border-color: $secondary-text-color;
+			}
 		}
 
 		.cancel-button {

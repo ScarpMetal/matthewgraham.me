@@ -20,7 +20,7 @@ class ExperiencesPage extends React.Component {
 					<h1>Experience</h1>
 					<TagFilters />
 					<div className='experiences-wrapper'>
-						{this.props.experiences.map((exp, i) => <Experience key={i} experience={exp} />)}
+						{this.props.experiences.map((exp, i) => <Experience key={exp.id} experience={exp} />)}
 					</div>
 				</article>
 			</>

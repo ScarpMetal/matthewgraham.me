@@ -12,6 +12,11 @@
 	.info {
 		margin-top: 0;
 		color: $secondary-text-color;
+
+		a {
+			color: $secondary-text-color;
+			text-decoration: none;
+		}
 	}
 
 	.description {

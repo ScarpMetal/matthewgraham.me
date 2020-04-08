@@ -22,7 +22,7 @@ class ProjectsPage extends React.Component {
 					<TagFilters />
 
 					<div className='projects-wrapper'>
-						{this.props.projects.map((proj, i) => <Project key={i} project={proj} />)}
+						{this.props.projects.map((proj, i) => <Project key={proj.id} project={proj} />)}
 					</div>
 				</article>
 			</>

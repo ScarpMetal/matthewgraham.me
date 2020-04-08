@@ -7,19 +7,21 @@
 		margin-top: 100px;
 	}
 
+	.add-another-button {
+		margin-left: 12px;
+		padding: 0;
+		line-height: 40px;
+		background-color: transparent;
+		border: none;
+		color: $primary-text-color;
+		font-size: 1.167em;
+		font-weight: bold;
+	}
+	
 	.editable-tags,
 	.editable-projects,
 	.editable-experiences {
-		.add-another-button {
-			margin-left: 12px;
-			padding: 0;
-			line-height: 40px;
-			background-color: transparent;
-			border: none;
-			color: $primary-text-color;
-			font-size: 1.167em;
-			font-weight: bold;
-		}
+		
 	}
 
 	.editable-tags {
