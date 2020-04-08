@@ -19,6 +19,13 @@ class ExperiencesPage extends React.Component {
 				<article className='content'>
 					<h1>Experience</h1>
 					<TagFilters />
+					{this.props.experiences.length === 0 &&
+						<p style={{
+							marginTop: 40,
+							fontStyle: 'italic',
+							fontSize: 14
+						}}>No experiences found, please select more tags.</p>
+					}
 					<div className='experiences-wrapper'>
 						{this.props.experiences.map((exp, i) => <Experience key={exp.id} experience={exp} />)}
 					</div>

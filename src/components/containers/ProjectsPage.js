@@ -20,7 +20,13 @@ class ProjectsPage extends React.Component {
 				<article className='content'>
 					<h1>Projects</h1>
 					<TagFilters />
-
+					{this.props.projects.length === 0 &&
+						<p style={{
+							marginTop: 40,
+							fontStyle: 'italic',
+							fontSize: 14
+						}}>No projects found, please select more tags.</p>
+					}
 					<div className='projects-wrapper'>
 						{this.props.projects.map((proj, i) => <Project key={proj.id} project={proj} />)}
 					</div>
