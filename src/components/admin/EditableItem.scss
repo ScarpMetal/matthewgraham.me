@@ -1,10 +1,25 @@
 @import '../../global/variables.scss';
 
+.loading-message {
+	position: absolute;
+	margin-left: 12px;
+	margin-top: 12px;
+	font-size: 16px;
+}
+
 .editable-item {
 	color: $secondary-text-color;
 	//span, img, div { border: solid 1px red; }
 
 	.info-row {
+
+		&.contains-changes {
+			color: $primary-color;
+			
+			.title {
+				color: $primary-color;
+			}
+		}
 		
 		cursor: pointer;
 		display: flex;

@@ -21,7 +21,10 @@ class AdminPage extends React.Component {
 				<div className='editable-tags'>
 					{this.props.tags.map((tag, i) => {
 						return (
-							<EditableTag key={i} tag={tag} />
+							<EditableTag key={tag.id} tag={tag}
+								onDelete={e => { e.stopPropagation(); this.props.deleteProject(tag.id) }}
+								onSave={data => { this.props.editProject(tag.id, data) }}
+							/>
 						)
 					})}
 				</div>

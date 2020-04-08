@@ -62,7 +62,8 @@ export const tagsReducer = produce((draft, action) => {
 
 		case EDIT_TAG_SUCCESS:
 			draft.isEditing = false
-			draft.data[action.payload.data.name] = action.payload.data
+			const tag = draft.data[action.payload.data.name]
+			draft.data[action.payload.data.name] = { ...tag, ...action.payload.data }
 			break
 
 		case EDIT_TAG_FAILURE:
@@ -126,7 +127,8 @@ export const projectsReducer = produce((draft, action) => {
 
 		case EDIT_PROJECT_SUCCESS:
 			draft.isEditing = false
-			draft.data[draft.data.findIndex(proj => proj.id === action.payload.id)] = action.payload.data
+			const projectIndex = draft.data.findIndex(proj => proj.id === action.payload.id)
+			draft.data[projectIndex] = { ...draft.data[projectIndex], ...action.payload.data }
 			break
 
 		case EDIT_PROJECT_FAILURE:
@@ -192,7 +194,8 @@ export const experiencesReducer = produce((draft, action) => {
 
 		case EDIT_EXPERIENCE_SUCCESS:
 			draft.isEditing = false
-			draft.data[draft.data.findIndex(exp => exp.id === action.payload.id)] = action.payload.data
+			const experienceIndex = draft.data.findIndex(exp => exp.id === action.payload.id)
+			draft.data[experienceIndex] = { ...draft.data[experienceIndex], ...action.payload.data }
 			break
 
 		case EDIT_EXPERIENCE_FAILURE:

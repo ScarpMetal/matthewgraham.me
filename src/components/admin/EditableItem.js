@@ -15,8 +15,14 @@ class EditableItem extends React.Component {
 	constructor(props) {
 		super(props)
 
-		const { item } = props
-		this.state = {
+		this.state = this.originalState()
+
+		this.originalState = this.originalState.bind(this)
+	}
+
+	originalState() {
+		const { item } = this.props
+		return {
 			title: item.title || '',
 			source_name: item.source_name || '',
 			source_url: item.source_url || '',
@@ -30,28 +36,24 @@ class EditableItem extends React.Component {
 
 	render() {
 		const { item, selected, isEditing, isDeleting, onSelect, onDelete } = this.props
+		const { id, ...comparableItem } = item
+		const containsChanges = !isEqual(comparableItem, this.state)
 
-		let style = {}
+		let containerStyle = {}
 		if (selected) {
-			style = { ...style, backgroundColor: 'rgba(255, 255, 255, .05)' }
+			containerStyle = { ...containerStyle, backgroundColor: 'rgba(255, 255, 255, .05)' }
 		}
 		if (isEditing || isDeleting) {
-			style = { ...style, opacity: 0.1 }
+			containerStyle = { ...containerStyle, opacity: 0.1 }
 		}
 
 		return (
 			<>
 				{(isEditing || isDeleting) &&
-					<p style={{
-						position: 'absolute',
-						marginLeft: 12,
-						marginTop: 12,
-						fontSize: 16
-					}}
-					>{isDeleting ? 'Deleting' : 'Saving'}...</p>
+					<p className='loading-message'>{isDeleting ? 'Deleting' : 'Saving'}...</p>
 				}
-				<div className='editable-item' style={style}>
-					<div className='info-row' onClick={onSelect}>
+				<div className='editable-item' style={containerStyle}>
+					<div className={`info-row ${containsChanges ? 'contains-changes' : ''}`} onClick={onSelect}>
 						<button className='hamburger'><img src={hamburgerSVG} /></button>
 						<span className='date-info'>{item.date_info}</span>
 						<span className='title'>{item.title}</span>
@@ -66,17 +68,15 @@ class EditableItem extends React.Component {
 						</div>
 						<button className='delete' onClick={onDelete}><img src={delIcon} /></button>
 					</div>
-					{selected && !isDeleting && this.renderForm()}
+					{selected && !isDeleting && this.renderForm(containsChanges)}
 				</div>
 			</>
 		)
 	}
 
-	renderForm() {
+	renderForm(containsChanges) {
 		const { item, onSave, onCancel } = this.props
 		const { title, source_name, source_url, date_info, description, tags, images } = this.state
-		const { id, ...comparableItem } = item
-		const containsChanges = !isEqual(comparableItem, this.state)
 
 		return (
 			<div className='form'>
@@ -125,13 +125,18 @@ class EditableItem extends React.Component {
 					originalTags={item.tags}
 					onChange={tags => this.setState({ tags: tags ? tags : [] })}
 				/>
-				<div style={{ display: 'flex', marginTop: 32, paddingBottom: 10 }}>
+				<div style={{ display: 'flex', marginTop: 40, paddingBottom: 10 }}>
 					<button type='button' className='save-button'
 						disabled={!containsChanges}
 						onClick={() => onSave({ ...this.state })}
 						title={containsChanges ? 'Save your work!' : 'There are no changes to save.'}
 					>Save</button>
-					<button type='button' className='cancel-button' onClick={onCancel}>Cancel</button>
+					<button type='button' className='cancel-button'
+						onClick={() => {
+							this.setState(this.originalState())
+							onCancel()
+						}}
+					>Cancel</button>
 				</div>
 			</div>
 		)
