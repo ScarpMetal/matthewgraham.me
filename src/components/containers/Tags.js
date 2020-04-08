@@ -1,27 +1,20 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import Tag from '../Tag'
 import './Tags.scss'
 
 class Tags extends React.Component {
 	render() {
 		const isSelectable = !!this.props.onSelectTag
 		return (
-			<ul className='tags'>
-				{this.props.tags.map(tag => {
-					const checkedStyle = { backgroundColor: tag.color }
-					return (
-						<li key={tag.name}>
-							{isSelectable && <input type='checkbox' id={`tag_${tag.name}`}
-								onChange={() => isSelectable && this.props.onSelectTag(tag.name)}
-								checked={tag.selected}
-							/>}
-							<label className='tag' htmlFor={isSelectable ? `tag_${tag.name}` : null}
-								style={tag.selected ? checkedStyle : {}}
-							>{tag.name}</label>
-						</li>
-					)
-				})}
+			<ul className='tags-ul'>
+				{this.props.tags.map(tag =>
+					<Tag key={tag.id} tag={tag}
+						isSelectable={isSelectable}
+						onSelectTag={this.props.onSelectTag}
+					/>
+				)}
 			</ul>
 		)
 	}

@@ -1,0 +1,25 @@
+@import '../global/variables.scss';
+
+.tag-li {
+	list-style-type: none;
+		
+	input[type=checkbox] {
+		display: none;
+	}
+	
+	// input[type=checkbox]:checked + .tag {
+	// 	background-color: #FF6767;
+	// }
+	
+	.tag-label {
+		color: black;
+		font-family: 'Inconsolata', monospace;
+		font-size: 1.17em;
+		display: block;
+		cursor: pointer;
+		user-select: none;
+		margin: 0 8px 8px 0;
+		padding: 0 1px;
+		background-color: $secondary-text-color;
+	}
+}

@@ -66,46 +66,45 @@ export const fetchExperiences = () => fetchCollectionArray('experiences')
 /* 
 	CREATE Functions 
 */
-export function createTag(data = {}) {
-	if (debug) console.log('createTag', data)
-	return dispatch => {
-		dispatch(asyncStart(CREATE_TAG_START))
-		const newDoc = {
-			name: 'New Tag',
-			color: '#e6e6e6',
-			sort_order: Infinity,
-			...data
-		}
-		return db.collection('tags').add(newDoc)
-			.then(doc => dispatch(asyncSuccess(CREATE_TAG_SUCCESS, { ...newDoc, id: doc.id })))
-			.catch(err => dispatch(asyncFailure(CREATE_TAG_FAILURE, err)))
-	}
-}
-
 function createCollectionItem(collectionName, data = {}) {
 	if (debug) console.log('createCollectionItem', collectionName, data)
 	const upperName = collectionName.toUpperCase().slice(0, -1)
 	return dispatch => {
 		dispatch(asyncStart(`CREATE_${upperName}_START`))
-		const newDoc = {
-			title: 'New Item',
-			source_name: '',
-			source_url: '',
-			date_info: '',
-			description: '',
-			tags: [],
-			images: [],
-			sort_order: Infinity,
-			...data
-		}
-		return db.collection(collectionName).add(newDoc)
+		return db.collection(collectionName).add(data)
 			.then(doc => dispatch(asyncSuccess(`CREATE_${upperName}_SUCCESS`, { ...newDoc, id: doc.id })))
 			.catch(err => dispatch(asyncFailure(`CREATE_${upperName}_FAILURE`, err)))
 	}
 }
 
-export const createProject = data => createCollectionItem('projects', data)
-export const createExperience = data => createCollectionItem('experiences', data)
+export const createTag = data => createCollectionItem('tags', {
+	name: 'New Tag',
+	color: '#e6e6e6',
+	sort_order: Infinity,
+	...data
+})
+export const createProject = data => createCollectionItem('projects', {
+	title: 'New Project',
+	source_name: '',
+	source_url: '',
+	date_info: '',
+	description: '',
+	tags: [],
+	images: [],
+	sort_order: Infinity,
+	...data
+})
+export const createExperience = data => createCollectionItem('experiences', {
+	title: 'New Experience',
+	source_name: '',
+	source_url: '',
+	date_info: '',
+	description: '',
+	tags: [],
+	images: [],
+	sort_order: Infinity,
+	...data
+})
 
 /*
 	EDIT Functions
