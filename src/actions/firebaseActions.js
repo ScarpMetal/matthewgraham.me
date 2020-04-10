@@ -6,7 +6,7 @@ import {
 	DELETE_TAG_START, DELETE_TAG_SUCCESS, DELETE_TAG_FAILURE,
 } from '../global/actionTypes'
 
-const debug = true
+const debug = false
 /* 
 	Generic Action Types for Async Actions 
 */
@@ -72,7 +72,7 @@ function createCollectionItem(collectionName, data = {}) {
 	return dispatch => {
 		dispatch(asyncStart(`CREATE_${upperName}_START`))
 		return db.collection(collectionName).add(data)
-			.then(doc => dispatch(asyncSuccess(`CREATE_${upperName}_SUCCESS`, { ...newDoc, id: doc.id })))
+			.then(doc => dispatch(asyncSuccess(`CREATE_${upperName}_SUCCESS`, { ...data, id: doc.id })))
 			.catch(err => dispatch(asyncFailure(`CREATE_${upperName}_FAILURE`, err)))
 	}
 }
