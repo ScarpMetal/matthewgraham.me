@@ -15,7 +15,7 @@ function Tag(props) {
 	return (
 		<li className='tag-li'>
 			{isSelectable && <input type='checkbox' id={`${listKey}-tag-li-${tag.id}`}
-				onChange={() => { console.log(tag.id, onSelectTag); onSelectTag(tag.id) }}
+				onChange={() => { onSelectTag(tag.id) }}
 				checked={globallyLinked ? tag.selected : true}
 			/>}
 			<label className='tag-label' htmlFor={isSelectable ? `${listKey}-tag-li-${tag.id}` : null}

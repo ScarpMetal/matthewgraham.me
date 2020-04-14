@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 import colorPickerSVG from '../../assets/color-picker.svg'
 import { isEqual } from '../../global/utils'
 import { TextInput } from './EditableInputs'
 import './TagEditModal.scss'
+
 
 function TagEditModal(props) {
 	const { tag, onDismiss, onSave, onDelete } = props
@@ -14,7 +16,10 @@ function TagEditModal(props) {
 	const modalRef = useRef(null)
 	const textInputRef = useRef(null)
 
-	const isInUse = false
+	const isInUse = useSelector(state => {
+		const items = [...state.projects.data, ...state.experiences.data]
+		return items.some(item => item.tags.some(itemTagId => itemTagId === tag.id))
+	})
 
 	// Detect if there are changes from the original state
 	const hasChanges = tag.name !== name || tag.color !== color
@@ -73,19 +78,20 @@ function TagEditModal(props) {
 			<button className='delete'
 				disabled={isInUse}
 				onClick={onDelete}
+				title={isInUse ? 'This tag is currently in use' : ''}
 			>Delete</button>
 			<TextInput name='Name'
 				elRef={textInputRef}
 				value={name}
 				originalValue={tag.name}
-				onChange={e => { console.log('TextInput onChange', e.target.value); setName(e.target.value || '') }}
+				onChange={e => { setName(e.target.value || '') }}
 				fontSize={14}
 			/>
 			<div className='actions'>
 				<label id={`tag-color-${tag.id}`} className={`color-picker ${colorPickerClasses.join(' ')}`}>
 					<input id={`tag-color-${tag.id}`} type='color'
 						value={color}
-						onChange={e => { console.log('color picker change', e.target.value); setColor(e.target.value || '') }}
+						onChange={e => { setColor(e.target.value || '') }}
 					/>
 					<div style={{ backgroundColor: color }}>
 						<img src={colorPickerSVG} />
@@ -96,7 +102,7 @@ function TagEditModal(props) {
 					onClick={() => onSave({ name, color })}
 				>Save</button>
 			</div>
-			{error && <p className='error'>{error}</p>}
+			{/* {error && <p className='error'>{error}</p>} */}
 		</div>
 	)
 }
