@@ -1,18 +1,20 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import Tag from '../Tag'
 import './Tags.scss'
 
 class Tags extends React.Component {
 	render() {
-		const isSelectable = !!this.props.onSelectTag
 		return (
 			<ul className='tags-ul'>
 				{this.props.tags.map(tag =>
-					<Tag key={tag.id} tag={tag}
-						isSelectable={isSelectable}
+					<Tag key={`${this.props.listKey}-${tag.id}`}
+						listKey={this.props.listKey}
+						tag={tag}
 						onSelectTag={this.props.onSelectTag}
+						globallyLinked={this.props.globallyLinked}
 					/>
 				)}
 			</ul>
@@ -23,11 +25,16 @@ class Tags extends React.Component {
 
 Tags.defaultProps = {
 	tags: [],
+	globallyLinked: false
+}
+
+Tags.propTypes = {
+	listKey: PropTypes.string.isRequired
 }
 
 function mapStateToProps(state, props) {
-	const tags = props.tags ? props.tags.filter(tagName => state.tags.data[tagName])
-		.map(tagName => state.tags.data[tagName]) : []
+	const tags = props.tags ? props.tags.filter(id => state.tags.data[id])
+		.map(id => state.tags.data[id]) : []
 	tags.sort((a, b) => a.sort_order - b.sort_order)
 	return { tags }
 }

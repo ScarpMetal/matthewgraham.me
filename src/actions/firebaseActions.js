@@ -6,7 +6,7 @@ import {
 	DELETE_TAG_START, DELETE_TAG_SUCCESS, DELETE_TAG_FAILURE,
 } from '../global/actionTypes'
 
-const debug = false
+const debug = true
 /* 
 	Generic Action Types for Async Actions 
 */
@@ -35,7 +35,7 @@ export function fetchTags() {
 				const tags = {}
 				qs.forEach(doc => {
 					const data = doc.data()
-					tags[data.name] = { ...data, id: doc.id, selected: true }
+					tags[doc.id] = { ...data, id: doc.id, selected: true }
 				})
 				return dispatch(asyncSuccess(FETCH_TAGS_SUCCESS, { tags }))
 			})
@@ -114,7 +114,7 @@ function editCollectionItem(collectionName, id, data) {
 	const upperName = collectionName.toUpperCase().slice(0, -1)
 	return dispatch => {
 		dispatch(asyncStart(`EDIT_${upperName}_START`, id))
-		return db.collection(collectionName).doc(id).set(data)
+		return db.collection(collectionName).doc(id).update(data)
 			.then(() => dispatch(asyncSuccess(`EDIT_${upperName}_SUCCESS`, { id, data })))
 			.catch(err => dispatch(asyncFailure(`EDIT_${upperName}_FAILURE`, err)))
 	}

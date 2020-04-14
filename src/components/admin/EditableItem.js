@@ -5,7 +5,7 @@ import hamburgerSVG from '../../assets/hamburger.svg'
 import tagIcon from '../../assets/tag.svg'
 import imgIcon from '../../assets/img.svg'
 import delIcon from '../../assets/delete.svg'
-import { TextInput, TagsInput } from './EditableItemInputs'
+import { TextInput, TagsInput } from './EditableInputs'
 import { isEqual } from '../../global/utils'
 import './EditableItem.scss'
 
@@ -30,13 +30,14 @@ class EditableItem extends React.Component {
 			description: item.description || '',
 			tags: item.tags || [],
 			images: item.images || [],
-			sort_order: item.sort_order || Infinity
+			sort_order: item.sort_order === undefined ? Infinity : item.sort_order
 		}
 	}
 
 	render() {
 		const { item, selected, isEditing, isDeleting, onSelect, onDelete } = this.props
 		const { id, ...comparableItem } = item
+
 		const containsChanges = !isEqual(comparableItem, this.state)
 
 		let containerStyle = {}
@@ -85,6 +86,7 @@ class EditableItem extends React.Component {
 					fontSize={24}
 					value={title}
 					originalValue={item.title}
+					placeholder='My Great Project'
 					onChange={e => this.setState({ title: e.target.value || '' })}
 				/>
 				<div style={{ display: 'flex' }}>
@@ -93,6 +95,7 @@ class EditableItem extends React.Component {
 						fontSize={14}
 						value={source_name}
 						originalValue={item.source_name}
+						placeholder='Codepen.io'
 						onChange={e => this.setState({ source_name: e.target.value || '' })}
 					/>
 					<TextInput
@@ -100,6 +103,7 @@ class EditableItem extends React.Component {
 						fontSize={14}
 						value={source_url}
 						originalValue={item.source_url}
+						placeholder='https://www.example.com/'
 						onChange={e => this.setState({ source_url: e.target.value || '' })}
 					/>
 					<TextInput
@@ -107,6 +111,7 @@ class EditableItem extends React.Component {
 						fontSize={14}
 						value={date_info}
 						originalValue={item.date_info}
+						placeholder='Jan-Mar 2020'
 						onChange={e => this.setState({ date_info: e.target.value || '' })}
 					/>
 				</div>
@@ -115,6 +120,7 @@ class EditableItem extends React.Component {
 					fontSize={14}
 					value={description}
 					originalValue={item.description}
+					placeholder=''
 					onChange={e => this.setState({ description: e.target.value || '' })}
 				/>
 				<TagsInput
@@ -148,14 +154,14 @@ EditableItem.defaultProps = {
 	item: null
 }
 
-function mapStateToProps(state, props) {
+function mapStateToProps(state) {
 	const tags = []
-	for (let tagName in state.tags.data) {
-		tags.push(state.tags.data[tagName])
+	for (let id in state.tags.data) {
+		tags.push(state.tags.data[id])
 	}
 	tags.sort((a, b) => a.sort_order - b.sort_order)
 	return {
-		allTags: tags.map(tag => tag.name)
+		allTags: tags
 	}
 }
 

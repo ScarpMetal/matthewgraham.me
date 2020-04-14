@@ -5,16 +5,12 @@
 	h1 {
 		font-size: 5em;
 		margin-top: 100px;
-		margin-bottom: 10px;
+		margin-bottom: 20px;
 	}
 
 	.add-another-button {
 		margin-left: 12px;
-		padding: 0;
 		line-height: 40px;
-		background-color: transparent;
-		border: none;
-		color: $primary-text-color;
 		font-size: 1.167em;
 		font-weight: bold;
 	}
@@ -25,9 +21,19 @@
 		
 	}
 
-	.editable-tags {
+	.editable-tags-wrapper {
+		.editable-tags {
+			margin: 0;
+			padding: 0;
+			display: flex;
+		}
 
+		.add-another-button {
+			margin-left: 0;
+			line-height: initial;
+		}
 	}
+	
 
 	.editable-projects {
 		

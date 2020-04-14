@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import provider from 'immer'
 
 import Tags from '../containers/Tags'
-import './EditableItemInputs.scss'
+import './EditableInputs.scss'
 import { isEqual } from '../../global/utils'
 
 export function TagsInput(props) {
@@ -16,24 +16,29 @@ export function TagsInput(props) {
 	}
 
 	const [tagText, setTagText] = useState('')
-	const availableTags = props.tags ? props.options.filter(tag => props.tags.indexOf(tag) === -1) : props.options
-	const recommended = availableTags.filter(tag => tag.toLowerCase().includes(tagText.toLowerCase()))
+	const availableOptions = props.tags ?
+		props.options.filter(o => props.tags.indexOf(o.id) === -1) : props.options
+	const recommended = availableOptions.filter(o => {
+		return o.name.toLowerCase().includes(tagText.toLowerCase())
+	}).map(o => o.id)
 
-	function handleExistingTagSelect(tagName) {
-		const indexToRemove = props.tags.indexOf(tagName)
+	function handleExistingTagSelect(id) {
+		const indexToRemove = props.tags.indexOf(id)
 		const newTags = provider(props.tags, draft => {
 			draft.splice(indexToRemove, 1)
 		})
 		props.onChange(newTags)
 	}
 
-	function handleRecommendedTagSelect(tagName) {
+	function handleRecommendedTagSelect(id) {
+		console.log('handleRecommendedTagSelect id', id)
 		const newTags = provider(props.tags, draft => {
 			if (!draft) {
-				return [tagName]
+				return [id]
 			}
-			draft.push(tagName)
+			draft.push(id)
 		})
+
 		setTagText('')
 		props.onChange(newTags)
 	}
@@ -54,9 +59,10 @@ export function TagsInput(props) {
 		<div className='editable-item-tags-input'>
 			<h2>{props.name}</h2>
 			<div className={`input-border ${classes.join(' ')}`}>
-				<Tags tags={props.tags} onSelectTag={handleExistingTagSelect} />
+				<Tags listKey='existing-tag-input-tags' tags={props.tags} onSelectTag={handleExistingTagSelect} />
 				<div style={{ position: 'relative', flex: 1 }}>
 					<input type='text' value={tagText}
+						ref={props.elRef}
 						onChange={e => setTagText(e.target.value)}
 						onKeyDown={onKeyDown}
 						onFocus={() => setFocus(true)}
@@ -65,7 +71,10 @@ export function TagsInput(props) {
 					/>
 					{recommended.length > 0 &&
 						<div className='suggestions'>
-							<Tags tags={recommended} onSelectTag={handleRecommendedTagSelect} />
+							<Tags listKey='recommended-tag-input-tags'
+								tags={recommended}
+								onSelectTag={handleRecommendedTagSelect}
+							/>
 						</div>
 					}
 				</div>
@@ -91,10 +100,12 @@ export function TextInput(props) {
 			<h2>{props.name}</h2>
 			<div className={`input-border ${classes.join(' ')}`} >
 				<input type='text' value={props.value}
+					ref={props.elRef}
 					onChange={props.onChange}
 					onFocus={() => setFocus(true)}
 					onBlur={() => setFocus(false)}
 					style={styles}
+					placeholder={props.placeholder}
 				/>
 			</div>
 		</div>

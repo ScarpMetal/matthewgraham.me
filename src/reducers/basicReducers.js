@@ -16,7 +16,8 @@ import {
 	EDIT_EXPERIENCE_START, EDIT_EXPERIENCE_SUCCESS, EDIT_EXPERIENCE_FAILURE,
 	DELETE_EXPERIENCE_START, DELETE_EXPERIENCE_SUCCESS, DELETE_EXPERIENCE_FAILURE,
 
-	SELECT_TAG, SELECT_PROJECT, SELECT_EXPERIENCE,
+	SELECT_TAG, FILTER_SELECT_TAG,
+	SELECT_PROJECT, SELECT_EXPERIENCE,
 
 } from '../global/actionTypes'
 import initialState from './initialState'
@@ -48,7 +49,8 @@ export const tagsReducer = produce((draft, action) => {
 
 		case CREATE_TAG_SUCCESS:
 			draft.isCreating = false
-			draft.data[action.payload.name] = action.payload
+			draft.selectedTagId = action.payload.id
+			draft.data[action.payload.id] = action.payload
 			break
 
 		case CREATE_TAG_FAILURE:
@@ -62,8 +64,8 @@ export const tagsReducer = produce((draft, action) => {
 
 		case EDIT_TAG_SUCCESS:
 			draft.isEditing = false
-			const tag = draft.data[action.payload.data.name]
-			draft.data[action.payload.data.name] = { ...tag, ...action.payload.data }
+			const { data, id } = action.payload
+			draft.data[id] = { ...draft.data[id], ...data }
 			break
 
 		case EDIT_TAG_FAILURE:
@@ -85,8 +87,12 @@ export const tagsReducer = produce((draft, action) => {
 			draft.error = action.error
 			break
 
-		case SELECT_TAG:
+		case FILTER_SELECT_TAG:
 			draft.data[action.payload].selected = !draft.data[action.payload].selected
+			break
+
+		case SELECT_TAG:
+			draft.selectedTagId = action.payload ? action.payload : null
 			break
 	}
 }, initialState.tags)

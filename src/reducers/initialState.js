@@ -4,6 +4,7 @@ export default {
 		isCreating: false,
 		isEditing: false,
 		isDeleting: false,
+		selectedTagId: null,
 		data: {}
 	},
 	projects: {

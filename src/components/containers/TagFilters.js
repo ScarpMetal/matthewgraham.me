@@ -7,6 +7,7 @@ import Tags from './Tags'
 
 class TagFilters extends React.Component {
 
+	// TODO: Fix loading tags. This will not work.
 	loadingTags = new Array(4).fill({ name: '\u00A0\u00A0\u00A0\u00A0\u00A0', color: '#b7b7b7' })
 
 	constructor(props) {
@@ -19,14 +20,14 @@ class TagFilters extends React.Component {
 		const { isLoading, tags } = this.props
 
 		if (isLoading) {
-			return <Tags tags={this.loadingTags} />
+			return <Tags listKey='loading-filter-tags' tags={this.loadingTags} />
 		}
 
-		return <Tags tags={tags} onSelectTag={this.handleTagSelect} />
+		return <Tags listKey='tag-filter' tags={tags} onSelectTag={this.handleTagSelect} globallyLinked={true} />
 	}
 
-	handleTagSelect(tagName) {
-		this.props.tagActions.selectTag(tagName)
+	handleTagSelect(id) {
+		this.props.tagActions.filterSelectTag(id)
 		// TODO: Handle Tag Filter
 	}
 }
@@ -38,8 +39,8 @@ TagFilters.defaultProps = {
 
 function mapStateToProps(state) {
 	const tagsArray = []
-	for (let tagName in state.tags.data) {
-		tagsArray.push(tagName)
+	for (let id in state.tags.data) {
+		tagsArray.push(id)
 	}
 	return {
 		tags: tagsArray,

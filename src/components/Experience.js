@@ -16,10 +16,10 @@ function Experience(props) {
 				{experience.date_info}
 			</p>
 			<p className='description'>{experience.description}</p>
-			<Tags tags={[]} />
+			<Tags listKey='experience-item' tags={experience.tags} globallyLinked={true} />
 			{hasImages &&
 				<div className='images'>
-					{experience.images.map((imageURL, i) => <span key={i}>{imageURL}</span>)}
+					{experience.images.map(imageURL => <span key={imageURL}>{imageURL}</span>)}
 					{/* Images */}
 				</div>
 			}
