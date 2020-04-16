@@ -1,12 +1,12 @@
-import { db } from '../firebase'
+import { firestore } from 'firebase'
+import { db, uploadFBFile, deleteFBFile } from '../firebase'
 import {
 	FETCH_TAGS_START, FETCH_TAGS_SUCCESS, FETCH_TAGS_FAILURE,
-	CREATE_TAG_START, CREATE_TAG_SUCCESS, CREATE_TAG_FAILURE,
-	EDIT_TAG_START, EDIT_TAG_SUCCESS, EDIT_TAG_FAILURE,
-	DELETE_TAG_START, DELETE_TAG_SUCCESS, DELETE_TAG_FAILURE,
 } from '../global/actionTypes'
 
-const debug = true
+const debug = false
+
+
 /* 
 	Generic Action Types for Async Actions 
 */
@@ -58,7 +58,6 @@ function fetchCollectionArray(collectionName) {
 			.catch(err => dispatch(asyncFailure(`FETCH_${upperName}_FAILURE`, err)))
 	}
 }
-
 export const fetchProjects = () => fetchCollectionArray('projects')
 export const fetchExperiences = () => fetchCollectionArray('experiences')
 
@@ -76,7 +75,6 @@ function createCollectionItem(collectionName, data = {}) {
 			.catch(err => dispatch(asyncFailure(`CREATE_${upperName}_FAILURE`, err)))
 	}
 }
-
 export const createTag = data => createCollectionItem('tags', {
 	name: 'New Tag',
 	color: '#e6e6e6',
@@ -106,6 +104,7 @@ export const createExperience = data => createCollectionItem('experiences', {
 	...data
 })
 
+
 /*
 	EDIT Functions
 */
@@ -123,6 +122,21 @@ export const editTag = (id, data) => editCollectionItem('tags', id, data)
 export const editProject = (id, data) => editCollectionItem('projects', id, data)
 export const editExperience = (id, data) => editCollectionItem('experiences', id, data)
 
+function pushCollectionItem(collectionName, id, data) {
+	if (debug) console.log('editCollectionItem', collectionName, id, data)
+	const upperName = collectionName.toUpperCase().slice(0, -1)
+	return dispatch => {
+		dispatch(asyncStart(`EDIT_PUSH_${upperName}_START`, id))
+		const fbData = {}
+		for (let key in data) {
+			fbData[key] = firestore.FieldValue.arrayUnion(data[key])
+		}
+		return db.collection(collectionName).doc(id).update(fbData)
+			.then(() => dispatch(asyncSuccess(`EDIT_PUSH_${upperName}_SUCCESS`, { id, data })))
+			.catch(err => dispatch(asyncFailure(`EDIT_PUSH_${upperName}_FAILURE`, err)))
+	}
+}
+
 
 /* 
 	DELETE Functions
@@ -137,8 +151,42 @@ function deleteCollectionItem(collectionName, id) {
 			.catch(err => dispatch(asyncFailure(`DELETE_${upperName}_FAILURE`, err)))
 	}
 }
-
 export const deleteTag = id => deleteCollectionItem('tags', id)
 export const deleteProject = id => deleteCollectionItem('projects', id)
 export const deleteExperience = id => deleteCollectionItem('experiences', id)
 
+function deleteCollectionFile(collectionName, path) {
+	if (debug) console.log('deleteCollectionFile', path)
+	const upperName = collectionName.toUpperCase().slice(0, -1)
+	return dispatch => {
+		dispatch(asyncStart(`DELETE_${upperName}_FILE_START`))
+		return deleteFBFile(path)
+			.then(() => dispatch(asyncSuccess(`DELETE_${upperName}_FILE_SUCCESS`)))
+			.catch(err => dispatch(asyncFailure(`DELETE_${upperName}_FILE_FAILURE`, err)))
+	}
+}
+export const deleteProjectFile = path => deleteCollectionFile('projects', path)
+export const deleteExperienceFile = path => deleteCollectionFile('experiences', path)
+
+
+/*
+	UPLOAD Functions
+*/
+function uploadCollectionItemImage(collectionName, id, file, callback) {
+	if (debug) console.log('uploadCollectionItem', collectionName, file)
+	const upperName = collectionName.toUpperCase().slice(0, -1)
+	return dispatch => {
+		dispatch(asyncStart(`UPLOAD_${upperName}_IMAGE_START`))
+		const path = `images/${upperName}-${id}-${Date.now()}-${file.name}`
+		return uploadFBFile(path, file)
+			.then(snapshot => snapshot.ref.getDownloadURL())
+			.then(url => {
+				callback({ url, path })
+				return dispatch(asyncSuccess(`UPLOAD_${upperName}_IMAGE_SUCCESS`, { id, data: { url, path } }))
+				return dispatch(pushCollectionItem(collectionName, id, { images: imageURL }))
+			})
+			.catch(err => dispatch(asyncFailure(`UPLOAD_${upperName}_IMAGE_FAILURE`, err)))
+	}
+}
+export const uploadProjectImage = (id, file, callback) => uploadCollectionItemImage('projects', id, file, callback)
+export const uploadExperienceImage = (id, file, callback) => uploadCollectionItemImage('experiences', id, file, callback)

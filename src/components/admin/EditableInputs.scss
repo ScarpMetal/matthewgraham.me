@@ -1,7 +1,8 @@
 @import '../../global/variables.scss';
 
 .editable-item-text-input,
-.editable-item-tags-input {
+.editable-item-tags-input,
+.editable-item-image-input {
 	padding-top: 10px;
 	margin: 0 12px 0 12px;
 	flex: 1;
@@ -9,6 +10,10 @@
 	h2 {
 		font-size: 1.167em;
 		margin-bottom: 5px;
+
+		&.has-changes {
+			color: $primary-color;
+		}
 	}
 
 	.input-border {
@@ -53,5 +58,65 @@
 		margin-top: 10px;
 		flex: 1;
 		position: absolute;
+	}
+}
+
+.editable-item-image-input {
+	padding-top: 33px;
+
+	.image-container-wrapper {
+		display: flex;
+		overflow-x: auto;
+		align-items: center;
+		height: 166px;
+
+		&.no-images {
+			height: 40px
+		}
+
+		.image-input-button {
+			cursor: pointer;
+			color: $primary-text-color;
+			margin-left: 12px;
+			line-height: 40px;
+			font-size: 1.167em;
+			font-weight: bold;
+			min-width: 150px;
+			text-align: center;
+
+			// input {
+			// 	display: none;
+			// }
+		}
+
+		.images-container {
+			display: flex;
+
+			.image-container {
+				position: relative;
+				margin-left: 12px;
+
+				&:first-child {
+					margin-left: 24px;
+				}
+
+				&:hover {
+					.delete-image {
+						display: block;
+					}
+				}
+
+				.delete-image {
+					display: none;
+					position: absolute;
+					right: 2px;
+					top: 5px;
+				}
+
+				.image {
+					height: 166px;
+				}
+			}
+		}
 	}
 }

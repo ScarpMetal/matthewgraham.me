@@ -23,7 +23,6 @@ export const db = firebase.firestore()
 
 // Auth
 const auth = firebase.auth()
-
 const googleProvider = new firebase.auth.GoogleAuthProvider()
 
 function getUserFromCred(cred) {
@@ -39,3 +38,16 @@ export const requestLoginPopup = () => auth.signInWithPopup(googleProvider)
 export const fetchUser = callback => auth.onAuthStateChanged(cred => {
 	getUserFromCred(cred).then(callback)
 })
+
+// Storage
+const storageRef = firebase.storage().ref()
+
+export const uploadFBFile = (name, file) => {
+	if (!name || !file) throw 'The first two parameters of uploadImage(name, file) are required'
+	return storageRef.child(name).put(file)
+}
+
+export const deleteFBFile = (path) => {
+	if (!path) throw 'The first parameter of deleteFile(path) is required'
+	return storageRef.child(path).delete()
+}

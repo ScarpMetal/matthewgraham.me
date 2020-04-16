@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
 import hamburgerSVG from '../../assets/hamburger.svg'
 import tagIcon from '../../assets/tag.svg'
 import imgIcon from '../../assets/img.svg'
 import delIcon from '../../assets/delete.svg'
-import { TextInput, TagsInput } from './EditableInputs'
+import { TextInput, TagsInput, ImageInput } from './EditableInputs'
 import { isEqual } from '../../global/utils'
 import './EditableItem.scss'
 
@@ -22,6 +22,7 @@ class EditableItem extends React.Component {
 
 	originalState() {
 		const { item } = this.props
+
 		return {
 			title: item.title || '',
 			source_name: item.source_name || '',
@@ -35,7 +36,7 @@ class EditableItem extends React.Component {
 	}
 
 	render() {
-		const { item, selected, isEditing, isDeleting, onSelect, onDelete } = this.props
+		const { item, selected, isEditing, isDeleting, isUploading, onSelect, onDelete } = this.props
 		const { id, ...comparableItem } = item
 
 		const containsChanges = !isEqual(comparableItem, this.state)
@@ -44,15 +45,23 @@ class EditableItem extends React.Component {
 		if (selected) {
 			containerStyle = { ...containerStyle, backgroundColor: 'rgba(255, 255, 255, .05)' }
 		}
-		if (isEditing || isDeleting) {
+
+		// Get loading message if loading
+		let loadingMessage = null
+		if (isEditing || isDeleting || isUploading) {
 			containerStyle = { ...containerStyle, opacity: 0.1 }
+			if (isEditing) {
+				loadingMessage = 'Saving...'
+			} else if (isDeleting) {
+				loadingMessage = 'Deleting...'
+			} else if (isUploading) {
+				loadingMessage = 'Uploading...'
+			}
 		}
 
 		return (
 			<>
-				{(isEditing || isDeleting) &&
-					<p className='loading-message'>{isDeleting ? 'Deleting' : 'Saving'}...</p>
-				}
+				{loadingMessage && <p className='loading-message'>{loadingMessage}</p>}
 				<div className='editable-item' style={containerStyle}>
 					<div className={`info-row ${containsChanges ? 'contains-changes' : ''}`} onClick={onSelect}>
 						<button className='hamburger'><img src={hamburgerSVG} /></button>
@@ -76,8 +85,8 @@ class EditableItem extends React.Component {
 	}
 
 	renderForm(containsChanges) {
-		const { item, onSave, onCancel } = this.props
-		const { title, source_name, source_url, date_info, description, tags, images } = this.state
+		const { item, onSave, onCancel, onUpload, deleteFile } = this.props
+		const { title, source_name, source_url, date_info, description, tags, images, sort_order } = this.state
 
 		return (
 			<div className='form'>
@@ -129,16 +138,58 @@ class EditableItem extends React.Component {
 					options={this.props.allTags}
 					tags={tags}
 					originalTags={item.tags}
-					onChange={tags => this.setState({ tags: tags ? tags : [] })}
+					onChange={tags => this.setState({ tags: tags || [] })}
 				/>
-				<div style={{ display: 'flex', marginTop: 40, paddingBottom: 10 }}>
-					<button type='button' className='save-button'
+				<ImageInput
+					name='Images'
+					images={images}
+					originalImages={item.images}
+					onAdd={file => {
+						return onUpload(file, image => {
+							this.setState(prevState => ({ images: [...prevState.images, image] }))
+						})
+					}}
+					onRemove={imagePath => {
+						if (!item.images.find(image => image.path === imagePath)) {
+							deleteFile(imagePath)
+						}
+
+						this.setState(prevState => ({ images: prevState.images.filter(image => image.path !== imagePath) }))
+					}}
+				/>
+				<div style={{ display: 'flex', marginTop: 10, paddingBottom: 10 }}>
+					<button type='button'
+						className='save-button'
 						disabled={!containsChanges}
-						onClick={() => onSave({ ...this.state })}
+						onClick={() => {
+							// Delete images from the database who were removed in the modal
+							const toDelete = item.images.filter(originalImage => {
+								return !images.some(image => image.path === originalImage.path)
+							})
+
+							toDelete.forEach(image => deleteFile(image.path))
+
+							// Save state to database
+							onSave({
+								title,
+								source_name, source_url, date_info,
+								description,
+								tags,
+								images,
+								sort_order
+							})
+						}}
 						title={containsChanges ? 'Save your work!' : 'There are no changes to save.'}
 					>Save</button>
 					<button type='button' className='cancel-button'
 						onClick={() => {
+							// Delete images from the database who weren't saved
+							const toDelete = images.filter(image => {
+								return !item.images.some(originalImage => originalImage.path === image.path)
+							})
+							toDelete.forEach(image => deleteFile(image.path))
+
+							// Reset the state of the dropdown
 							this.setState(this.originalState())
 							onCancel()
 						}}
@@ -154,22 +205,16 @@ EditableItem.defaultProps = {
 	item: null
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
 	const tags = []
 	for (let id in state.tags.data) {
 		tags.push(state.tags.data[id])
 	}
 	tags.sort((a, b) => a.sort_order - b.sort_order)
+
 	return {
-		allTags: tags
+		allTags: tags,
 	}
 }
 
-function mapDispatchToProps(dispatch) {
-	return {
-		selectProject: index => dispatch(selectProject(index)),
-		selectExperience: index => dispatch(selectExperience(index)),
-	}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditableItem)
+export default connect(mapStateToProps)(EditableItem)

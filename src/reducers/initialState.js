@@ -12,6 +12,7 @@ export default {
 		isCreating: false,
 		isEditing: false,
 		isDeleting: false,
+		isUploading: false,
 		selectedIndex: -1,
 		data: []
 	},
@@ -20,6 +21,7 @@ export default {
 		isCreating: false,
 		isEditing: false,
 		isDeleting: false,
+		isUploading: false,
 		selectedIndex: -1,
 		data: []
 	}

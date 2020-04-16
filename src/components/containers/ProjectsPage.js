@@ -43,7 +43,7 @@ ProjectsPage.defaultProps = {
 
 function mapStateToProps(state) {
 	const projects = state.projects.data.filter(project => {
-		return !project.tags || project.tags.some(tagName => state.tags.data[tagName].selected)
+		return !project.tags || !project.tags.length || project.tags.some(tagName => state.tags.data[tagName].selected)
 	})
 	return {
 		projects: projects,

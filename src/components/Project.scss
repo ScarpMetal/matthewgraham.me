@@ -32,17 +32,19 @@
 	grid-row-end: span 2;
 
 	.images {
+		margin-top: 6px;
 		display: flex;
 		overflow-x: auto;
 
 		span {
-			border: solid 1px;
-			width: 80px;
-			height: 160px;
 			margin-right: 10px;
 
+			img {
+				height: 160px;
+				vertical-align: middle;
+			}
+
 			&:last-child {
-				width: 160px;
 				margin-right: 0;
 			}
 		}

@@ -1,38 +1,39 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import provider from 'immer'
+import { useDropzone } from 'react-dropzone'
 
+import deleteSVG from '../../assets/delete.svg'
 import Tags from '../containers/Tags'
 import './EditableInputs.scss'
 import { isEqual } from '../../global/utils'
 
+/*
+	Tags Input
+*/
 export function TagsInput(props) {
+	const { name, tags, originalTags, options, onChange, fontSize, elRef } = props
 	const [isFocused, setFocus] = useState(false)
-	const classes = []
-	if (!isEqual(props.originalTags, props.tags)) {
-		classes.push('has-changes')
-	}
-	if (isFocused) {
-		classes.push('focused')
-	}
-
 	const [tagText, setTagText] = useState('')
-	const availableOptions = props.tags ?
-		props.options.filter(o => props.tags.indexOf(o.id) === -1) : props.options
+
+	// Find which tags should be recommended
+	const availableOptions = tags ?
+		options.filter(o => tags.indexOf(o.id) === -1) : options
 	const recommended = availableOptions.filter(o => {
 		return o.name.toLowerCase().includes(tagText.toLowerCase())
 	}).map(o => o.id)
 
+	// Deletes tag from the list
 	function handleExistingTagSelect(id) {
-		const indexToRemove = props.tags.indexOf(id)
-		const newTags = provider(props.tags, draft => {
+		const indexToRemove = tags.indexOf(id)
+		const newTags = provider(tags, draft => {
 			draft.splice(indexToRemove, 1)
 		})
-		props.onChange(newTags)
+		onChange(newTags)
 	}
 
+	// Add the first recommended tag
 	function handleRecommendedTagSelect(id) {
-		console.log('handleRecommendedTagSelect id', id)
-		const newTags = provider(props.tags, draft => {
+		const newTags = provider(tags, draft => {
 			if (!draft) {
 				return [id]
 			}
@@ -40,12 +41,13 @@ export function TagsInput(props) {
 		})
 
 		setTagText('')
-		props.onChange(newTags)
+		onChange(newTags)
 	}
 
+	// Keyboard shortcuts
 	function onKeyDown(e) {
-		if (e.keyCode === 8 && tagText === '' && props.tags && props.tags.length) {
-			handleExistingTagSelect(props.tags[props.tags.length - 1])
+		if (e.keyCode === 8 && tagText === '' && tags && tags.length) {
+			handleExistingTagSelect(tags[tags.length - 1])
 		} else if (e.keyCode === 9 && tagText !== '' && recommended.length) {
 			handleRecommendedTagSelect(recommended[0])
 			e.preventDefault()
@@ -54,20 +56,29 @@ export function TagsInput(props) {
 		}
 	}
 
-	const styles = { fontSize: props.fontSize }
+	// Conditional Styling
+	const classes = []
+	if (!isEqual(originalTags, tags)) {
+		classes.push('has-changes')
+	}
+	if (isFocused) {
+		classes.push('focused')
+	}
+
+	const inputStyles = { fontSize: fontSize }
 	return (
 		<div className='editable-item-tags-input'>
-			<h2>{props.name}</h2>
+			<h2 className={classes.join(' ')}>{name}</h2>
 			<div className={`input-border ${classes.join(' ')}`}>
-				<Tags listKey='existing-tag-input-tags' tags={props.tags} onSelectTag={handleExistingTagSelect} />
+				<Tags listKey='existing-tag-input-tags' tags={tags} onSelectTag={handleExistingTagSelect} />
 				<div style={{ position: 'relative', flex: 1 }}>
 					<input type='text' value={tagText}
-						ref={props.elRef}
+						ref={elRef}
 						onChange={e => setTagText(e.target.value)}
 						onKeyDown={onKeyDown}
 						onFocus={() => setFocus(true)}
 						onBlur={() => setFocus(false)}
-						style={styles}
+						style={inputStyles}
 					/>
 					{recommended.length > 0 &&
 						<div className='suggestions'>
@@ -84,12 +95,16 @@ export function TagsInput(props) {
 	)
 }
 
+/*
+	Text Input
+*/
 export function TextInput(props) {
-	const styles = { fontSize: props.fontSize }
+	const { name, value, originalValue, placeholder, fontSize, onChange, elRef } = props
+	const styles = { fontSize: fontSize }
 	const [isFocused, setFocus] = useState(false)
 
 	const classes = []
-	if (!isEqual(props.originalValue, props.value)) {
+	if (!isEqual(originalValue, value)) {
 		classes.push('has-changes')
 	}
 	if (isFocused) {
@@ -97,16 +112,60 @@ export function TextInput(props) {
 	}
 	return (
 		<div className='editable-item-text-input'>
-			<h2>{props.name}</h2>
+			<h2 className={classes.join(' ')}>{name}</h2>
 			<div className={`input-border ${classes.join(' ')}`} >
-				<input type='text' value={props.value}
-					ref={props.elRef}
-					onChange={props.onChange}
+				<input type='text' value={value}
+					ref={elRef}
+					onChange={onChange}
 					onFocus={() => setFocus(true)}
 					onBlur={() => setFocus(false)}
 					style={styles}
-					placeholder={props.placeholder}
+					placeholder={placeholder}
 				/>
+			</div>
+		</div>
+	)
+}
+
+/*
+	Image Input
+*/
+export function ImageInput(props) {
+	const { name, images, originalImages, onAdd, onRemove } = props
+
+	const onDrop = useCallback(files => {
+		files.forEach(file => onAdd(file))
+	}, [])
+	const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+
+	const classes = []
+	if (!isEqual(images, originalImages)) {
+		classes.push('has-changes')
+	}
+
+	const wrapperClasses = []
+	if (!images.length) {
+		wrapperClasses.push('no-images')
+	}
+
+	return (
+		<div className='editable-item-image-input'>
+			<h2 className={classes.join(' ')}>{name}</h2>
+			<div className={`image-container-wrapper ${wrapperClasses.join(' ')}`}>
+				<div className='image-input-button' {...getRootProps()}>
+					<input {...getInputProps()} />
+					{isDragActive ? 'Drag file here' : '+ Upload an Image'}
+				</div>
+				<div className='images-container'>
+					{images && images.map((image, i) =>
+						<div className='image-container' key={image.path}>
+							<button className='delete-image' onClick={() => { onRemove(image.path) }}>
+								<img src={deleteSVG} />
+							</button>
+							<img className='image' src={image.url} />
+						</div>
+					)}
+				</div>
 			</div>
 		</div>
 	)

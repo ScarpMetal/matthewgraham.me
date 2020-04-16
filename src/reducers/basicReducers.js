@@ -9,12 +9,18 @@ import {
 	FETCH_PROJECTS_START, FETCH_PROJECTS_SUCCESS, FETCH_PROJECTS_FAILURE,
 	CREATE_PROJECT_START, CREATE_PROJECT_SUCCESS, CREATE_PROJECT_FAILURE,
 	EDIT_PROJECT_START, EDIT_PROJECT_SUCCESS, EDIT_PROJECT_FAILURE,
+	EDIT_PUSH_PROJECT_START, EDIT_PUSH_PROJECT_SUCCESS, EDIT_PUSH_PROJECT_FAILURE,
 	DELETE_PROJECT_START, DELETE_PROJECT_SUCCESS, DELETE_PROJECT_FAILURE,
+	DELETE_PROJECT_FILE_START, DELETE_PROJECT_FILE_SUCCESS, DELETE_PROJECT_FILE_FAILURE,
+	UPLOAD_PROJECT_IMAGE_START, UPLOAD_PROJECT_IMAGE_SUCCESS, UPLOAD_PROJECT_IMAGE_FAILURE,
 
 	FETCH_EXPERIENCES_START, FETCH_EXPERIENCES_SUCCESS, FETCH_EXPERIENCES_FAILURE,
 	CREATE_EXPERIENCE_START, CREATE_EXPERIENCE_SUCCESS, CREATE_EXPERIENCE_FAILURE,
 	EDIT_EXPERIENCE_START, EDIT_EXPERIENCE_SUCCESS, EDIT_EXPERIENCE_FAILURE,
+	EDIT_PUSH_EXPERIENCE_START, EDIT_PUSH_EXPERIENCE_SUCCESS, EDIT_PUSH_EXPERIENCE_FAILURE,
 	DELETE_EXPERIENCE_START, DELETE_EXPERIENCE_SUCCESS, DELETE_EXPERIENCE_FAILURE,
+	DELETE_EXPERIENCE_FILE_START, DELETE_EXPERIENCE_FILE_SUCCESS, DELETE_EXPERIENCE_FILE_FAILURE,
+	UPLOAD_EXPERIENCE_IMAGE_START, UPLOAD_EXPERIENCE_IMAGE_SUCCESS, UPLOAD_EXPERIENCE_IMAGE_FAILURE,
 
 	SELECT_TAG, FILTER_SELECT_TAG,
 	SELECT_PROJECT, SELECT_EXPERIENCE,
@@ -22,13 +28,13 @@ import {
 } from '../global/actionTypes'
 import initialState from './initialState'
 
-// IMPORTANT: Note that with Redux, state should NEVER be changed.
-// State is considered immutable. Instead,
-// create a copy of the state passed and set new values on the copy.
-// Note that I'm using Object.assign to create a copy of current state
-// and update values on the copy.
+
+/*
+	Tags Reducer
+*/
 export const tagsReducer = produce((draft, action) => {
 	switch (action.type) {
+		// Fetch
 		case FETCH_TAGS_START:
 			draft.isLoading = true
 			break
@@ -43,6 +49,7 @@ export const tagsReducer = produce((draft, action) => {
 			draft.error = action.error
 			break
 
+		// Create
 		case CREATE_TAG_START:
 			draft.isCreating = true
 			break
@@ -58,13 +65,14 @@ export const tagsReducer = produce((draft, action) => {
 			draft.error = action.error
 			break
 
+		// Edit
 		case EDIT_TAG_START:
 			draft.isEditing = true
 			break
 
 		case EDIT_TAG_SUCCESS:
 			draft.isEditing = false
-			const { data, id } = action.payload
+			let { data, id } = action.payload
 			draft.data[id] = { ...draft.data[id], ...data }
 			break
 
@@ -73,6 +81,7 @@ export const tagsReducer = produce((draft, action) => {
 			draft.error = action.error
 			break
 
+		// Delete
 		case DELETE_TAG_START:
 			draft.isDeleting = true
 			break
@@ -87,6 +96,7 @@ export const tagsReducer = produce((draft, action) => {
 			draft.error = action.error
 			break
 
+		// Select
 		case FILTER_SELECT_TAG:
 			draft.data[action.payload].selected = !draft.data[action.payload].selected
 			break
@@ -97,8 +107,15 @@ export const tagsReducer = produce((draft, action) => {
 	}
 }, initialState.tags)
 
+
+/*
+	Projects Reducer
+*/
 export const projectsReducer = produce((draft, action) => {
+	let project, projectIndex
+
 	switch (action.type) {
+		// Fetch
 		case FETCH_PROJECTS_START:
 			draft.isLoading = true
 			break
@@ -113,6 +130,7 @@ export const projectsReducer = produce((draft, action) => {
 			draft.error = action.error
 			break
 
+		// Create
 		case CREATE_PROJECT_START:
 			draft.isCreating = true
 			break
@@ -127,21 +145,33 @@ export const projectsReducer = produce((draft, action) => {
 			draft.error = action.error
 			break
 
+		// Edit
 		case EDIT_PROJECT_START:
+		case EDIT_PUSH_PROJECT_START:
 			draft.isEditing = true
 			break
 
 		case EDIT_PROJECT_SUCCESS:
 			draft.isEditing = false
-			const projectIndex = draft.data.findIndex(proj => proj.id === action.payload.id)
+			projectIndex = draft.data.findIndex(proj => proj.id === action.payload.id)
 			draft.data[projectIndex] = { ...draft.data[projectIndex], ...action.payload.data }
 			break
 
+		case EDIT_PUSH_PROJECT_SUCCESS:
+			draft.isEditing = false
+			projectIndex = draft.data.findIndex(proj => proj.id === action.payload.id)
+			for (let key in action.payload.data) {
+				draft.data[projectIndex][key] = [...draft.data[projectIndex][key], action.payload.data[key]]
+			}
+			break
+
 		case EDIT_PROJECT_FAILURE:
+		case EDIT_PUSH_PROJECT_FAILURE:
 			draft.isEditing = false
 			draft.error = action.error
 			break
 
+		// Delete
 		case DELETE_PROJECT_START:
 			draft.isDeleting = true
 			draft.selectedIndex = draft.data.findIndex(proj => proj.id === action.payload)
@@ -158,14 +188,48 @@ export const projectsReducer = produce((draft, action) => {
 			draft.error = action.error
 			break
 
+		case DELETE_PROJECT_FILE_START:
+			draft.isEditing = true
+			break
+
+		case DELETE_PROJECT_FILE_SUCCESS:
+			draft.isEditing = false
+			break
+
+		case DELETE_PROJECT_FILE_FAILURE:
+			draft.isEditing = false
+			draft.error = action.error
+			break
+
+		// Upload
+		case UPLOAD_PROJECT_IMAGE_START:
+			draft.isUploading = true
+			break
+
+		case UPLOAD_PROJECT_IMAGE_SUCCESS:
+			draft.isUploading = false
+			break
+
+		case UPLOAD_PROJECT_IMAGE_FAILURE:
+			draft.isUploading = false
+			draft.error = action.payload.error
+
+		// Select
 		case SELECT_PROJECT:
 			draft.selectedIndex = action.payload !== draft.selectedIndex ? action.payload : -1
 			break
 	}
 }, initialState.projects)
 
+
+/*
+	Experiences Reducer
+*/
 export const experiencesReducer = produce((draft, action) => {
+	let experience, experienceIndex
+
 	switch (action.type) {
+		// Fetch
 		case FETCH_EXPERIENCES_START:
 			draft.isLoading = true
 			break
@@ -180,6 +244,7 @@ export const experiencesReducer = produce((draft, action) => {
 			draft.error = action.error
 			break
 
+		// Create
 		case CREATE_EXPERIENCE_START:
 			draft.isCreating = true
 			break
@@ -194,21 +259,33 @@ export const experiencesReducer = produce((draft, action) => {
 			draft.error = action.error
 			break
 
+		// Edit
 		case EDIT_EXPERIENCE_START:
+		case EDIT_PUSH_EXPERIENCE_START:
 			draft.isEditing = true
 			break
 
 		case EDIT_EXPERIENCE_SUCCESS:
 			draft.isEditing = false
-			const experienceIndex = draft.data.findIndex(exp => exp.id === action.payload.id)
+			experienceIndex = draft.data.findIndex(exp => exp.id === action.payload.id)
 			draft.data[experienceIndex] = { ...draft.data[experienceIndex], ...action.payload.data }
 			break
 
+		case EDIT_PUSH_EXPERIENCE_SUCCESS:
+			draft.isEditing = false
+			experience = draft.data.find(exp => exp.id === action.payload.id)
+			for (let key in action.payload.data) {
+				experience[key] = [...experience[key], action.payload.data[key]]
+			}
+			break
+
 		case EDIT_EXPERIENCE_FAILURE:
+		case EDIT_PUSH_EXPERIENCE_FAILURE:
 			draft.isEditing = false
 			draft.error = action.error
 			break
 
+		// Delete
 		case DELETE_EXPERIENCE_START:
 			draft.isDeleting = true
 			draft.selectedIndex = draft.data.findIndex(exp => exp.id === action.payload)
@@ -225,6 +302,35 @@ export const experiencesReducer = produce((draft, action) => {
 			draft.error = action.error
 			break
 
+		case DELETE_EXPERIENCE_FILE_START:
+			draft.isEditing = true
+			break
+
+		case DELETE_EXPERIENCE_FILE_SUCCESS:
+			draft.isEditing = false
+			break
+
+		case DELETE_EXPERIENCE_FILE_FAILURE:
+			draft.isEditing = false
+			draft.error = action.error
+			break
+
+		// Upload
+		case UPLOAD_EXPERIENCE_IMAGE_START:
+			draft.isUploading = true
+			break
+
+		case UPLOAD_EXPERIENCE_IMAGE_SUCCESS:
+			draft.isUploading = false
+			experience = draft.data.find(exp => exp.id === action.payload.id)
+			experience.images.push(action.payload.imageURL)
+			break
+
+		case UPLOAD_EXPERIENCE_IMAGE_FAILURE:
+			draft.isUploading = false
+			draft.error = action.payload.error
+
+		// Select
 		case SELECT_EXPERIENCE:
 			draft.selectedIndex = action.payload !== draft.selectedIndex ? action.payload : -1
 			break

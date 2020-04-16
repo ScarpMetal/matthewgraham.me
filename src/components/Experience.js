@@ -19,7 +19,11 @@ function Experience(props) {
 			<Tags listKey='experience-item' tags={experience.tags} globallyLinked={true} />
 			{hasImages &&
 				<div className='images'>
-					{experience.images.map(imageURL => <span key={imageURL}>{imageURL}</span>)}
+					{experience.images.map(image =>
+						<span key={image.path}>
+							<img src={image.url} />
+						</span>
+					)}
 					{/* Images */}
 				</div>
 			}

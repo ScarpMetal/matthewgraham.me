@@ -5,8 +5,9 @@ import EditableTag from './EditableTag'
 import EditableItem from './EditableItem'
 import {
 	createTag, createProject, createExperience,
-	editTag, editProject, editExperience,
-	deleteTag, deleteProject, deleteExperience,
+	editTag, editProject, editExperience, uploadProjectImage,
+	deleteTag, deleteProject, deleteExperience, uploadExperienceImage,
+	deleteProjectFile, deleteExperienceFile
 } from '../../actions/firebaseActions'
 import { requestLoginPopup, fetchUser } from '../../firebase'
 import { selectProject, selectExperience } from '../../actions/basicActions'
@@ -40,7 +41,7 @@ class AdminPage extends React.Component {
 		return (
 			<article className='content admin-page'>
 				{!user && <button onClick={this.handleGoogleLogin}>Google Sign-In</button>}
-				{user === 'Loading' && <p> Loading Credentials...</p>}
+				{user === 'Loading' && <p>Loading Credentials...</p>}
 				{user && user.hasOwnProperty('admin') && !user.admin && <p>You are not authorized to view this page.</p>}
 				{user && user.admin && <>
 					<h1>Tags</h1>
@@ -78,14 +79,19 @@ class AdminPage extends React.Component {
 						{projects.data.map((proj, i) => {
 							const selected = projects.selectedIndex === i
 							return (
-								<EditableItem key={proj.id} item={proj}
+								<EditableItem
+									key={proj.id}
+									item={proj}
 									selected={selected}
 									isDeleting={selected && projects.isDeleting}
 									isEditing={selected && projects.isEditing}
+									isUploading={selected && projects.isUploading}
 									onSelect={() => { this.props.selectProject(i) }}
 									onDelete={e => { e.stopPropagation(); this.props.deleteProject(proj.id) }}
 									onSave={data => { this.props.editProject(proj.id, data) }}
 									onCancel={() => { this.props.selectProject(-1) }}
+									onUpload={(file, callback) => { this.props.uploadProjectImage(proj.id, file, callback) }}
+									deleteFile={path => { this.props.deleteProjectFile(path) }}
 								/>
 							)
 						})}
@@ -103,17 +109,22 @@ class AdminPage extends React.Component {
 
 					<h1>Experiences</h1>
 					<div className='editable-experiences'>
-						{experiences.data.map((exp, i) => {
-							const selected = experiences.selectedIndex === i
+						{experiences.data.map((exp, index) => {
+							const selected = experiences.selectedIndex === index
 							return (
-								<EditableItem key={exp.id} item={exp}
+								<EditableItem
+									key={exp.id}
+									item={exp}
 									selected={selected}
 									isDeleting={selected && experiences.isDeleting}
 									isEditing={selected && experiences.isEditing}
-									onSelect={() => { this.props.selectExperience(i) }}
+									isUploading={selected && experiences.isUploading}
+									onSelect={() => { this.props.selectExperience(index) }}
 									onDelete={e => { e.stopPropagation(); this.props.deleteExperience(exp.id) }}
 									onSave={data => { this.props.editExperience(exp.id, data) }}
 									onCancel={() => { this.props.selectExperience(-1) }}
+									onUpload={(file, callback) => { this.props.uploadExperienceImage(exp.id, file, callback) }}
+									deleteFile={path => { this.props.deleteExperienceImage(path) }}
 								/>
 							)
 						})}
@@ -161,7 +172,11 @@ function mapDispatchToProps(dispatch) {
 		editExperience: (id, data) => dispatch(editExperience(id, data)),
 		deleteTag: id => dispatch(deleteTag(id)),
 		deleteProject: id => dispatch(deleteProject(id)),
-		deleteExperience: id => dispatch(deleteExperience(id))
+		deleteExperience: id => dispatch(deleteExperience(id)),
+		deleteProjectFile: path => dispatch(deleteProjectFile(path)),
+		deleteExperienceFile: path => dispatch(deleteExperienceFile(path)),
+		uploadProjectImage: (id, file, callback) => dispatch(uploadProjectImage(id, file, callback)),
+		uploadExperienceImage: (id, file, callback) => dispatch(uploadExperienceImage(id, file, callback)),
 	}
 }
 

@@ -14,7 +14,11 @@ function Project(props) {
 			<Tags listKey='project-item' tags={project.tags} globallyLinked={true} />
 			{hasImages &&
 				<div className='images'>
-					{project.images.map(imageURL => <span>{imageURL}</span>)}
+					{project.images.map(image =>
+						<span key={image.path}>
+							<img src={image.url} />
+						</span>
+					)}
 					{/* Images */}
 				</div>
 			}
