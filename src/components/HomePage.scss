@@ -6,7 +6,15 @@
 	}
 
 	h2 {
-		font-size: 3.5em;
+		font-size: 1.83em;
 		color: $secondary-text-color;
+	}
+}
+
+@media (min-width: $desktop-width) {
+	.home-page {
+		h2 {
+			font-size: 3em;
+		}
 	}
 }

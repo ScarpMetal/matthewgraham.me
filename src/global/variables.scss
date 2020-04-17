@@ -8,3 +8,14 @@ $danger-color: #BA385E;
 
 $navbar-height: 80px;
 $sidebar-width: 80px;
+
+$desktop-width: 600px;
+
+@keyframes example {
+	from {color: $primary-text-color;}
+	to {color: $secondary-text-color;}
+}
+
+$anim-gray-wave: example .5s linear alternate infinite;
+
+
