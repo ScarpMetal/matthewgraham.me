@@ -21,5 +21,9 @@
 		margin: 0 8px 8px 0;
 		padding: 0 1px;
 		background-color: $secondary-text-color;
+
+		@media (min-width: $desktop-width) {
+			font-size: 1.14em;
+		}
 	}
 }
