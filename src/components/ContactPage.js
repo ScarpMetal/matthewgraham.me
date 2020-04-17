@@ -1,8 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 import './SocialHorizontal'
 import './ContactPage.scss'
+import emailSVG from '../assets/email-address.svg'
+import phoneSVG from '../assets/phone-number.svg'
 import SocialHorizontal from './SocialHorizontal'
 
 function ContactPage() {
@@ -11,10 +12,12 @@ function ContactPage() {
 			<h1>Contact</h1>
 
 			<h2>Write to me</h2>
-			<p>mpgraham917@gmail.com</p>
+			<img src={emailSVG} />
+			{/* <p>mpgraham917@gmail.com</p> */}
 
 			<h2>Want to talk?</h2>
-			<p>(914) 610-8631</p>
+			<img src={phoneSVG} />
+			{/* <p>(914) 610-8631</p> */}
 
 			<h2>Check me out on social media!</h2>
 			<SocialHorizontal />
