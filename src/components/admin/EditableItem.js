@@ -1,5 +1,6 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React, { useEffect, useState, useCallback } from 'react'
+import { useSelector } from 'react-redux'
+import { Draggable } from 'react-beautiful-dnd'
 
 import hamburgerSVG from '../../assets/hamburger.svg'
 import tagIcon from '../../assets/tag.svg'
@@ -10,211 +11,230 @@ import { isEqual } from '../../global/utils'
 import './EditableItem.scss'
 
 
-class EditableItem extends React.Component {
+function EditableItem({
+	item, selected,
+	isEditing, isDeleting, isUploading,
+	onSelect, onDelete,
+	onSave, onCancel,
+	onUpload, deleteFile
+}) {
+	const [title, setTitle] = useState(item.title || '')
+	const [source_name, setSourceName] = useState(item.source_name || '')
+	const [source_url, setSourceURL] = useState(item.source_url || '')
+	const [date_info, setDateInfo] = useState(item.date_info || '')
+	const [description, setDescription] = useState(item.description || '')
+	const [tags, setTags] = useState(item.tags || [])
+	const [images, setImages] = useState(item.images || [])
+	const [sort_order, setSortOrder] = useState(item.sort_order !== undefined ? item.sort_order : Infinity)
 
-	constructor(props) {
-		super(props)
+	const allTags = useSelector(state => {
+		const tags = []
+		for (let id in state.tags.data) {
+			tags.push(state.tags.data[id])
+		}
+		tags.sort((a, b) => a.sort_order - b.sort_order)
 
-		this.state = this.originalState()
+		return tags
+	})
 
-		this.originalState = this.originalState.bind(this)
+	// Function to fully reset the component state back to its initial state
+	const resetState = useCallback(() => {
+		setTitle(item.title || '')
+		setSourceName(item.source_name || '')
+		setSourceURL(item.source_url || '')
+		setDateInfo(item.date_info || '')
+		setDescription(item.description || '')
+		setTags(item.tags || [])
+		setImages(item.images || [])
+		setSortOrder(item.sort_order !== undefined ? item.sort_order : Infinity)
+	}, [item])
+
+	// Reset sort_order if we recieve it in props
+	useEffect(() => {
+		setSortOrder(item.sort_order)
+	}, [item.sort_order])
+
+	// Detect if item has changes
+	const { id, ...comparableItem } = item
+	const containsChanges = !isEqual(comparableItem, {
+		title,
+		source_name, source_url, date_info,
+		description,
+		tags,
+		images,
+		sort_order
+	})
+
+	// Style the container
+	let containerStyle = {}
+	if (selected) {
+		containerStyle = { backgroundColor: 'rgba(255, 255, 255, .05)' }
 	}
 
-	originalState() {
-		const { item } = this.props
-
-		return {
-			title: item.title || '',
-			source_name: item.source_name || '',
-			source_url: item.source_url || '',
-			date_info: item.date_info || '',
-			description: item.description || '',
-			tags: item.tags || [],
-			images: item.images || [],
-			sort_order: item.sort_order === undefined ? Infinity : item.sort_order
+	// Get loading message if loading
+	let loadingMessage = null
+	if (isEditing || isDeleting || isUploading) {
+		containerStyle = { ...containerStyle, opacity: 0.1 }
+		if (isEditing) {
+			loadingMessage = 'Saving...'
+		} else if (isDeleting) {
+			loadingMessage = 'Deleting...'
+		} else if (isUploading) {
+			loadingMessage = 'Uploading...'
 		}
 	}
 
-	render() {
-		const { item, selected, isEditing, isDeleting, isUploading, onSelect, onDelete } = this.props
-		const { id, ...comparableItem } = item
+	return (
+		<Draggable
+			draggableId={item.id}
+			index={item.sort_order}
+		>
+			{provided =>
+				<div>
+					{loadingMessage && <p className='loading-message'>{loadingMessage}</p>}
+					<div
+						className='editable-item'
+						ref={provided.innerRef}
+						{...provided.draggableProps}
+						style={{ ...provided.draggableProps.style, ...containerStyle }}
 
-		const containsChanges = !isEqual(comparableItem, this.state)
-
-		let containerStyle = {}
-		if (selected) {
-			containerStyle = { ...containerStyle, backgroundColor: 'rgba(255, 255, 255, .05)' }
-		}
-
-		// Get loading message if loading
-		let loadingMessage = null
-		if (isEditing || isDeleting || isUploading) {
-			containerStyle = { ...containerStyle, opacity: 0.1 }
-			if (isEditing) {
-				loadingMessage = 'Saving...'
-			} else if (isDeleting) {
-				loadingMessage = 'Deleting...'
-			} else if (isUploading) {
-				loadingMessage = 'Uploading...'
-			}
-		}
-
-		return (
-			<>
-				{loadingMessage && <p className='loading-message'>{loadingMessage}</p>}
-				<div className='editable-item' style={containerStyle}>
-					<div className={`info-row ${containsChanges ? 'contains-changes' : ''}`} onClick={onSelect}>
-						<button className='hamburger'><img src={hamburgerSVG} /></button>
-						<span className='date-info'>{item.date_info}</span>
-						<span className='title'>{item.title}</span>
-						<span className='description'>{item.description}</span>
-						<div className='item-tags'>
-							<span>{item.tags ? item.tags.length : 0}</span>
-							<img src={tagIcon} />
+					>
+						<div className={`info-row ${containsChanges ? 'contains-changes' : ''}`}>
+							<span
+								className='hamburger'
+								{...provided.dragHandleProps}
+							>
+								<img src={hamburgerSVG} />
+							</span>
+							<span className='date-info' onClick={onSelect}>{item.date_info}</span>
+							<span className='title' onClick={onSelect}>{item.title}</span>
+							<span className='description' onClick={onSelect}>{item.description}</span>
+							<div className='item-tags' onClick={onSelect}>
+								<span>{item.tags ? item.tags.length : 0}</span>
+								<img src={tagIcon} />
+							</div>
+							<div className='item-images' onClick={onSelect}>
+								<span>{item.images ? item.images.length : 0}</span>
+								<img src={imgIcon} />
+							</div>
+							<button className='delete' onClick={onDelete}><img src={delIcon} /></button>
 						</div>
-						<div className='item-images'>
-							<span>{item.images ? item.images.length : 0}</span>
-							<img src={imgIcon} />
-						</div>
-						<button className='delete' onClick={onDelete}><img src={delIcon} /></button>
-					</div>
-					{selected && !isDeleting && this.renderForm(containsChanges)}
-				</div>
-			</>
-		)
-	}
+						{selected && !isDeleting &&
+							<div className='form'>
+								<TextInput
+									name='Title'
+									fontSize={24}
+									value={title}
+									originalValue={item.title}
+									placeholder='My Great Project'
+									onChange={e => setTitle(e.target.value || '')}
+								/>
+								<div style={{ display: 'flex' }}>
+									<TextInput
+										name='Source Name'
+										fontSize={14}
+										value={source_name}
+										originalValue={item.source_name}
+										placeholder='Codepen.io'
+										onChange={e => setSourceName(e.target.value || '')}
+									/>
+									<TextInput
+										name='Source URL'
+										fontSize={14}
+										value={source_url}
+										originalValue={item.source_url}
+										placeholder='https://www.example.com/'
+										onChange={e => setSourceURL(e.target.value || '')}
+									/>
+									<TextInput
+										name='Date'
+										fontSize={14}
+										value={date_info}
+										originalValue={item.date_info}
+										placeholder='Jan-Mar 2020'
+										onChange={e => setDateInfo(e.target.value || '')}
+									/>
+								</div>
+								<TextInput
+									name='Description'
+									fontSize={14}
+									value={description}
+									originalValue={item.description}
+									placeholder=''
+									onChange={e => setDescription(e.target.value || '')}
+								/>
+								<TagsInput
+									name='Tags'
+									fontSize={14}
+									options={allTags}
+									tags={tags}
+									originalTags={item.tags}
+									onChange={tags => setTags(tags)}
+								/>
+								<ImageInput
+									name='Images'
+									images={images}
+									originalImages={item.images}
+									onAdd={file => {
+										return onUpload(file, image => {
+											setImages([...images, image])
+										})
+									}}
+									onRemove={imagePath => {
+										if (!item.images.find(image => image.path === imagePath)) {
+											deleteFile(imagePath)
+										}
 
-	renderForm(containsChanges) {
-		const { item, onSave, onCancel, onUpload, deleteFile } = this.props
-		const { title, source_name, source_url, date_info, description, tags, images, sort_order } = this.state
+										setImages(images.filter(image => image.path !== imagePath))
+									}}
+								/>
+								<div style={{ display: 'flex', marginTop: 10, paddingBottom: 10 }}>
+									<button type='button'
+										className='save-button'
+										disabled={!containsChanges}
+										onClick={() => {
+											// Delete images from the database who were removed in the modal
+											const toDelete = item.images.filter(originalImage => {
+												return !images.some(image => image.path === originalImage.path)
+											})
 
-		return (
-			<div className='form'>
-				<TextInput
-					name='Title'
-					fontSize={24}
-					value={title}
-					originalValue={item.title}
-					placeholder='My Great Project'
-					onChange={e => this.setState({ title: e.target.value || '' })}
-				/>
-				<div style={{ display: 'flex' }}>
-					<TextInput
-						name='Source Name'
-						fontSize={14}
-						value={source_name}
-						originalValue={item.source_name}
-						placeholder='Codepen.io'
-						onChange={e => this.setState({ source_name: e.target.value || '' })}
-					/>
-					<TextInput
-						name='Source URL'
-						fontSize={14}
-						value={source_url}
-						originalValue={item.source_url}
-						placeholder='https://www.example.com/'
-						onChange={e => this.setState({ source_url: e.target.value || '' })}
-					/>
-					<TextInput
-						name='Date'
-						fontSize={14}
-						value={date_info}
-						originalValue={item.date_info}
-						placeholder='Jan-Mar 2020'
-						onChange={e => this.setState({ date_info: e.target.value || '' })}
-					/>
-				</div>
-				<TextInput
-					name='Description'
-					fontSize={14}
-					value={description}
-					originalValue={item.description}
-					placeholder=''
-					onChange={e => this.setState({ description: e.target.value || '' })}
-				/>
-				<TagsInput
-					name='Tags'
-					fontSize={14}
-					options={this.props.allTags}
-					tags={tags}
-					originalTags={item.tags}
-					onChange={tags => this.setState({ tags: tags || [] })}
-				/>
-				<ImageInput
-					name='Images'
-					images={images}
-					originalImages={item.images}
-					onAdd={file => {
-						return onUpload(file, image => {
-							this.setState(prevState => ({ images: [...prevState.images, image] }))
-						})
-					}}
-					onRemove={imagePath => {
-						if (!item.images.find(image => image.path === imagePath)) {
-							deleteFile(imagePath)
+											toDelete.forEach(image => deleteFile(image.path))
+
+											// Save state to database
+											onSave({
+												title,
+												source_name, source_url, date_info,
+												description,
+												tags,
+												images,
+												sort_order
+											})
+										}}
+										title={containsChanges ? 'Save your work!' : 'There are no changes to save.'}
+									>Save</button>
+									<button type='button' className='cancel-button'
+										onClick={() => {
+											// Delete images from the database who weren't saved
+											const toDelete = images.filter(image => {
+												return !item.images.some(originalImage => originalImage.path === image.path)
+											})
+											toDelete.forEach(image => deleteFile(image.path))
+
+											// Reset the state of the dropdown
+											resetState()
+											onCancel()
+										}}
+									>Cancel</button>
+								</div>
+							</div>
 						}
-
-						this.setState(prevState => ({ images: prevState.images.filter(image => image.path !== imagePath) }))
-					}}
-				/>
-				<div style={{ display: 'flex', marginTop: 10, paddingBottom: 10 }}>
-					<button type='button'
-						className='save-button'
-						disabled={!containsChanges}
-						onClick={() => {
-							// Delete images from the database who were removed in the modal
-							const toDelete = item.images.filter(originalImage => {
-								return !images.some(image => image.path === originalImage.path)
-							})
-
-							toDelete.forEach(image => deleteFile(image.path))
-
-							// Save state to database
-							onSave({
-								title,
-								source_name, source_url, date_info,
-								description,
-								tags,
-								images,
-								sort_order
-							})
-						}}
-						title={containsChanges ? 'Save your work!' : 'There are no changes to save.'}
-					>Save</button>
-					<button type='button' className='cancel-button'
-						onClick={() => {
-							// Delete images from the database who weren't saved
-							const toDelete = images.filter(image => {
-								return !item.images.some(originalImage => originalImage.path === image.path)
-							})
-							toDelete.forEach(image => deleteFile(image.path))
-
-							// Reset the state of the dropdown
-							this.setState(this.originalState())
-							onCancel()
-						}}
-					>Cancel</button>
+					</div>
+					{provided.placeholder}
 				</div>
-			</div>
-		)
-	}
+			}
+
+		</Draggable>
+	)
 }
 
-EditableItem.defaultProps = {
-	expanded: false,
-	item: null
-}
-
-function mapStateToProps(state, props) {
-	const tags = []
-	for (let id in state.tags.data) {
-		tags.push(state.tags.data[id])
-	}
-	tags.sort((a, b) => a.sort_order - b.sort_order)
-
-	return {
-		allTags: tags,
-	}
-}
-
-export default connect(mapStateToProps)(EditableItem)
+export default EditableItem

@@ -4,12 +4,14 @@ import {
 	FETCH_TAGS_START, FETCH_TAGS_SUCCESS, FETCH_TAGS_FAILURE,
 	CREATE_TAG_START, CREATE_TAG_SUCCESS, CREATE_TAG_FAILURE,
 	EDIT_TAG_START, EDIT_TAG_SUCCESS, EDIT_TAG_FAILURE,
+	BATCH_EDIT_TAGS_START, BATCH_EDIT_TAGS_SUCCESS, BATCH_EDIT_TAGS_FAILURE,
 	DELETE_TAG_START, DELETE_TAG_SUCCESS, DELETE_TAG_FAILURE,
 
 	FETCH_PROJECTS_START, FETCH_PROJECTS_SUCCESS, FETCH_PROJECTS_FAILURE,
 	CREATE_PROJECT_START, CREATE_PROJECT_SUCCESS, CREATE_PROJECT_FAILURE,
 	EDIT_PROJECT_START, EDIT_PROJECT_SUCCESS, EDIT_PROJECT_FAILURE,
 	EDIT_PUSH_PROJECT_START, EDIT_PUSH_PROJECT_SUCCESS, EDIT_PUSH_PROJECT_FAILURE,
+	BATCH_EDIT_PROJECTS_START, BATCH_EDIT_PROJECTS_SUCCESS, BATCH_EDIT_PROJECTS_FAILURE,
 	DELETE_PROJECT_START, DELETE_PROJECT_SUCCESS, DELETE_PROJECT_FAILURE,
 	DELETE_PROJECT_FILE_START, DELETE_PROJECT_FILE_SUCCESS, DELETE_PROJECT_FILE_FAILURE,
 	UPLOAD_PROJECT_IMAGE_START, UPLOAD_PROJECT_IMAGE_SUCCESS, UPLOAD_PROJECT_IMAGE_FAILURE,
@@ -18,6 +20,7 @@ import {
 	CREATE_EXPERIENCE_START, CREATE_EXPERIENCE_SUCCESS, CREATE_EXPERIENCE_FAILURE,
 	EDIT_EXPERIENCE_START, EDIT_EXPERIENCE_SUCCESS, EDIT_EXPERIENCE_FAILURE,
 	EDIT_PUSH_EXPERIENCE_START, EDIT_PUSH_EXPERIENCE_SUCCESS, EDIT_PUSH_EXPERIENCE_FAILURE,
+	BATCH_EDIT_EXPERIENCES_START, BATCH_EDIT_EXPERIENCES_SUCCESS, BATCH_EDIT_EXPERIENCES_FAILURE,
 	DELETE_EXPERIENCE_START, DELETE_EXPERIENCE_SUCCESS, DELETE_EXPERIENCE_FAILURE,
 	DELETE_EXPERIENCE_FILE_START, DELETE_EXPERIENCE_FILE_SUCCESS, DELETE_EXPERIENCE_FILE_FAILURE,
 	UPLOAD_EXPERIENCE_IMAGE_START, UPLOAD_EXPERIENCE_IMAGE_SUCCESS, UPLOAD_EXPERIENCE_IMAGE_FAILURE,
@@ -78,6 +81,23 @@ export const tagsReducer = produce((draft, action) => {
 
 		case EDIT_TAG_FAILURE:
 			draft.isEditing = false
+			draft.error = action.error
+			break
+
+		// Batch Edit
+		case BATCH_EDIT_TAGS_START:
+			draft.isBatchEditing = true
+			break
+
+		case BATCH_EDIT_TAGS_SUCCESS:
+			draft.isBatchEditing = false
+			action.payload.forEach(({ id, payload }) => {
+				draft.data[id] = { ...draft.data[id], ...payload }
+			})
+			break
+
+		case BATCH_EDIT_TAGS_FAILURE:
+			draft.isBatchEditing = false
 			draft.error = action.error
 			break
 
@@ -155,6 +175,7 @@ export const projectsReducer = produce((draft, action) => {
 			draft.isEditing = false
 			projectIndex = draft.data.findIndex(proj => proj.id === action.payload.id)
 			draft.data[projectIndex] = { ...draft.data[projectIndex], ...action.payload.data }
+			draft.data.sort((a, b) => a.sort_order - b.sort_order)
 			break
 
 		case EDIT_PUSH_PROJECT_SUCCESS:
@@ -168,6 +189,25 @@ export const projectsReducer = produce((draft, action) => {
 		case EDIT_PROJECT_FAILURE:
 		case EDIT_PUSH_PROJECT_FAILURE:
 			draft.isEditing = false
+			draft.error = action.error
+			break
+
+		// Batch Edit
+		case BATCH_EDIT_PROJECTS_START:
+			draft.isBatchEditing = true
+			break
+
+		case BATCH_EDIT_PROJECTS_SUCCESS:
+			draft.isBatchEditing = false
+			action.payload.forEach(({ id, payload }) => {
+				const projectIndex = draft.data.findIndex(proj => proj.id === id)
+				draft.data[projectIndex] = { ...draft.data[projectIndex], ...payload }
+			})
+			draft.data.sort((a, b) => a.sort_order - b.sort_order)
+			break
+
+		case BATCH_EDIT_PROJECTS_FAILURE:
+			draft.isBatchEditing = false
 			draft.error = action.error
 			break
 
@@ -269,6 +309,7 @@ export const experiencesReducer = produce((draft, action) => {
 			draft.isEditing = false
 			experienceIndex = draft.data.findIndex(exp => exp.id === action.payload.id)
 			draft.data[experienceIndex] = { ...draft.data[experienceIndex], ...action.payload.data }
+			draft.data.sort((a, b) => a.sort_order - b.sort_order)
 			break
 
 		case EDIT_PUSH_EXPERIENCE_SUCCESS:
@@ -282,6 +323,25 @@ export const experiencesReducer = produce((draft, action) => {
 		case EDIT_EXPERIENCE_FAILURE:
 		case EDIT_PUSH_EXPERIENCE_FAILURE:
 			draft.isEditing = false
+			draft.error = action.error
+			break
+
+		// Batch Edit
+		case BATCH_EDIT_EXPERIENCES_START:
+			draft.isBatchEditing = true
+			break
+
+		case BATCH_EDIT_EXPERIENCES_SUCCESS:
+			draft.isBatchEditing = false
+			action.payload.forEach(({ id, payload }) => {
+				const experienceIndex = draft.data.findIndex(exp => exp.id === id)
+				draft.data[experienceIndex] = { ...draft.data[experienceIndex], ...payload }
+			})
+			draft.data.sort((a, b) => a.sort_order - b.sort_order)
+			break
+
+		case BATCH_EDIT_EXPERIENCES_FAILURE:
+			draft.isBatchEditing = false
 			draft.error = action.error
 			break
 

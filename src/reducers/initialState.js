@@ -3,6 +3,7 @@ export default {
 		isLoading: false,
 		isCreating: false,
 		isEditing: false,
+		isBatchEditing: false,
 		isDeleting: false,
 		selectedTagId: null,
 		data: {}
@@ -11,6 +12,7 @@ export default {
 		isLoading: false,
 		isCreating: false,
 		isEditing: false,
+		isBatchEditing: false,
 		isDeleting: false,
 		isUploading: false,
 		selectedIndex: -1,
@@ -20,6 +22,7 @@ export default {
 		isLoading: false,
 		isCreating: false,
 		isEditing: false,
+		isBatchEditing: false,
 		isDeleting: false,
 		isUploading: false,
 		selectedIndex: -1,

@@ -18,9 +18,9 @@ const asyncSuccess = (type, payload) => {
 	if (debug) console.log({ type, payload })
 	return { type, payload }
 }
-const asyncFailure = (type, error) => {
-	if (debug) console.log({ type, error })
-	return { type, error }
+const asyncFailure = (type, error, payload) => {
+	if (debug) console.log({ type, error, payload })
+	return { type, error, payload }
 }
 
 
@@ -136,6 +136,54 @@ function pushCollectionItem(collectionName, id, data) {
 			.catch(err => dispatch(asyncFailure(`EDIT_PUSH_${upperName}_FAILURE`, err)))
 	}
 }
+
+/**
+ * Atomically edits multiple collection items in the firestore
+ * @param {string} collectionName 
+ * @param {Object[]} dataItems
+ * @param {string} dataItems[].id 
+ * @param {string} dataItems[].payload
+ */
+function batchEditCollectionItems(collectionName, dataItems) {
+	if (debug) console.log('batchEditCollectionItems', collectionName, dataItems)
+	const upperName = collectionName.toUpperCase()
+	return dispatch => {
+		dispatch(asyncStart(`BATCH_EDIT_${upperName}_START`))
+		const batch = db.batch()
+		const collection = db.collection(collectionName)
+		dataItems.forEach(({ id, payload }) => {
+			batch.update(collection.doc(id), payload)
+		})
+		//return
+		return batch.commit()
+			.then(() => dispatch(asyncSuccess(`BATCH_EDIT_${upperName}_SUCCESS`, dataItems)))
+			.catch(err => dispatch(asyncFailure(`BATCH_EDIT_${upperName}_FAILURE`, err)))
+	}
+}
+
+/**
+ * Atomically edits multiple tags in the firestore
+ * @param {Object[]} dataItems
+ * @param {string} dataItems[].id 
+ * @param {string} dataItems[].payload
+ */
+export const batchEditTags = dataItems => batchEditCollectionItems('tags', dataItems)
+
+/**
+ * Atomically edits multiple projects in the firestore
+ * @param {Object[]} dataItems
+ * @param {string} dataItems[].id 
+ * @param {string} dataItems[].payload
+ */
+export const batchEditProjects = dataItems => batchEditCollectionItems('projects', dataItems)
+
+/**
+ * Atomically edits multiple experiences in the firestore
+ * @param {Object[]} dataItems
+ * @param {string} dataItems[].id 
+ * @param {string} dataItems[].payload
+ */
+export const batchEditExperiences = dataItems => batchEditCollectionItems('experiences', dataItems)
 
 
 /* 
