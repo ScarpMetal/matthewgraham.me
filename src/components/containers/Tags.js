@@ -10,8 +10,10 @@ class Tags extends React.Component {
 		return (
 			<ul className='tags-ul'>
 				{this.props.tags.map(tag =>
-					<Tag key={`${this.props.listKey}-${tag.id}`}
+					<Tag
+						key={`${this.props.listKey}-${tag.id}`}
 						listKey={this.props.listKey}
+						shortenLabel={this.props.shortenLabel}
 						tag={tag}
 						onSelectTag={this.props.onSelectTag}
 						globallyLinked={this.props.globallyLinked}

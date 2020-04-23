@@ -1,9 +1,10 @@
 import React from 'react'
 
+import starSVG from '../assets/star.svg'
 import './Tag.scss'
 
 function Tag(props) {
-	const { tag, listKey, onSelectTag, globallyLinked, isLoading } = props
+	const { tag, listKey, shortenLabel, onSelectTag, globallyLinked, isLoading } = props
 	let labelStyle = {}
 	if (!globallyLinked || tag.selected) {
 		labelStyle = { ...labelStyle, backgroundColor: tag.color }
@@ -18,9 +19,12 @@ function Tag(props) {
 				onChange={() => { onSelectTag(tag.id) }}
 				checked={globallyLinked ? tag.selected : true}
 			/>}
-			<label className='tag-label' htmlFor={isSelectable ? `${listKey}-tag-li-${tag.id}` : null}
+			<label className={`tag-label ${isSelectable ? 'selectable' : ''}`} htmlFor={isSelectable ? `${listKey}-tag-li-${tag.id}` : null}
 				style={labelStyle}
-			>{tag.name}</label>
+			>
+				{tag.name === 'Featured' && <img src={starSVG} />}
+				{(tag.name === 'Featured' && shortenLabel) ? '' : <span>{tag.name}</span>}
+			</label>
 		</li>
 	)
 }

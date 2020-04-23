@@ -11,7 +11,12 @@ function Project(props) {
 			<h2>{project.title}</h2>
 			<p className='info'><a href={project.source_url}>{project.source_name}</a> • {project.date_info}</p>
 			<p className='description'>{project.description}</p>
-			<Tags listKey='project-item' tags={project.tags} globallyLinked={true} />
+			<Tags
+				listKey='project-item'
+				shortenLabel={true}
+				tags={project.tags}
+				globallyLinked={true}
+			/>
 			{hasImages &&
 				<div className='images'>
 					{project.images.map(image =>

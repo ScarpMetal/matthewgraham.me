@@ -16,7 +16,12 @@ function Experience(props) {
 				{experience.date_info}
 			</p>
 			<p className='description'>{experience.description}</p>
-			<Tags listKey='experience-item' tags={experience.tags} globallyLinked={true} />
+			<Tags
+				listKey='experience-item'
+				shortenLabel={true}
+				tags={experience.tags}
+				globallyLinked={true}
+			/>
 			{hasImages &&
 				<div className='images'>
 					{experience.images.map(image =>
