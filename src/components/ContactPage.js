@@ -11,7 +11,7 @@ function ContactPage() {
 		<article className='content contact-page'>
 			<h1>Contact</h1>
 
-			<h2>Write to me</h2>
+			<h2>Write to me.</h2>
 			<img src={emailSVG} />
 			{/* <p>mpgraham917@gmail.com</p> */}
 

@@ -16,7 +16,7 @@ class ProjectsPage extends React.Component {
 		return (
 			<>
 				<SocialSidebar />
-				<aside className='timeline-scrollbar'>Timeline Scrollbar</aside>
+				<aside className='timeline-scrollbar'></aside>
 				<article className='content'>
 					<h1>Projects</h1>
 					<TagFilters />
@@ -25,7 +25,9 @@ class ProjectsPage extends React.Component {
 							marginTop: 40,
 							fontStyle: 'italic',
 							fontSize: 14
-						}}>No projects found, please select more tags.</p>
+						}}>
+							{this.props.isLoading ? 'Loading...' : 'No projects found, please select more tags.'}
+						</p>
 					}
 					<div className='projects-wrapper'>
 						{this.props.projects.map((proj, i) => <Project key={proj.id} project={proj} />)}

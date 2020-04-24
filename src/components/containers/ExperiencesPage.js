@@ -15,7 +15,7 @@ class ExperiencesPage extends React.Component {
 		return (
 			<>
 				<SocialSidebar />
-				<aside className='timeline-scrollbar'>Timeline Scrollbar</aside>
+				<aside className='timeline-scrollbar'></aside>
 				<article className='content'>
 					<h1>Experience</h1>
 					<TagFilters />
@@ -24,7 +24,9 @@ class ExperiencesPage extends React.Component {
 							marginTop: 40,
 							fontStyle: 'italic',
 							fontSize: 14
-						}}>No experiences found, please select more tags.</p>
+						}}>
+							{this.props.isLoading ? 'Loading...' : 'No experiences found, please select more tags.'}
+						</p>
 					}
 					<div className='experiences-wrapper'>
 						{this.props.experiences.map((exp, i) => <Experience key={exp.id} experience={exp} />)}

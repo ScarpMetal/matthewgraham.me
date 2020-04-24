@@ -35,7 +35,7 @@ class TagFilters extends React.Component {
 							containerElement='span'
 							tag={{
 								id: 'show-all-button',
-								name: allSelected ? 'Hide All' : 'Show All',
+								name: allSelected ? 'Hide All' : 'Select All',
 								color: 'transparent',
 								textColor: '#b7b7b7'
 							}}
