@@ -7,7 +7,7 @@ function Tag(props) {
 	const { tag, listKey, shortenLabel, onSelectTag, globallyLinked, isLoading } = props
 	let labelStyle = {}
 	if (!globallyLinked || tag.selected) {
-		labelStyle = { ...labelStyle, backgroundColor: tag.color }
+		labelStyle = { ...labelStyle, backgroundColor: tag.color, color: tag.textColor ? tag.textColor : 'black' }
 	}
 	if (isLoading) {
 		labelStyle = { ...labelStyle, opacity: 0.1 }
@@ -19,7 +19,10 @@ function Tag(props) {
 				onChange={() => { onSelectTag(tag.id) }}
 				checked={globallyLinked ? tag.selected : true}
 			/>}
-			<label className={`tag-label ${isSelectable ? 'selectable' : ''}`} htmlFor={isSelectable ? `${listKey}-tag-li-${tag.id}` : null}
+			<label
+				className={`tag-label ${isSelectable ? 'selectable' : ''}`}
+				htmlFor={isSelectable ? `${listKey}-tag-li-${tag.id}` : null}
+				title={tag.name === 'Featured' && shortenLabel ? tag.name : ''}
 				style={labelStyle}
 			>
 				{tag.name === 'Featured' && <img src={starSVG} />}
@@ -30,7 +33,8 @@ function Tag(props) {
 }
 
 Tag.defaultProps = {
-	globallyLinked: false
+	globallyLinked: false,
+	shortenLabel: false
 }
 
 export default Tag

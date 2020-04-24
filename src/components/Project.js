@@ -24,7 +24,6 @@ function Project(props) {
 							<img src={image.url} />
 						</span>
 					)}
-					{/* Images */}
 				</div>
 			}
 		</div>

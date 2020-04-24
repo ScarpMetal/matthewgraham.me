@@ -5,6 +5,8 @@ export const SELECT_EXPERIENCE = 'SELECT_EXPERIENCE'
 // Tag Actions
 export const SELECT_TAG = 'SELECT_TAG'
 export const FILTER_SELECT_TAG = 'FILTER_SELECT_TAG'
+export const FILTER_SELECT_ALL_TAGS = 'FILTER_SELECT_ALL_TAGS'
+export const FILTER_UNSELECT_ALL_TAGS = 'FILTER_UNSELECT_ALL_TAGS'
 
 /* 
 	Firebase Actions 

@@ -29,7 +29,6 @@ function Experience(props) {
 							<img src={image.url} />
 						</span>
 					)}
-					{/* Images */}
 				</div>
 			}
 		</div>

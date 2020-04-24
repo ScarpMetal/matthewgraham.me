@@ -25,7 +25,7 @@ import {
 	DELETE_EXPERIENCE_FILE_START, DELETE_EXPERIENCE_FILE_SUCCESS, DELETE_EXPERIENCE_FILE_FAILURE,
 	UPLOAD_EXPERIENCE_IMAGE_START, UPLOAD_EXPERIENCE_IMAGE_SUCCESS, UPLOAD_EXPERIENCE_IMAGE_FAILURE,
 
-	SELECT_TAG, FILTER_SELECT_TAG,
+	SELECT_TAG, FILTER_SELECT_TAG, FILTER_SELECT_ALL_TAGS, FILTER_UNSELECT_ALL_TAGS,
 	SELECT_PROJECT, SELECT_EXPERIENCE,
 
 } from '../global/actionTypes'
@@ -75,8 +75,10 @@ export const tagsReducer = produce((draft, action) => {
 
 		case EDIT_TAG_SUCCESS:
 			draft.isEditing = false
-			let { data, id } = action.payload
-			draft.data[id] = { ...draft.data[id], ...data }
+			draft.data[action.payload.id] = {
+				...draft.data[action.payload.id],
+				...action.payload.data
+			}
 			break
 
 		case EDIT_TAG_FAILURE:
@@ -118,7 +120,27 @@ export const tagsReducer = produce((draft, action) => {
 
 		// Select
 		case FILTER_SELECT_TAG:
+			let tagArr = []
+			for (let id in draft.data) {
+				tagArr.push(draft.data[id])
+			}
+			const allSelected = !tagArr.some(tag => !tag.selected)
+			if (allSelected) {
+				tagArr.forEach(tag => tag.selected = false)
+			}
 			draft.data[action.payload].selected = !draft.data[action.payload].selected
+			break
+
+		case FILTER_SELECT_ALL_TAGS:
+			for (let id in draft.data) {
+				draft.data[id].selected = true
+			}
+			break
+
+		case FILTER_UNSELECT_ALL_TAGS:
+			for (let id in draft.data) {
+				draft.data[id].selected = false
+			}
 			break
 
 		case SELECT_TAG:

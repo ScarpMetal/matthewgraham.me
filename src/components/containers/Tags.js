@@ -6,19 +6,24 @@ import Tag from '../Tag'
 import './Tags.scss'
 
 class Tags extends React.Component {
+
 	render() {
+		const { prepend, tags, append, listKey, shortenLabel, onSelectTag, globallyLinked } = this.props
+
 		return (
 			<ul className='tags-ul'>
-				{this.props.tags.map(tag =>
+				{prepend ? prepend : ''}
+				{tags.map(tag =>
 					<Tag
-						key={`${this.props.listKey}-${tag.id}`}
-						listKey={this.props.listKey}
-						shortenLabel={this.props.shortenLabel}
+						key={`${listKey}-${tag.id}`}
+						listKey={listKey}
+						shortenLabel={shortenLabel}
 						tag={tag}
-						onSelectTag={this.props.onSelectTag}
-						globallyLinked={this.props.globallyLinked}
+						onSelectTag={onSelectTag}
+						globallyLinked={globallyLinked}
 					/>
 				)}
+				{append ? append : ''}
 			</ul>
 		)
 	}
