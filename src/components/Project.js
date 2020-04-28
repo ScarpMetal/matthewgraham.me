@@ -9,7 +9,15 @@ function Project(props) {
 	return (
 		<div className={`project ${hasImages ? 'large' : ''}`}>
 			<h2>{project.title}</h2>
-			<p className='info'><a href={project.source_url}>{project.source_name}</a> • {project.date_info}</p>
+			<p className='info'>
+				{project.source_name &&
+					project.source_url ?
+					<a href={project.source_url} target='_blank'>{project.source_name}</a> :
+					<span>{project.source_name}</span>
+				}
+				{project.source_name && project.date_info && <span>&nbsp;•&nbsp;</span>}
+				{project.date_info}
+			</p>
 			<p className='description'>{project.description}</p>
 			<Tags
 				listKey='project-item'

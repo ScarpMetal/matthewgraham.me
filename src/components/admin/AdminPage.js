@@ -62,7 +62,6 @@ class AdminPage extends React.Component {
 							{provided =>
 								<div
 									className='editable-tags-wrapper'
-									style={{ display: 'flex', alignItems: 'flex-start' }}
 								>
 									<ul
 										className={`editable-tags ${tags.isBatchEditing ? 'loading' : ''}`}

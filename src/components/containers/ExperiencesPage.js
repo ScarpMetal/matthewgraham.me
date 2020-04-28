@@ -44,7 +44,7 @@ ExperiencesPage.defaultProps = {
 
 function mapStateToProps(state) {
 	const experiences = state.experiences.data.filter(experience => {
-		return !experience.tags || !experience.tags.length || experience.tags.some(tagName => state.tags.data[tagName].selected)
+		return experience.tags.some(tagName => state.tags.data[tagName].selected)
 	})
 	return {
 		experiences: experiences,

@@ -11,7 +11,11 @@ function Experience(props) {
 		<div className='experience'>
 			<h2>{experience.title}</h2>
 			<p className='info'>
-				{experience.source_name && <a href={experience.source_url}>{experience.source_name}</a>}
+				{experience.source_name &&
+					experience.source_url ?
+					<a href={experience.source_url} target='_blank'>{experience.source_name}</a> :
+					<span>{experience.source_name}</span>
+				}
 				{experience.source_name && experience.date_info && <span>&nbsp;•&nbsp;</span>}
 				{experience.date_info}
 			</p>

@@ -195,6 +195,7 @@ export const projectsReducer = produce((draft, action) => {
 
 		case EDIT_PROJECT_SUCCESS:
 			draft.isEditing = false
+			draft.selectedIndex = -1
 			projectIndex = draft.data.findIndex(proj => proj.id === action.payload.id)
 			draft.data[projectIndex] = { ...draft.data[projectIndex], ...action.payload.data }
 			draft.data.sort((a, b) => a.sort_order - b.sort_order)
@@ -329,6 +330,7 @@ export const experiencesReducer = produce((draft, action) => {
 
 		case EDIT_EXPERIENCE_SUCCESS:
 			draft.isEditing = false
+			draft.selectedIndex = -1
 			experienceIndex = draft.data.findIndex(exp => exp.id === action.payload.id)
 			draft.data[experienceIndex] = { ...draft.data[experienceIndex], ...action.payload.data }
 			draft.data.sort((a, b) => a.sort_order - b.sort_order)

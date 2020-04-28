@@ -10,8 +10,13 @@
 	}
 
 	.info {
-		margin-top: 0;
+		margin-top: 2px;
 		color: $secondary-text-color;
+
+		a {
+			color: $secondary-text-color;
+			//text-decoration: none;
+		}
 	}
 
 	.description {
