@@ -60,7 +60,7 @@ App.propTypes = {
 }
 
 function mapStateToProps(state) {
-	console.log('App state', state)
+	//console.log('App state', state)
 	return {}
 }
 

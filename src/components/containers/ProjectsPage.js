@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Helmet } from 'react-helmet'
 
 import SocialSidebar from '../SocialSidebar'
 import TagFilters from './TagFilters'
@@ -18,6 +19,10 @@ class ProjectsPage extends React.Component {
 				<SocialSidebar />
 				<aside className='timeline-scrollbar'></aside>
 				<article className='content'>
+					<Helmet>
+						<title>Projects - MatthewGraham.me</title>
+						<meta name='description' content="Some of Matthew Graham's best and most successful personal projects!" />
+					</Helmet>
 					<h1>Projects</h1>
 					<TagFilters />
 					{this.props.projects.length === 0 &&

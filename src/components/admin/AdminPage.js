@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
+import { Helmet } from 'react-helmet'
 
 import EditableTag from './EditableTag'
 import EditableItem from './EditableItem'
@@ -47,6 +48,10 @@ class AdminPage extends React.Component {
 
 		return (
 			<article className='content admin-page'>
+				<Helmet>
+					<title>Admin Panel - MatthewGraham.me</title>
+					<meta name='description' content='Restricted Access' />
+				</Helmet>
 				{!user && <button onClick={this.handleGoogleLogin}>Google Sign-In</button>}
 				{user === 'Loading' && <p>Loading Credentials...</p>}
 				{user && user.hasOwnProperty('admin') && !user.admin && <p>You are not authorized to view this page.</p>}

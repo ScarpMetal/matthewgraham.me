@@ -1,4 +1,5 @@
 import React from 'react'
+import { Helmet } from 'react-helmet'
 
 import './SocialHorizontal'
 import './ContactPage.scss'
@@ -9,6 +10,10 @@ import SocialHorizontal from './SocialHorizontal'
 function ContactPage() {
 	return (
 		<article className='content contact-page'>
+			<Helmet>
+				<title>Contact - MatthewGraham.me</title>
+				<meta name='description' content='Contact information to reach Matthew Graham through email, phone, or social media' />
+			</Helmet>
 			<h1>Contact</h1>
 
 			<h2>Write to me.</h2>
