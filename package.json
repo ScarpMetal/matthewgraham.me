@@ -34,7 +34,7 @@
 		"@hot-loader/react-dom": "16.10.2",
 		"connected-react-router": "6.5.2",
 		"firebase": "7.13.2",
-		"immer": "6.0.3",
+		"immer": "9.0.6",
 		"object-assign": "4.1.1",
 		"react": "16.11.0",
 		"react-beautiful-dnd": "13.0.0",
