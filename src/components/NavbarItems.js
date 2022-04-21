@@ -77,7 +77,7 @@ function NavbarItems() {
 				{iFrameLoading && <p className='loading'>Loading...</p>}
 				<iframe
 					onLoad={() => setIFrameLoading(false)}
-					src="https://drive.google.com/file/d/1Oql5F4Hd9t9YxQQFHRKvFOIuCa8HSaV8/preview"
+					src="https://drive.google.com/file/d/1xYHivXvVKyfV2dhAlk8z9kVzLVBEHOgB/preview"
 				></iframe>
 			</Modal>
 		</>
