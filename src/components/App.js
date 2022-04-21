@@ -48,7 +48,7 @@ class App extends React.Component {
 					<Route component={NotFoundPage} />
 				</Switch>
 				<footer className='main-footer'>
-					<p>Copyright © 2020 Matthew Graham • <a href='#'>Privacy & Terms</a></p>
+					<p>Copyright © 2022 Matthew Graham • <a href='#'>Privacy & Terms</a></p>
 				</footer>
 			</>
 		)
