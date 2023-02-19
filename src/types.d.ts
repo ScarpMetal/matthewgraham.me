@@ -1,35 +1,40 @@
-export type TagId = string;
-export type ProjectId = string;
-export type ExperienceId = string;
+declare module "*.svg" {
+  const content: string;
+  export default content;
+}
 
-export type Image = {
+type TagId = string;
+type ProjectId = string;
+type ExperienceId = string;
+
+type ImageType = {
   path: string;
   url: string;
 };
 
-export type Tag = {
+type TagType = {
   color: string;
   id: TagId;
   name: string;
 };
 
-export type Project = {
+type ProjectType = {
   sourceUrl: string;
   sourceName: string;
-  tags: TagId[];
+  tagIds: TagId[];
   dateInfo: string;
-  images: Image[];
+  images: ImageType[];
   title: string;
   description: string;
   id: ProjectId;
 };
 
-export type Experience = {
+type ExperienceType = {
   sourceUrl: string;
   sourceName: string;
-  tags: TagId[];
+  tagIds: TagId[];
   dateInfo: string;
-  images: Image[];
+  images: ImageType[];
   title: string;
   description: string;
   id: ExperienceId;

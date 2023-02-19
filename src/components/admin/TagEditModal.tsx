@@ -1,33 +1,42 @@
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
 
 import colorPickerSVG from "../../assets/color-picker.svg";
 import { isEqual } from "../../global/utils";
 import { TextInput } from "./EditableInputs";
 import "./TagEditModal.scss";
 
-function TagEditModal(props) {
-  const { tag, onDismiss, onSave, onDelete } = props;
+function TagEditModal({
+  tag,
+  onDismiss,
+  onSave,
+  onDelete,
+}: {
+  tag: TagType;
+  onDismiss: () => void;
+  onSave: (partialTag: Partial<TagType>) => void;
+  onDelete: () => void;
+}) {
   const [name, setName] = useState(tag.name || "");
   const [color, setColor] = useState(tag.color || "");
 
-  const modalRef = useRef(null);
-  const textInputRef = useRef(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const textInputRef = useRef<HTMLInputElement>(null);
 
-  const isInUse = useSelector((state) => {
-    const items = [...state.projects.data, ...state.experiences.data];
-    return items.some((item) =>
-      item.tags.some((itemTagId) => itemTagId === tag.id)
-    );
-  });
+  const isInUse = true; // TODO: derive this some other way
+  // const isInUse = useSelector((state) => {
+  //   const items = [...state.projects.data, ...state.experiences.data];
+  //   return items.some((item) =>
+  //     item.tags.some((itemTagId) => itemTagId === tag.id)
+  //   );
+  // });
 
   // Detect if there are changes from the original state
   const hasChanges = tag.name !== name || tag.color !== color;
 
   // Handle when the user clicks away
   useEffect(() => {
-    function handleClickOutsideModal(e) {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
+    function handleClickOutsideModal(e: MouseEvent) {
+      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
         onDismiss();
       }
     }
@@ -40,7 +49,7 @@ function TagEditModal(props) {
 
   // Handle when the user presses enter
   useEffect(() => {
-    function handleKeydown(e) {
+    function handleKeydown(e: KeyboardEvent) {
       if (hasChanges && e.keyCode === 13) {
         onSave({ name, color });
       } else if (e.keyCode === 13) {

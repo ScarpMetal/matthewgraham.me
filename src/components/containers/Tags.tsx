@@ -9,6 +9,14 @@ export default function Tags({
   shortenLabel,
   onSelectTag,
   globallyLinked,
+}: {
+  prepend?: any;
+  tags: TagType[];
+  append?: any;
+  listKey: string;
+  shortenLabel?: boolean;
+  onSelectTag?: (tag: TagType) => void;
+  globallyLinked?: boolean;
 }) {
   return (
     <ul className="tags-ul">

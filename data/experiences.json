@@ -1,7 +1,7 @@
 {
   "data": [
     {
-      "tags": ["ieVsVxsbma1niXPlfeji", "HOdUWupnldxWz7f2EUON"],
+      "tagIds": ["ieVsVxsbma1niXPlfeji", "HOdUWupnldxWz7f2EUON"],
       "source_url": "https://aws.amazon.com/",
       "source_name": "Amazon Web Services",
       "date_info": "Sep 2022 - Present",
@@ -17,7 +17,7 @@
       "source_name": "Rhombus Systems",
       "title": "Front End Engineer",
       "description": "Implemented new features and bug fixes for the Rhombus console. Part of this work has involved codebase-wide refactoring of Javascript -> Typescript, Mobx -> React Hooks, React Contexts -> Jotai. Architected a complete overhaul of the marketing website and helped improve SEO practices.",
-      "tags": ["HOdUWupnldxWz7f2EUON", "ieVsVxsbma1niXPlfeji"],
+      "tagIds": ["HOdUWupnldxWz7f2EUON", "ieVsVxsbma1niXPlfeji"],
       "id": "6LkP5H2ZNd4KYxg5rdKF"
     },
     {
@@ -25,7 +25,7 @@
       "title": "Contract Engineer",
       "description": "Worked on porting games to various video game consoles and mobile platforms.",
       "source_name": "ClutchPlay Games",
-      "tags": ["08O5IQkcOEw2HTEolveP"],
+      "tagIds": ["08O5IQkcOEw2HTEolveP"],
       "images": [],
       "source_url": "http://clutchplaygames.com/cp/",
       "id": "stGXpQaJXlgtHnknzESp"
@@ -36,7 +36,7 @@
       "source_name": "Dandelion Chocolate",
       "source_url": "",
       "description": "Sole developer and consultant for Dandelion’s custom production tracking software. Worked closely with their CEO and production managers to improve their production tracking methods.",
-      "tags": [
+      "tagIds": [
         "HOdUWupnldxWz7f2EUON",
         "qLJbpE6g62GnlbIRTIFI",
         "ieVsVxsbma1niXPlfeji",
@@ -49,7 +49,7 @@
       "description": "Worked with a co-founder to create an interactive coding tutorial platform. Put an emphasis on creating a cost structure that was scalable and could operate the entire site on less than $5/mo. Learned everything from product development and design to business planning and management.",
       "images": [],
       "title": "Founder",
-      "tags": [
+      "tagIds": [
         "HOdUWupnldxWz7f2EUON",
         "ieVsVxsbma1niXPlfeji",
         "qLJbpE6g62GnlbIRTIFI"
@@ -63,7 +63,7 @@
       "source_name": "Polymer",
       "date_info": "Jun - Sep 2018",
       "title": "Software Engineering Co-op",
-      "tags": [
+      "tagIds": [
         "HOdUWupnldxWz7f2EUON",
         "qLJbpE6g62GnlbIRTIFI",
         "ieVsVxsbma1niXPlfeji"
@@ -77,7 +77,7 @@
       "images": [],
       "title": "Instructor",
       "description": "Taught students ages 14-18 how to program IOS apps in Swift. Also worked as a counselor for the two-week long boarding camps.",
-      "tags": ["08O5IQkcOEw2HTEolveP"],
+      "tagIds": ["08O5IQkcOEw2HTEolveP"],
       "source_url": "",
       "date_info": "Jun - Aug 2017",
       "source_name": "iD Coding & Engineering Academy",
@@ -85,7 +85,7 @@
     },
     {
       "images": [],
-      "tags": ["HOdUWupnldxWz7f2EUON", "qLJbpE6g62GnlbIRTIFI"],
+      "tagIds": ["HOdUWupnldxWz7f2EUON", "qLJbpE6g62GnlbIRTIFI"],
       "description": "Worked in a large Agile team that developed and created tests using Java, Maven, Spring, Jenkins, and Oracle SQL. The database we maintained was largely utilized by lawyers and law enforcement.",
       "title": "Software Test Engineering Co-op",
       "source_name": "Thomson Reuters",
@@ -100,7 +100,7 @@
       "title": "Software Development Co-op",
       "images": [],
       "date_info": "May - Aug 2016",
-      "tags": ["ieVsVxsbma1niXPlfeji", "qLJbpE6g62GnlbIRTIFI"],
+      "tagIds": ["ieVsVxsbma1niXPlfeji", "qLJbpE6g62GnlbIRTIFI"],
       "id": "pqRkvQU401UlljNldTGB"
     }
   ]

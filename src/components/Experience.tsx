@@ -1,30 +1,35 @@
 import Tags from "./containers/Tags";
 import "./Experience.scss";
 
-export default function Experience(props) {
-  const { experience } = props;
+export default function Experience({
+  experienceId,
+}: {
+  experienceId: ExperienceId;
+}) {
+  const experience: ExperienceType = {} as ExperienceType; // TODO: Get experience from experience Id
+  const tags: TagType[] = []; // TODO: Get tags
   const hasImages = experience.images && !!experience.images.length;
   return (
     <div className="experience">
       <h2>{experience.title}</h2>
       <p className="info">
-        {experience.source_name && experience.source_url ? (
-          <a href={experience.source_url} target="_blank">
-            {experience.source_name}
+        {experience.sourceName && experience.sourceUrl ? (
+          <a href={experience.sourceUrl} target="_blank">
+            {experience.sourceName}
           </a>
         ) : (
-          <span>{experience.source_name}</span>
+          <span>{experience.sourceName}</span>
         )}
-        {experience.source_name && experience.date_info && (
+        {experience.sourceName && experience.dateInfo && (
           <span>&nbsp;•&nbsp;</span>
         )}
-        {experience.date_info}
+        {experience.dateInfo}
       </p>
       <p className="description">{experience.description}</p>
       <Tags
         listKey="experience-item"
         shortenLabel={true}
-        tags={experience.tags}
+        tags={tags}
         globallyLinked={true}
       />
       {hasImages && (
