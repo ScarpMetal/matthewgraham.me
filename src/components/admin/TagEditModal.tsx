@@ -1,110 +1,125 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 
-import colorPickerSVG from '../../assets/color-picker.svg'
-import { isEqual } from '../../global/utils'
-import { TextInput } from './EditableInputs'
-import './TagEditModal.scss'
-
+import colorPickerSVG from "../../assets/color-picker.svg";
+import { isEqual } from "../../global/utils";
+import { TextInput } from "./EditableInputs";
+import "./TagEditModal.scss";
 
 function TagEditModal(props) {
-	const { tag, onDismiss, onSave, onDelete } = props
-	const [name, setName] = useState(tag.name || '')
-	const [color, setColor] = useState(tag.color || '')
-	const [error, setError] = useState(null)
+  const { tag, onDismiss, onSave, onDelete } = props;
+  const [name, setName] = useState(tag.name || "");
+  const [color, setColor] = useState(tag.color || "");
 
-	const modalRef = useRef(null)
-	const textInputRef = useRef(null)
+  const modalRef = useRef(null);
+  const textInputRef = useRef(null);
 
-	const isInUse = useSelector(state => {
-		const items = [...state.projects.data, ...state.experiences.data]
-		return items.some(item => item.tags.some(itemTagId => itemTagId === tag.id))
-	})
+  const isInUse = useSelector((state) => {
+    const items = [...state.projects.data, ...state.experiences.data];
+    return items.some((item) =>
+      item.tags.some((itemTagId) => itemTagId === tag.id)
+    );
+  });
 
-	// Detect if there are changes from the original state
-	const hasChanges = tag.name !== name || tag.color !== color
+  // Detect if there are changes from the original state
+  const hasChanges = tag.name !== name || tag.color !== color;
 
-	// Handle when the user clicks away
-	useEffect(() => {
-		function handleClickOutsideModal(e) {
-			if (modalRef.current && !modalRef.current.contains(event.target)) {
-				onDismiss()
-			}
-		}
+  // Handle when the user clicks away
+  useEffect(() => {
+    function handleClickOutsideModal(e) {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        onDismiss();
+      }
+    }
 
-		document.addEventListener('mousedown', handleClickOutsideModal)
-		return () => {
-			document.removeEventListener('mousedown', handleClickOutsideModal)
-		}
-	}, [modalRef])
+    document.addEventListener("mousedown", handleClickOutsideModal);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsideModal);
+    };
+  }, [modalRef]);
 
-	// Handle when the user presses enter
-	useEffect(() => {
-		function handleKeydown(e) {
-			if (hasChanges && e.keyCode === 13) {
-				onSave({ name, color })
-			} else if (e.keyCode === 13) {
-				onDismiss()
-			}
-		}
+  // Handle when the user presses enter
+  useEffect(() => {
+    function handleKeydown(e) {
+      if (hasChanges && e.keyCode === 13) {
+        onSave({ name, color });
+      } else if (e.keyCode === 13) {
+        onDismiss();
+      }
+    }
 
-		document.addEventListener('keydown', handleKeydown)
-		return () => {
-			document.removeEventListener('keydown', handleKeydown)
-		}
-	}, [name, color])
+    document.addEventListener("keydown", handleKeydown);
+    return () => {
+      document.removeEventListener("keydown", handleKeydown);
+    };
+  }, [name, color]);
 
-	// Select the text input when modal opens
-	useEffect(() => {
-		if (textInputRef.current) {
-			textInputRef.current.select()
-		}
-	}, [textInputRef])
+  // Select the text input when modal opens
+  useEffect(() => {
+    if (textInputRef.current) {
+      textInputRef.current.select();
+    }
+  }, [textInputRef]);
 
-	// Adds class to highlight save button if there are any changes
-	const saveButtonClasses = []
-	if (hasChanges) {
-		saveButtonClasses.push('can-save')
-	}
+  // Adds class to highlight save button if there are any changes
+  const saveButtonClasses = [];
+  if (hasChanges) {
+    saveButtonClasses.push("can-save");
+  }
 
-	// Adds class to highlight color picker if the color was changed
-	const colorPickerClasses = []
-	if (!isEqual(tag.color, color)) {
-		colorPickerClasses.push('has-changed')
-	}
+  // Adds class to highlight color picker if the color was changed
+  const colorPickerClasses = [];
+  if (!isEqual(tag.color, color)) {
+    colorPickerClasses.push("has-changed");
+  }
 
-	return (
-		<div className='editable-tag-modal' ref={modalRef}>
-			<button className='delete'
-				disabled={isInUse}
-				onClick={onDelete}
-				title={isInUse ? 'This tag is currently in use' : ''}
-			>Delete</button>
-			<TextInput name='Name'
-				elRef={textInputRef}
-				value={name}
-				originalValue={tag.name}
-				onChange={e => { setName(e.target.value || '') }}
-				fontSize={14}
-			/>
-			<div className='actions'>
-				<label id={`tag-color-${tag.id}`} className={`color-picker ${colorPickerClasses.join(' ')}`}>
-					<input id={`tag-color-${tag.id}`} type='color'
-						value={color}
-						onChange={e => { setColor(e.target.value || '') }}
-					/>
-					<div style={{ backgroundColor: color }}>
-						<img src={colorPickerSVG} />
-					</div>
-				</label>
-				<button className={`save-button ${saveButtonClasses.join(' ')}`}
-					disabled={!hasChanges}
-					onClick={() => onSave({ name, color })}
-				>Save</button>
-			</div>
-			{/* {error && <p className='error'>{error}</p>} */}
-		</div>
-	)
+  return (
+    <div className="editable-tag-modal" ref={modalRef}>
+      <button
+        className="delete"
+        disabled={isInUse}
+        onClick={onDelete}
+        title={isInUse ? "This tag is currently in use" : ""}
+      >
+        Delete
+      </button>
+      <TextInput
+        name="Name"
+        elRef={textInputRef}
+        value={name}
+        originalValue={tag.name}
+        onChange={(e) => {
+          setName(e.target.value || "");
+        }}
+        fontSize={14}
+      />
+      <div className="actions">
+        <label
+          id={`tag-color-${tag.id}`}
+          className={`color-picker ${colorPickerClasses.join(" ")}`}
+        >
+          <input
+            id={`tag-color-${tag.id}`}
+            type="color"
+            value={color}
+            onChange={(e) => {
+              setColor(e.target.value || "");
+            }}
+          />
+          <div style={{ backgroundColor: color }}>
+            <img src={colorPickerSVG} />
+          </div>
+        </label>
+        <button
+          className={`save-button ${saveButtonClasses.join(" ")}`}
+          disabled={!hasChanges}
+          onClick={() => onSave({ name, color })}
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  );
 }
 
-export default TagEditModal
+export default TagEditModal;
