@@ -1,109 +1,65 @@
 {
-	"name": "matthewgraham-me",
-	"version": "1.0.0",
-	"description": "",
-	"engines": {
-		"node": ">=18",
-		"npm": ">=9"
-	},
-	"scripts": {
-		"preinstall": "node tools/nodeVersionCheck.js",
-		"start": "concurrently -k -r -s first \"npm run open:src\" \"npm run lint:watch\"",
-		"open:src": "ts-node tools/srcServer.js",
-		"open:dist": "ts-node tools/distServer.js",
-		"lint": "esw webpack.config.* src tools --color",
-		"lint:watch": "npm run lint -- --watch",
-		"clean-dist": "npm run remove-dist && mkdir dist",
-		"remove-dist": "rimraf ./dist",
-		"prebuild": "npm run clean-dist",
-		"build": "ts-node tools/build.js",
-		"test": "jest",
-		"test:CI": "jest",
-		"test:cover": "npm run test -- --coverage ",
-		"test:cover:CI": "npm run test:CI -- --coverage && cat ./coverage/lcov.info | node_modules/coveralls/bin/coveralls.js",
-		"test:watch": "jest --watchAll",
-		"open:cover": "npm run test:cover && open-cli ./coverage/lcov-report/index.html",
-		"analyze-bundle": "ts-node ./tools/analyzeBundle.js"
-	},
-	"author": "Matthew Graham",
-	"license": "MIT",
-	"dependencies": {
-		"@hot-loader/react-dom": "^16.10.2",
-		"connected-react-router": "^6.5.2",
-		"firebase": "9.17.1",
-		"immer": "^9.0.6",
-		"object-assign": "^4.1.1",
-		"react": "^16.11.0",
-		"react-beautiful-dnd": "^13.0.0",
-		"react-dom": "^16.11.0",
-		"react-dropzone": "^10.2.2",
-		"react-helmet": "^6.0.0",
-		"react-modal": "^3.11.2",
-		"react-redux": "^7.1.1",
-		"react-router-dom": "^5.1.2",
-		"redux": "^4.0.4",
-		"redux-thunk": "^2.4.2"
-	},
-	"devDependencies": {
-		"acorn": "^7.1.1",
-		"ajv": "^6.12.3",
-		"autoprefixer": "^9.7.0",
-		"browser-sync": "^2.26.7",
-		"chalk": "^2.4.2",
-		"concurrently": "^5.0.0",
-		"connect-history-api-fallback": "^1.6.0",
-		"coveralls": "^3.0.7",
-		"css-loader": "^3.2.0",
-		"cssnano": "5.1.15",
-		"enzyme": "^3.10.0",
-		"enzyme-adapter-react-16": "^1.15.1",
-		"eslint": "^6.6.0",
-		"eslint-plugin-import": "^2.18.2",
-		"eslint-plugin-react": "^7.16.0",
-		"eslint-watch": "^6.0.1",
-		"file-loader": "^4.2.0",
-		"hard-source-webpack-plugin": "^0.13.1",
-		"history": "^4.10.1",
-		"html-webpack-plugin": "5.5.0",
-		"identity-obj-proxy": "^3.0.0",
-		"jest": "29.4.3",
-		"jest-cli": "29.4.3",
-		"json-loader": "^0.5.7",
-		"mini-css-extract-plugin": "^0.8.0",
-		"mockdate": "^2.0.5",
-		"open-cli": "7.1.0",
-		"postcss-loader": "^3.0.0",
-		"prompt": "^1.0.0",
-		"prop-types": "^15.7.2",
-		"raf": "^3.4.1",
-		"react-hot-loader": "^4.12.15",
-		"react-test-renderer": "^16.11.0",
-		"redux-immutable-state-invariant": "^2.1.0",
-		"redux-mock-store": "^1.5.3",
-		"replace": "^1.1.1",
-		"rimraf": "^3.0.0",
-		"sass": "^1.50.1",
-		"sass-loader": "^8.0.0",
-		"style-loader": "^1.0.0",
-		"url-loader": "^2.2.0",
-		"webpack": "^4.41.2",
-		"webpack-bundle-analyzer": "^4.8.0",
-		"webpack-dev-middleware": "^3.7.2",
-		"webpack-hot-middleware": "^2.25.0"
-	},
-	"keywords": [],
-	"repository": {
-		"type": "git",
-		"url": ""
-	},
-	"jest": {
-		"moduleNameMapper": {
-			"\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/tools/assetsTransformer.js",
-			"\\.(css)$": "<rootDir>/tools/assetsTransformer.js"
-		},
-		"setupFiles": [
-			"raf/polyfill",
-			"./tools/enzymeTestAdapterSetup.js"
-		]
-	}
+  "name": "matthewgraham-me",
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ScarpMetal/matthewgraham.me"
+  },
+  "engines": {
+    "node": ">=18",
+    "npm": ">=9"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "author": "Matthew Graham",
+  "license": "MIT",
+  "dependencies": {
+    "connected-react-router": "^6.5.2",
+    "firebase": "9.17.1",
+    "immer": "^9.0.6",
+    "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.0.0",
+    "react-dom": "^18.2.0",
+    "react-dropzone": "^10.2.2",
+    "react-helmet": "^6.0.0",
+    "react-modal": "^3.11.2",
+    "react-redux": "^7.1.1",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "5.0.1",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^16.18.12",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "history": "^4.10.1",
+    "prop-types": "^15.7.2",
+    "react-hot-loader": "^4.12.15",
+    "redux-immutable-state-invariant": "^2.1.0",
+    "sass": "^1.50.1",
+    "typescript": "^4.9.5"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
