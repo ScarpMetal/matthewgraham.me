@@ -1,7 +1,6 @@
 import codepenSVG from '~/assets/codepen.svg';
 import githubSVG from '~/assets/github.svg';
 import linkedinSVG from '~/assets/linkedin.svg';
-import twitterSVG from '~/assets/twitter.svg';
 import './SocialSidebar.scss';
 
 export default function SocialSidebar() {
@@ -21,11 +20,6 @@ export default function SocialSidebar() {
         <li>
           <a href="https://github.com/ScarpMetal" target="_blank" rel="noreferrer">
             <img src={githubSVG} alt="GitHub" />
-          </a>
-        </li>
-        <li>
-          <a href="https://twitter.com/ScarpMetal" target="_blank" rel="noreferrer">
-            <img src={twitterSVG} alt="Twitter" />
           </a>
         </li>
       </ul>
