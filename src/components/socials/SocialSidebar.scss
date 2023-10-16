@@ -1,5 +1,5 @@
 .social-sidebar {
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   position: -webkit-sticky;
@@ -30,10 +30,8 @@
       }
     }
   }
-}
 
-@media (min-width: $desktop-width) {
-  .social-sidebar {
+  @media (min-width: $desktop-width) {
     display: flex;
   }
 }
