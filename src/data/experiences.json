@@ -1,0 +1,94 @@
+{
+  "data": [
+    {
+      "tagIds": ["ID-TAG-2", "ID-TAG-4"],
+      "source_url": "https://aws.amazon.com/",
+      "source_name": "Amazon Web Services",
+      "date_info": "Sep 2022 - Present",
+      "title": "Front End Engineer",
+      "images": [],
+      "description": "Worked with an agile team to build and deliver beautiful machine learning demo experiences to help drive engagement to the AWS platform. This also included mobile and accessibility initiatives.",
+      "id": "lwaQbwPTOIisvZv6Ze0E"
+    },
+    {
+      "source_url": "https://rhombus.com/",
+      "date_info": "Oct 2020 - May 2022",
+      "images": [],
+      "source_name": "Rhombus Systems",
+      "title": "Front End Engineer",
+      "description": "Implemented new features and bug fixes for the Rhombus console. Part of this work has involved codebase-wide refactoring of Javascript -> Typescript, Mobx -> React Hooks, React Contexts -> Jotai. Architected a complete overhaul of the marketing website and helped improve SEO practices.",
+      "tagIds": ["ID-TAG-4", "ID-TAG-2"],
+      "id": "6LkP5H2ZNd4KYxg5rdKF"
+    },
+    {
+      "date_info": "Jun - Aug 2020",
+      "title": "Contract Engineer",
+      "description": "Worked on porting games to various video game consoles and mobile platforms.",
+      "source_name": "ClutchPlay Games",
+      "tagIds": ["ID-TAG-3"],
+      "images": [],
+      "source_url": "http://clutchplaygames.com/cp/",
+      "id": "stGXpQaJXlgtHnknzESp"
+    },
+    {
+      "date_info": "Oct 2018 - Present",
+      "images": [],
+      "source_name": "Dandelion Chocolate",
+      "source_url": "",
+      "description": "Sole developer and consultant for Dandelion’s custom production tracking software. Worked closely with their CEO and production managers to improve their production tracking methods.",
+      "tagIds": ["ID-TAG-4", "ID-TAG-1", "ID-TAG-2", "ID-TAG-3"],
+      "title": "Software Engineer & Consultant",
+      "id": "R4oyRcYaYjgoUqSD6hSr"
+    },
+    {
+      "description": "Worked with a co-founder to create an interactive coding tutorial platform. Put an emphasis on creating a cost structure that was scalable and could operate the entire site on less than $5/mo. Learned everything from product development and design to business planning and management.",
+      "images": [],
+      "title": "Founder",
+      "tagIds": ["ID-TAG-4", "ID-TAG-2", "ID-TAG-1"],
+      "date_info": "Apr 2019 - Jan 2020",
+      "source_name": "Whiteboard",
+      "source_url": "",
+      "id": "fbapfmHhrmJaJtI5ga8C"
+    },
+    {
+      "source_name": "Polymer",
+      "date_info": "Jun - Sep 2018",
+      "title": "Software Engineering Co-op",
+      "tagIds": ["ID-TAG-4", "ID-TAG-1", "ID-TAG-2"],
+      "description": "Worked as a full-stack developer in a fast-paced startup environment. Worked across the entire stack (React + Redux, React Native and Django) while collaborating with other full-stack engineers. I was also able to do some D3.js data visualizations.",
+      "source_url": "",
+      "images": [],
+      "id": "DvMhMZNWDtF4OGKUzi3q"
+    },
+    {
+      "images": [],
+      "title": "Instructor",
+      "description": "Taught students ages 14-18 how to program IOS apps in Swift. Also worked as a counselor for the two-week long boarding camps.",
+      "tagIds": ["ID-TAG-3"],
+      "source_url": "",
+      "date_info": "Jun - Aug 2017",
+      "source_name": "iD Coding & Engineering Academy",
+      "id": "Z1GqqvlFiC68HrqYOzZY"
+    },
+    {
+      "images": [],
+      "tagIds": ["ID-TAG-4", "ID-TAG-1"],
+      "description": "Worked in a large Agile team that developed and created tests using Java, Maven, Spring, Jenkins, and Oracle SQL. The database we maintained was largely utilized by lawyers and law enforcement.",
+      "title": "Software Test Engineering Co-op",
+      "source_name": "Thomson Reuters",
+      "source_url": "",
+      "date_info": "Aug - Dec 2016",
+      "id": "mRx72vZbSpD5sOPDlUrI"
+    },
+    {
+      "source_url": "",
+      "source_name": "YPC Media",
+      "description": "Worked on a small team that developed new features for YPC’s CRM. Met with the sales and management teams to brainstorm new features and develop feature requirements. Worked heavily with C# and .NET Core.",
+      "title": "Software Development Co-op",
+      "images": [],
+      "date_info": "May - Aug 2016",
+      "tagIds": ["ID-TAG-2", "ID-TAG-1"],
+      "id": "pqRkvQU401UlljNldTGB"
+    }
+  ]
+}

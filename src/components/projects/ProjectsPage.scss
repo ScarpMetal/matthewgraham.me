@@ -1,0 +1,13 @@
+// @use "variables" as *;
+
+.projects-wrapper {
+  margin-top: 100px;
+  display: grid;
+  grid-gap: 100px;
+}
+
+@media (min-width: 1000px) {
+  .projects-wrapper {
+    grid-template-columns: 1fr 1fr;
+  }
+}
