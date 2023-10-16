@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-import Modal from "react-modal";
-import { NavLink } from "react-router-dom";
-
-import hamburgerSVG from "~/assets/hamburger.svg";
-import { SocialHorizontal } from "../socials";
+import { useEffect, useRef, useState } from 'react';
+import Modal from 'react-modal';
+import hamburgerSVG from '~/assets/hamburger.svg';
+import { NavButton } from '~/components/navbar';
+import { SocialHorizontal } from '~/components/socials';
 
 export default function NavbarItems() {
   const [hamburgerExpanded, setHamburgerExpanded] = useState(false);
@@ -12,62 +11,39 @@ export default function NavbarItems() {
   const navItemsRef = useRef<HTMLUListElement>(null);
 
   function handleClickOutside(event: MouseEvent) {
-    if (
-      navItemsRef.current &&
-      !navItemsRef.current.contains(event.target as Node)
-    ) {
+    if (navItemsRef.current && !navItemsRef.current.contains(event.target as Node)) {
       setHamburgerExpanded(false);
     }
   }
 
   useEffect(() => {
     if (!hamburgerExpanded) return;
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [navItemsRef, hamburgerExpanded]);
 
-  const activeStyle = { fontWeight: "bold" };
   return (
     <>
-      <button
-        type="button"
-        className="nav-hamburger"
-        onClick={() => setHamburgerExpanded(!hamburgerExpanded)}
-      >
-        <img src={hamburgerSVG} />
+      <button type="button" className="nav-hamburger" onClick={() => setHamburgerExpanded(!hamburgerExpanded)}>
+        <img src={hamburgerSVG} alt="Hamburger Menu" />
       </button>
-      <ul
-        className={`nav-items ${hamburgerExpanded ? "" : "hidden"}`}
-        ref={navItemsRef}
-      >
+      <ul className={`nav-items ${hamburgerExpanded ? '' : 'hidden'}`} ref={navItemsRef}>
         <li>
-          <NavLink
-            to="/projects"
-            activeStyle={activeStyle}
-            onClick={() => setHamburgerExpanded(false)}
-          >
+          <NavButton href="#projects" onClick={() => setHamburgerExpanded(false)}>
             Projects
-          </NavLink>
+          </NavButton>
         </li>
         <li>
-          <NavLink
-            to="/experience"
-            activeStyle={activeStyle}
-            onClick={() => setHamburgerExpanded(false)}
-          >
+          <NavButton href="#experiences" onClick={() => setHamburgerExpanded(false)}>
             Experience
-          </NavLink>
+          </NavButton>
         </li>
         <li>
-          <NavLink
-            to="/contact"
-            activeStyle={activeStyle}
-            onClick={() => setHamburgerExpanded(false)}
-          >
+          <NavButton href="#contact" onClick={() => setHamburgerExpanded(false)}>
             Contact
-          </NavLink>
+          </NavButton>
         </li>
         <li className="resume-li">
           <button
@@ -96,7 +72,7 @@ export default function NavbarItems() {
         shouldCloseOnOverlayClick={true}
         className="resume-modal"
         overlayClassName="resume-modal-overlay"
-        appElement={document.getElementById("app") ?? undefined}
+        appElement={document.getElementById('app') ?? undefined}
       >
         <div className="actions">
           <button
@@ -112,6 +88,7 @@ export default function NavbarItems() {
         <iframe
           onLoad={() => setIFrameLoading(false)}
           src="https://drive.google.com/file/d/1xYHivXvVKyfV2dhAlk8z9kVzLVBEHOgB/preview"
+          title="Resume"
         ></iframe>
       </Modal>
     </>

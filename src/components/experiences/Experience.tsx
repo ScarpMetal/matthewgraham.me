@@ -13,7 +13,7 @@ export default function Experience({
       <h2>{experience.title}</h2>
       <p className="info">
         {experience.sourceName && experience.sourceUrl ? (
-          <a href={experience.sourceUrl} target="_blank">
+          <a href={experience.sourceUrl} target="_blank" rel="noreferrer">
             {experience.sourceName}
           </a>
         ) : (

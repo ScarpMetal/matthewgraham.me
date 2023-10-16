@@ -8,7 +8,7 @@ function Project({ project }: { project: ProjectType }) {
       <h2>{project.title}</h2>
       <p className="info">
         {project.sourceName && project.sourceUrl ? (
-          <a href={project.sourceUrl} target="_blank">
+          <a href={project.sourceUrl} target="_blank" rel="noreferrer">
             {project.sourceName}
           </a>
         ) : (

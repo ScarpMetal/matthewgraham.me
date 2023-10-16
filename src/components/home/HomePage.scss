@@ -1,9 +1,7 @@
-// @use "variables" as *;
-
 .home-page {
-  h1 {
-    margin-top: 30vh;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   h2 {
     font-size: 1.83em;

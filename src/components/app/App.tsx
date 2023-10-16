@@ -1,43 +1,28 @@
-import { Provider } from "jotai";
-import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
+import { Provider } from 'jotai';
+import { Helmet } from 'react-helmet';
 
-import logoSVG from "~/assets/logo.svg";
-import { ContactPage } from "~/components/contact";
-import { ExperiencesPage } from "~/components/experiences";
-import { HomePage } from "~/components/home";
-import { NavbarItems } from "~/components/navbar";
-import { NotFoundPage } from "~/components/notfound";
-import { ProjectsPage } from "~/components/projects";
+import { ContactPage } from '~/components/contact';
+import { ExperiencesPage } from '~/components/experiences';
+import Footer from '~/components/footer';
+import { HomePage } from '~/components/home';
+import { Navbar } from '~/components/navbar';
+import { ProjectsPage } from '~/components/projects';
+import { SocialSidebar } from '~/components/socials';
 
 export default function App() {
   return (
     <Provider>
-      <BrowserRouter>
-        <nav className="main-nav">
-          <Link className="logo" to="/">
-            <img src={logoSVG} alt="logo" />
-          </Link>
-          <Switch>
-            <Route
-              path="/admin"
-              component={() => (
-                <span className="admin-console-label">Admin Console</span>
-              )}
-            />
-            <Route component={NavbarItems} />
-          </Switch>
-        </nav>
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/projects" component={ProjectsPage} />
-          <Route path="/experience" component={ExperiencesPage} />
-          <Route path="/contact" component={ContactPage} />
-          <Route component={NotFoundPage} />
-        </Switch>
-        <footer className="main-footer">
-          <p>Copyright © {new Date().getFullYear()} Matthew Graham</p>
-        </footer>
-      </BrowserRouter>
+      <Helmet>
+        <title>matthewgraham.me</title>
+        <meta name="description" content="View a few of Matthew Graham's best projects and work experiences." />
+      </Helmet>
+      <Navbar />
+      <HomePage />
+      <SocialSidebar />
+      <ProjectsPage />
+      <ExperiencesPage />
+      <ContactPage />
+      <Footer />
     </Provider>
   );
 }

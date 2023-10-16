@@ -1,9 +1,7 @@
-// @use "variables" as *;
-
 .tag-li {
   list-style-type: none;
 
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     display: none;
   }
 
@@ -13,7 +11,7 @@
 
   .tag-label {
     color: black;
-    font-family: "Inconsolata", monospace;
+    font-family: 'Inconsolata', monospace;
     font-size: 1.33em;
     display: block;
     user-select: none;

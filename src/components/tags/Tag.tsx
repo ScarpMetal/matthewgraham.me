@@ -1,12 +1,12 @@
-import { useAtomValue } from "jotai";
-import { useMemo } from "react";
-import starSVG from "~/assets/star.svg";
-import { selectedTagIdsAtom } from "~/atoms";
-import "./Tag.scss";
+import { useAtomValue } from 'jotai';
+import { useMemo } from 'react';
+import starSVG from '~/assets/star.svg';
+import { selectedTagIdsAtom } from '~/atoms';
+import './Tag.scss';
 
 export default function Tag({
   tag,
-  listKey = "tag-key",
+  listKey = 'tag-key',
   shortenLabel = false,
   stateless = false,
   onSelectTag,
@@ -18,10 +18,7 @@ export default function Tag({
   onSelectTag?: (tag: TagType) => void;
 }) {
   const selectedTagIds = useAtomValue(selectedTagIdsAtom);
-  const selected = useMemo(
-    () => selectedTagIds.includes(tag.id),
-    [selectedTagIds, tag]
-  );
+  const selected = useMemo(() => selectedTagIds.includes(tag.id), [selectedTagIds, tag]);
   let labelStyle = {};
   if (stateless || selected) {
     labelStyle = {
@@ -44,13 +41,13 @@ export default function Tag({
         />
       )}
       <label
-        className={`tag-label ${isSelectable ? "selectable" : ""}`}
+        className={`tag-label ${isSelectable ? 'selectable' : ''}`}
         htmlFor={isSelectable ? `${listKey}-tag-li-${tag.id}` : undefined}
-        title={tag.name === "Featured" && shortenLabel ? tag.name : ""}
+        title={tag.name === 'Featured' && shortenLabel ? tag.name : ''}
         style={labelStyle}
       >
-        {tag.name === "Featured" && <img src={starSVG} />}
-        {tag.name === "Featured" && shortenLabel ? "" : <span>{tag.name}</span>}
+        {tag.name === 'Featured' && <img src={starSVG} alt="star" />}
+        {tag.name === 'Featured' && shortenLabel ? '' : <span>{tag.name}</span>}
       </label>
     </li>
   );

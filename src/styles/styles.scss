@@ -1,4 +1,6 @@
-// @use "variables" as *;
+html {
+  scroll-behavior: smooth;
+}
 
 html,
 body {
@@ -7,9 +9,8 @@ body {
   width: 100%;
   height: 100%;
   background-color: $background-color;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 12px;
-  //letter-spacing: 0.04em;
   color: $primary-text-color;
 
   @media (min-width: $desktop-width) {
@@ -21,8 +22,10 @@ h1 {
   font-size: 2.66em;
   font-weight: bold;
   color: $primary-text-color;
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   margin: 0;
+  padding-top: $navbar-height;
+  margin-top: calc(-1 * $navbar-height);
 
   @media (min-width: $desktop-width) {
     font-size: 5em;
@@ -43,127 +46,18 @@ button {
   background-color: transparent;
   border: none;
   color: $primary-text-color;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 1em;
   cursor: pointer;
 }
 
 #root {
   position: relative;
-  overflow: auto;
   min-height: 100vh;
 }
 
-.main-nav {
-  //background-color: yellow;
-  display: flex;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  background-color: $background-color-opaque;
-  width: 100%;
-  height: $navbar-height;
-  z-index: 10;
-
-  .logo {
-    display: block;
-
-    img {
-      vertical-align: middle;
-    }
-  }
-
-  .admin-console-label {
-    margin: 0 24px 0 24px;
-    text-decoration: none;
-    color: $secondary-text-color;
-    font-size: 1.14em;
-  }
-
-  .nav-hamburger {
-    margin-left: auto;
-    margin-right: 30px;
-
-    img {
-      height: 19px;
-      vertical-align: middle;
-    }
-
-    @media (min-width: $desktop-width) {
-      display: none;
-    }
-  }
-
-  .nav-items {
-    font-size: 1.33em;
-    margin-top: -20px;
-    padding: 0;
-    position: absolute;
-    top: $navbar-height;
-    left: 0;
-    right: 0;
-    background-color: $background-color-opaque;
-
-    &.hidden {
-      display: none;
-    }
-
-    li {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      list-style-type: none;
-      height: 40px;
-
-      &.resume-li {
-        button {
-          color: $primary-color;
-        }
-      }
-
-      a {
-        text-decoration: none;
-        color: $primary-text-color;
-      }
-    }
-
-    @media (min-width: $desktop-width) {
-      position: initial;
-      margin: 0;
-      margin-left: auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.14em;
-
-      &.hidden {
-        display: flex;
-      }
-
-      li {
-        margin-left: 22px;
-        list-style-type: none;
-
-        &.social {
-          display: none;
-        }
-
-        &.resume-li {
-          margin: 0 48px;
-
-          button {
-            font-size: 1em;
-            color: $primary-color;
-          }
-        }
-
-        a {
-          text-decoration: none;
-          color: inherit;
-        }
-      }
-    }
-  }
+main {
+  // position: absolute;
 }
 
 .resume-modal-overlay {
@@ -171,7 +65,7 @@ button {
   align-items: center;
   justify-content: center;
   z-index: 100;
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
@@ -226,40 +120,13 @@ button {
   }
 }
 
-.timeline-scrollbar {
-  display: none;
-  position: fixed;
-  width: $sidebar-width;
-  top: $navbar-height;
-  bottom: 0;
-  right: 0;
-
-  @media (min-width: $desktop-width) {
-    display: block;
-  }
-}
-
 .content {
+  min-height: calc(100vh - 260px);
   margin: $navbar-height 0 180px 0;
   padding: 0 24px;
 
   @media (min-width: $desktop-width) {
     margin-left: $sidebar-width;
     margin-right: $sidebar-width;
-  }
-}
-
-.main-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  color: $secondary-text-color;
-  //background-color: green;
-  text-align: center;
-  line-height: 80px;
-
-  a {
-    color: $secondary-text-color;
   }
 }
