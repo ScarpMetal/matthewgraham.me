@@ -34,8 +34,12 @@
       margin-right: 10px;
 
       img {
-        height: 288px;
+        height: 100px;
         vertical-align: middle;
+
+        @media (min-width: 600px) {
+          height: 160px;
+        }
       }
 
       &:last-child {

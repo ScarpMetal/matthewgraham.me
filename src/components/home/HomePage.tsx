@@ -5,7 +5,7 @@ export default function HomePage() {
   return (
     <div className="content home-page">
       <h1>Matthew Graham</h1>
-      <h2>Front End/UX Engineer</h2>
+      <h2>Front End Engineer</h2>
       <SocialHorizontal />
     </div>
   );

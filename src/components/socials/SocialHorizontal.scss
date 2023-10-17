@@ -10,11 +10,13 @@
     img {
       height: 20px;
     }
-  }
-}
 
-@media (min-width: $desktop-width) {
-  .social-horizontal {
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  @media (min-width: $desktop-width) {
     margin-top: 15px;
 
     li {

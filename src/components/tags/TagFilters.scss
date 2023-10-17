@@ -1,3 +1,14 @@
 .tag-filters-container {
-  display: flex;
+  align-self: stretch;
+
+  & > .tags-ul {
+    display: flex;
+    justify-content: center;
+    background-color: $background-color-opaque;
+    margin: 0;
+
+    @media (min-width: $desktop-width) {
+      justify-content: initial;
+    }
+  }
 }

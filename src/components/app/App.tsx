@@ -8,8 +8,11 @@ import { HomePage } from '~/components/home';
 import { Navbar } from '~/components/navbar';
 import { ProjectsPage } from '~/components/projects';
 import { SocialSidebar } from '~/components/socials';
+import { useParallax } from '~/utils/parallax';
 
 export default function App() {
+  useParallax('.parallax', { scale: 0.75 });
+
   return (
     <Provider>
       <Helmet>
@@ -19,8 +22,8 @@ export default function App() {
       <Navbar />
       <HomePage />
       <SocialSidebar />
-      <ProjectsPage />
       <ExperiencesPage />
+      <ProjectsPage />
       <ContactPage />
       <Footer />
     </Provider>
