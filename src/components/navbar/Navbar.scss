@@ -3,7 +3,7 @@
   align-items: center;
   position: fixed;
   top: 0;
-  background: $background-color-opaque url('/bgpattern.svg');
+  background: $background-color-opaque url('/patternbg.svg');
   width: 100%;
   height: $navbar-height;
   z-index: 10;
@@ -45,7 +45,7 @@
   z-index: 10001;
   position: fixed;
   top: $navbar-height;
-  background: $background-color-opaque url('/bgpattern.svg');
+  background: $background-color-opaque url('/patternbg.svg');
   left: 0;
   right: 0;
 

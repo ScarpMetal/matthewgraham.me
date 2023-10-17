@@ -4,7 +4,7 @@ import './Navbar.scss';
 
 export default function Navbar() {
   return (
-    <nav className="main-nav parallax">
+    <nav className="main-nav parallax-bg">
       <NavButton className="logo" href="#">
         <img src={logoSVG} alt="logo" />
       </NavButton>

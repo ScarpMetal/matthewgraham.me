@@ -41,12 +41,18 @@ export default function Tag({
         />
       )}
       <label
-        className={`tag-label ${isSelectable ? 'selectable' : ''}`}
+        className={`tag-label parallax-tag ${isSelectable ? 'selectable' : ''}`}
         htmlFor={isSelectable ? `${listKey}-tag-li-${tag.id}` : undefined}
         title={tag.name === 'Featured' && shortenLabel ? tag.name : ''}
         style={labelStyle}
       >
-        {tag.name === 'Featured' && <img src={starSVG} alt="star" />}
+        {tag.name === 'Featured' && (
+          <>
+            {shortenLabel && <>&nbsp;</>}
+            <img src={starSVG} alt="star" />
+            {shortenLabel && <>&nbsp;</>}
+          </>
+        )}
         {tag.name === 'Featured' && shortenLabel ? '' : <span>{tag.name}</span>}
       </label>
     </li>

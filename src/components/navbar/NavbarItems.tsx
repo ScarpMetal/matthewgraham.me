@@ -39,7 +39,7 @@ export default function NavbarItems() {
     if (!container) return null;
 
     return createPortal(
-      <ul className={`nav-items parallax ${hamburgerExpanded ? '' : 'hidden'}`} ref={navItemsRef}>
+      <ul className={`nav-items parallax-bg ${hamburgerExpanded ? '' : 'hidden'}`} ref={navItemsRef}>
         <li>
           <NavButton href="#work" onClick={handleClose}>
             Work

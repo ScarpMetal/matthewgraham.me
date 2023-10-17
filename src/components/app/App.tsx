@@ -11,7 +11,8 @@ import { SocialSidebar } from '~/components/socials';
 import { useParallax } from '~/utils/parallax';
 
 export default function App() {
-  useParallax('.parallax', { scale: 0.75 });
+  useParallax('.parallax-bg', { scale: 0.75 });
+  useParallax('.parallax-tag', { scale: 0.1 });
 
   return (
     <Provider>

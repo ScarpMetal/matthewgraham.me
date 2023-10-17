@@ -5,18 +5,16 @@
     display: none;
   }
 
-  // input[type=checkbox]:checked + .tag {
-  // 	background-color: #FF6767;
-  // }
-
   .tag-label {
     color: black;
     font-family: 'Inconsolata', monospace;
     font-size: 1.33em;
-    display: block;
+    display: flex;
     user-select: none;
     margin: 0 8px 8px 0;
-    padding: 0 1px;
+    padding: 0 3px;
+    border-radius: 2px;
+    background-image: url('/patterntag.svg');
     background-color: $secondary-text-color;
 
     img + span {
@@ -28,7 +26,7 @@
     }
 
     @media (min-width: $desktop-width) {
-      font-size: 1.14em;
+      font-size: 1.34em;
     }
   }
 }
