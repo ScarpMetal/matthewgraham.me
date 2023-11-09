@@ -2,11 +2,18 @@
   display: flex;
   align-items: center;
   position: fixed;
+  z-index: 90;
+  background: $background-color-opaque;
   top: 0;
-  background: $background-color-opaque url('/patternbg.svg');
   width: 100%;
   height: $navbar-height;
-  z-index: 10;
+  padding: 0 22px;
+  pointer-events: none;
+  box-sizing: border-box;
+
+  > * {
+    pointer-events: all;
+  }
 
   .logo {
     display: block;
@@ -24,95 +31,47 @@
   }
 
   .nav-hamburger {
+    display: none;
     margin-left: auto;
-    margin-right: 30px;
+
+    @media (max-width: $desktop-width) {
+      display: block;
+    }
 
     img {
       height: 19px;
       vertical-align: middle;
     }
-
-    @media (min-width: $desktop-width) {
-      display: none;
-    }
   }
 }
 
-.nav-items {
-  font-size: 1.33em;
-  margin-top: -20px;
-  padding: 0;
-  z-index: 10001;
-  position: fixed;
-  top: $navbar-height;
-  background: $background-color-opaque url('/patternbg.svg');
-  left: 0;
-  right: 0;
+div.nav-items {
+  display: flex;
+  gap: 22px;
+  font-size: 16px;
+  margin-left: auto;
+  background-color: $background-color-opaque;
 
-  &.hidden {
-    display: none;
-  }
+  .nav-item {
+    display: block;
+    color: $primary-text-color;
+    text-decoration: none;
 
-  &[data-active='true'] {
-    font-weight: bold;
-  }
-
-  li {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    list-style-type: none;
-    height: 40px;
-
-    &.resume-li {
-      button {
-        color: $primary-color;
-      }
-    }
-
-    a {
-      text-decoration: none;
-      color: $primary-text-color;
+    &.resume {
+      color: $primary-color;
     }
   }
 
-  @media (min-width: $desktop-width) {
+  @media (max-width: $desktop-width) {
     position: fixed;
-    height: $navbar-height;
-    top: 0;
-    margin: 0;
-    margin-left: auto;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    font-size: 1.14em;
-    background: transparent;
+    z-index: 1000;
+    top: $navbar-height;
+    right: 22px;
+    text-align: right;
+    flex-direction: column;
 
-    &.hidden {
-      display: flex;
-    }
-
-    li {
-      margin-left: 22px;
-      list-style-type: none;
-
-      &.social {
-        display: none;
-      }
-
-      &.resume-li {
-        margin: 0 48px;
-
-        button {
-          font-size: 1em;
-          color: $primary-color;
-        }
-      }
-
-      a {
-        text-decoration: none;
-        color: inherit;
-      }
+    &[data-hamburger-expanded='false'] {
+      display: none;
     }
   }
 }

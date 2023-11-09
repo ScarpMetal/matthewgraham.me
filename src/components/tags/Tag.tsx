@@ -6,12 +6,14 @@ import './Tag.scss';
 
 export default function Tag({
   tag,
+  className,
   listKey = 'tag-key',
   shortenLabel = false,
   stateless = false,
   onSelectTag,
 }: {
   tag: TagType;
+  className?: string;
   listKey?: string;
   shortenLabel?: boolean;
   stateless?: boolean;
@@ -29,7 +31,7 @@ export default function Tag({
   }
   const isSelectable = !!onSelectTag;
   return (
-    <li className="tag-li">
+    <div className="tag-li">
       {isSelectable && (
         <input
           type="checkbox"
@@ -41,7 +43,7 @@ export default function Tag({
         />
       )}
       <label
-        className={`tag-label parallax-tag ${isSelectable ? 'selectable' : ''}`}
+        className={`tag-label parallax-tag ${isSelectable ? 'selectable' : ''} ${className ?? ''}`}
         htmlFor={isSelectable ? `${listKey}-tag-li-${tag.id}` : undefined}
         title={tag.name === 'Featured' && shortenLabel ? tag.name : ''}
         style={labelStyle}
@@ -55,6 +57,6 @@ export default function Tag({
         )}
         {tag.name === 'Featured' && shortenLabel ? '' : <span>{tag.name}</span>}
       </label>
-    </li>
+    </div>
   );
 }

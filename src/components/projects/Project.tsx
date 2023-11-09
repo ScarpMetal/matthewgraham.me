@@ -1,10 +1,10 @@
-import { Tags } from "../tags";
-import "./Project.scss";
+import { Tags } from '../tags';
+import './Project.scss';
 
 function Project({ project }: { project: ProjectType }) {
   const hasImages = project.images && !!project.images.length;
   return (
-    <div className={`project ${hasImages ? "large" : ""}`}>
+    <div className={`project ${hasImages ? 'large' : ''}`}>
       <h2>{project.title}</h2>
       <p className="info">
         {project.sourceName && project.sourceUrl ? (
@@ -18,11 +18,7 @@ function Project({ project }: { project: ProjectType }) {
         {project.dateInfo}
       </p>
       <p className="description">{project.description}</p>
-      <Tags
-        listKey="project-item"
-        shortenLabel={true}
-        tagIds={project.tagIds}
-      />
+      <Tags className="inline" listKey="project-item" shortenLabel={true} tagIds={project.tagIds} />
       {hasImages && (
         <div className="images">
           {project.images.map((image) => (

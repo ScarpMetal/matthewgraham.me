@@ -1,10 +1,10 @@
-$primary-color: #5DD9C1;
-$primary-text-color: #FFFFFF;
-$secondary-text-color: #B7B7B7;
+$primary-color: #5dd9c1;
+$primary-text-color: #ffffff;
+$secondary-text-color: #b7b7b7;
 $background-color: rgb(13, 25, 45);
-$background-color-opaque: rgba(13, 25, 45, .95);
+$background-color-opaque: rgba(13, 25, 45, 0.65);
 $background-color-off: #222739;
-$danger-color: #BA385E;
+$danger-color: #ba385e;
 
 $navbar-height: 80px;
 $sidebar-width: 80px;
@@ -12,10 +12,12 @@ $sidebar-width: 80px;
 $desktop-width: 600px;
 
 @keyframes example {
-	from {color: $primary-text-color;}
-	to {color: $secondary-text-color;}
+  from {
+    color: $primary-text-color;
+  }
+  to {
+    color: $secondary-text-color;
+  }
 }
 
-$anim-gray-wave: example .5s linear alternate infinite;
-
-
+$anim-gray-wave: example 0.5s linear alternate infinite;

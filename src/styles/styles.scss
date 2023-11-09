@@ -56,6 +56,7 @@ button {
 #root {
   position: relative;
   min-height: 100vh;
+  padding-bottom: 8em;
 }
 
 .resume-modal-overlay {
@@ -142,7 +143,6 @@ button {
 }
 
 .content {
-  min-height: calc(100vh - 180px);
   margin: $navbar-height 0 180px 0;
   padding: 0 24px;
 

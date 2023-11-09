@@ -1,6 +1,9 @@
 .tags-ul {
-  margin: 12px 0 0 0;
-  padding: 0;
-  display: flex;
+  display: inline-flex;
+  gap: 8px;
   flex-wrap: wrap;
+
+  &.inline {
+    margin-top: 12px;
+  }
 }

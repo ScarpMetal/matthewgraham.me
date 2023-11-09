@@ -1,18 +1,15 @@
-import { useAtom, useAtomValue } from "jotai";
-import { useCallback, useMemo } from "react";
-import { selectedTagIdsAtom, tagsAtom } from "~/atoms";
-import Tag from "./Tag";
-import "./TagFilters.scss";
-import Tags from "./Tags";
+import { useAtom, useAtomValue } from 'jotai';
+import { useCallback, useMemo } from 'react';
+import { selectedTagIdsAtom, tagsAtom } from '~/atoms';
+import Tag from './Tag';
+import './TagFilters.scss';
+import Tags from './Tags';
 
 export default function TagFilters() {
   const tags = useAtomValue(tagsAtom);
   const tagIds = useMemo(() => tags.map((tag) => tag.id), [tags]);
   const [selectedTagIds, setSelectedTagIds] = useAtom(selectedTagIdsAtom);
-  const allSelected = useMemo(
-    () => !tags.some((tag) => !selectedTagIds.includes(tag.id)),
-    [tags, selectedTagIds]
-  );
+  const allSelected = useMemo(() => !tags.some((tag) => !selectedTagIds.includes(tag.id)), [tags, selectedTagIds]);
 
   const handleTagSelect = useCallback(
     (tag: TagType) => {
@@ -20,9 +17,7 @@ export default function TagFilters() {
       if (allSelected) {
         nextSelectedTagIds = [];
       }
-      const selectedTagIndex = nextSelectedTagIds.findIndex(
-        (selectedTagId) => selectedTagId === tag.id
-      );
+      const selectedTagIndex = nextSelectedTagIds.findIndex((selectedTagId) => selectedTagId === tag.id);
       if (selectedTagIndex === -1) {
         nextSelectedTagIds.push(tag.id);
       } else {
@@ -30,7 +25,7 @@ export default function TagFilters() {
       }
       setSelectedTagIds(nextSelectedTagIds);
     },
-    [allSelected, selectedTagIds, setSelectedTagIds]
+    [allSelected, selectedTagIds, setSelectedTagIds],
   );
 
   const filterUnselectAllTags = useCallback(() => {
@@ -42,31 +37,31 @@ export default function TagFilters() {
   }, [setSelectedTagIds, tagIds]);
 
   return (
-    <div className="tag-filters-container" data-all-selected={allSelected}>
-      <Tags
-        append={
-          <Tag
-            listKey="tag-filter"
-            tag={{
-              id: "show-all-button",
-              name: allSelected ? "Hide All" : "Select All",
-              color: "transparent",
-              textColor: "#B7B7B7",
-            }}
-            stateless
-            onSelectTag={() => {
-              if (allSelected) {
-                filterUnselectAllTags();
-              } else {
-                filterSelectAllTags();
-              }
-            }}
-          />
-        }
-        listKey="tag-filter"
-        tagIds={tagIds}
-        onSelectTag={handleTagSelect}
-      />
-    </div>
+    <Tags
+      className="tag-filters-container"
+      data-all-selected={allSelected}
+      append={
+        <Tag
+          listKey="tag-filter"
+          tag={{
+            id: 'show-all-button',
+            name: allSelected ? 'Hide All' : 'Select All',
+            color: 'transparent',
+            textColor: '#B7B7B7',
+          }}
+          stateless
+          onSelectTag={() => {
+            if (allSelected) {
+              filterUnselectAllTags();
+            } else {
+              filterSelectAllTags();
+            }
+          }}
+        />
+      }
+      listKey="tag-filter"
+      tagIds={tagIds}
+      onSelectTag={handleTagSelect}
+    />
   );
 }

@@ -1,11 +1,7 @@
-import { Tags } from "../tags";
-import "./Experience.scss";
+import { Tags } from '../tags';
+import './Experience.scss';
 
-export default function Experience({
-  experience,
-}: {
-  experience: ExperienceType;
-}) {
+export default function Experience({ experience }: { experience: ExperienceType }) {
   const hasImages = experience.images && !!experience.images.length;
 
   return (
@@ -19,17 +15,11 @@ export default function Experience({
         ) : (
           <span>{experience.sourceName}</span>
         )}
-        {experience.sourceName && experience.dateInfo && (
-          <span>&nbsp;•&nbsp;</span>
-        )}
+        {experience.sourceName && experience.dateInfo && <span>&nbsp;•&nbsp;</span>}
         {experience.dateInfo}
       </p>
       <p className="description">{experience.description}</p>
-      <Tags
-        listKey="experience-item"
-        shortenLabel={true}
-        tagIds={experience.tagIds}
-      />
+      <Tags className="inline" listKey="experience-item" shortenLabel={true} tagIds={experience.tagIds} />
       {hasImages && (
         <div className="images">
           {experience.images.map((image) => (
