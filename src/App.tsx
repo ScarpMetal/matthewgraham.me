@@ -1,10 +1,10 @@
-import { differenceInCalendarYears } from 'date-fns';
 import { Provider } from 'jotai';
 import { Helmet } from 'react-helmet';
 import JsonView, { JsonViewProps } from 'react18-json-view';
 
 import experiences from '~/data/experiences';
 import projects from '~/data/projects';
+import DateDisplay from '~/utils/DateDisplay';
 import { useParallax } from '~/utils/parallax';
 
 export default function App() {
@@ -15,7 +15,6 @@ export default function App() {
     src: { experiences, projects },
     theme: 'default',
     dark: true,
-    matchesURL: true,
     displaySize: 'collapsed',
     collapsed: (params) => {
       // Collapse positions in the experiences json if they happened 4 calendar years ago
@@ -26,12 +25,27 @@ export default function App() {
         if (typeof latestPosition !== 'object') return false; // Verify list node is an object
 
         const endDate = latestPosition.end_date;
-        if (!(endDate instanceof Date)) return false; // Verify the end_date list node property is a Date
+        if (!(endDate instanceof DateDisplay)) return false; // Verify the end_date list node property is a Date
 
-        return differenceInCalendarYears(new Date(), latestPosition.end_date) > 4;
+        return new Date().getFullYear() - endDate.year > 4;
       }
 
       return false;
+    },
+    customizeCollapseStringUI: (str: string) => {
+      return str;
+    },
+    customizeNode: ({ node }) => {
+      console.log(node);
+      if (typeof node === 'string' && node.startsWith('http')) {
+        return (
+          <a href={node} target="_blank" rel="noreferrer">
+            {'"'}
+            {node}
+            {'"'}
+          </a>
+        );
+      }
     },
     style: {
       backgroundColor: 'none',
