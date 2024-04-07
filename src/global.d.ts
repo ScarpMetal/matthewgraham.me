@@ -1,3 +1,6 @@
+interface DateDisplayInterface {
+  toString(): string;
+}
 interface JSONBaseType<T> {
   ascii: string[];
   list: T[];
@@ -9,18 +12,18 @@ type ProjectType =
       description: string;
       url?: string;
     } & {
-      date: Date;
+      date: DateDisplayInterface;
     })
   | {
-      start_date: Date;
-      end_date: Date;
+      start_date: DateDisplayInterface;
+      end_date: DateDisplayInterface;
     };
 
 type PositionType = {
   title: string;
   description: string;
-  start_date: Date;
-  end_date: Date;
+  start_date: DateDisplayInterface;
+  end_date: DateDisplayInterface;
 };
 
 type ExperienceType = {
