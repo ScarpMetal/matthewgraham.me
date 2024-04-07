@@ -1,17 +1,17 @@
-import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
-import vitePluginSvgr from "vite-plugin-svgr";
-import viteTsconfigPaths from "vite-tsconfig-paths";
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+import vitePluginSvgr from 'vite-plugin-svgr';
+import viteTsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   // depending on your application, base can also be "/"
-  base: "",
+  base: '',
   plugins: [react(), viteTsconfigPaths(), vitePluginSvgr()],
   css: {
     preprocessorOptions: {
       scss: {
         additionalData: `
-          @use "src/styles/variables" as *;
+          @use "src/variables" as *;
         `,
       },
     },

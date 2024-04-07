@@ -1,0 +1,86 @@
+html {
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  background: $background-color url('/patternbg.svg');
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  color: $primary-text-color;
+
+  @media (min-width: $desktop-width) {
+    font-size: 14px;
+  }
+}
+
+h1 {
+  font-size: 2.66em;
+  font-weight: bold;
+  color: $primary-text-color;
+  font-family: 'Merriweather', serif;
+  margin: 0;
+  margin-top: calc(-1 * $navbar-height);
+
+  @media (min-width: $desktop-width) {
+    font-size: 5em;
+  }
+}
+
+h2 {
+  margin: 0;
+}
+
+p {
+  margin: 0.5em 0 0 0;
+}
+
+button {
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  border: none;
+  color: $primary-text-color;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+#root {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 8em;
+  overflow: hidden;
+}
+
+.wavy-circle {
+  position: fixed;
+  top: 50%;
+  left: -800px;
+  translate: -50% -50%;
+  animation: slow-rotate infinite 120s linear;
+  border-radius: 20vh;
+  width: 4000px;
+  height: 4000px;
+  z-index: 1;
+  mix-blend-mode: overlay;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+@keyframes slow-rotate {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
