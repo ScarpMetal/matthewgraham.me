@@ -15,6 +15,7 @@ export default function App() {
     src: { experiences, projects },
     theme: 'default',
     dark: true,
+    matchesURL: true,
     displaySize: 'collapsed',
     collapsed: (params) => {
       // Collapse positions in the experiences json if they happened 4 calendar years ago
