@@ -29,12 +29,12 @@ const projects: JSONBaseType<ProjectType> = {
       url: 'https://www.reddit.com/r/oddlysatisfying/comments/dm0pyd/i_made_that_circle_thing_but_with_triangles/',
       date: new DateDisplay('Oct', 2019),
     },
-    {
-      title: 'Maze Generation Algorithm',
-      description: 'Simple DFS maze generation algorithm made in p5.js',
-      url: 'https://codepen.io/ScarpMetal/full/rgjMWP',
-      date: new DateDisplay('May', 2019),
-    },
+    // {
+    //   title: 'Maze Generation Algorithm',
+    //   description: 'Simple DFS maze generation algorithm made in p5.js',
+    //   url: 'https://codepen.io/ScarpMetal/full/rgjMWP',
+    //   date: new DateDisplay('May', 2019),
+    // },
     {
       title: 'Apollo',
       description:
@@ -63,29 +63,29 @@ const projects: JSONBaseType<ProjectType> = {
       url: 'https://codepen.io/ScarpMetal/full/JrKNNY',
       date: new DateDisplay('Sep', 2017),
     },
-    {
-      title: 'ChatRoom',
-      description:
-        'Messaging web app created from the ground up using C3 and .NET Core. Users can send messages, create new rooms and tag other users. Also implemented a fault tolerant server network that continued running even if a server went down.',
-      url: 'https://github.com/ScarpMetal/ChatRoom',
-      start_date: new DateDisplay('Mar', 2017),
-      end_date: new DateDisplay('May', 2017),
-    },
-    {
-      title: 'Suffragette Scavenger Hunt',
-      description:
-        'Scavenger hunt app using Estimote Proximity Beacons created for the "Because of Women Like Her" exhibit at the Rochester Public Library. Programmed in Swift.',
-      url: 'https://github.com/ScarpMetal/SuffragetteScavengerHunt',
-      start_date: new DateDisplay('Feb', 2017),
-      end_date: new DateDisplay('Apr', 2017),
-    },
-    {
-      title: 'Tone.js Envelope Visualizer',
-      description:
-        'Envelope Visualizer for the Tone.js Library. This project ended up being used by RIT faculty to teach students about digital audio. Made in p5.js',
-      url: 'https://codepen.io/ScarpMetal/full/LyxMGx',
-      date: new DateDisplay('Apr', 2017),
-    },
+    // {
+    //   title: 'ChatRoom',
+    //   description:
+    //     'Messaging web app created from the ground up using C3 and .NET Core. Users can send messages, create new rooms and tag other users. Also implemented a fault tolerant server network that continued running even if a server went down.',
+    //   url: 'https://github.com/ScarpMetal/ChatRoom',
+    //   start_date: new DateDisplay('Mar', 2017),
+    //   end_date: new DateDisplay('May', 2017),
+    // },
+    // {
+    //   title: 'Suffragette Scavenger Hunt',
+    //   description:
+    //     'Scavenger hunt app using Estimote Proximity Beacons created for the "Because of Women Like Her" exhibit at the Rochester Public Library. Programmed in Swift.',
+    //   url: 'https://github.com/ScarpMetal/SuffragetteScavengerHunt',
+    //   start_date: new DateDisplay('Feb', 2017),
+    //   end_date: new DateDisplay('Apr', 2017),
+    // },
+    // {
+    //   title: 'Tone.js Envelope Visualizer',
+    //   description:
+    //     'Envelope Visualizer for the Tone.js Library. This project ended up being used by RIT faculty to teach students about digital audio. Made in p5.js',
+    //   url: 'https://codepen.io/ScarpMetal/full/LyxMGx',
+    //   date: new DateDisplay('Apr', 2017),
+    // },
     {
       title: 'Spotify Together',
       description:
@@ -93,13 +93,13 @@ const projects: JSONBaseType<ProjectType> = {
       url: 'https://devpost.com/software/spotify-together',
       date: new DateDisplay('Feb', 2017),
     },
-    {
-      title: 'ZMR250 Miniquad',
-      description:
-        'Built a quadcopter racing drone over the Fall of 2016. This project involved learning how to solder, program flight controllers, and create a distributed power system.',
-      start_date: new DateDisplay('Sep', 2016),
-      end_date: new DateDisplay('Nov', 2016),
-    },
+    // {
+    //   title: 'ZMR250 Miniquad',
+    //   description:
+    //     'Built a quadcopter racing drone over the Fall of 2016. This project involved learning how to solder, program flight controllers, and create a distributed power system.',
+    //   start_date: new DateDisplay('Sep', 2016),
+    //   end_date: new DateDisplay('Nov', 2016),
+    // },
   ],
 };
 

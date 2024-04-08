@@ -37,7 +37,7 @@ const experiences: JSONBaseType<ExperienceType> = {
     },
     {
       company_name: 'ClutchPlay Games',
-      company_url: 'http://clutchplaygames.com/cp/',
+      company_url: 'http://clutchplaygames.com/',
       positions: [
         {
           title: 'Contract Engineer',
@@ -49,7 +49,7 @@ const experiences: JSONBaseType<ExperienceType> = {
     },
     {
       company_name: 'Dandelion Chocolate',
-      company_url: '',
+      company_url: 'https://www.dandelionchocolate.com/',
       positions: [
         {
           title: 'Software Engineer & Consultant',
@@ -62,7 +62,6 @@ const experiences: JSONBaseType<ExperienceType> = {
     },
     {
       company_name: 'Whiteboard',
-      company_url: '',
       positions: [
         {
           title: 'Founder',
@@ -75,7 +74,7 @@ const experiences: JSONBaseType<ExperienceType> = {
     },
     {
       company_name: 'Polymer',
-      company_url: '',
+      company_url: 'https://www.linkedin.com/company/polymerize/',
       positions: [
         {
           title: 'Software Engineering Co-op',
@@ -88,7 +87,7 @@ const experiences: JSONBaseType<ExperienceType> = {
     },
     {
       company_name: 'iD Coding & Engineering Academy',
-      company_url: '',
+      company_url: 'https://www.idtech.com/',
       positions: [
         {
           title: 'Instructor',
@@ -101,7 +100,7 @@ const experiences: JSONBaseType<ExperienceType> = {
     },
     {
       company_name: 'Thomson Reuters',
-      company_url: '',
+      company_url: 'https://www.thomsonreuters.com/',
       positions: [
         {
           title: 'Software Test Engineering Co-op',
@@ -114,7 +113,7 @@ const experiences: JSONBaseType<ExperienceType> = {
     },
     {
       company_name: 'YPC Media',
-      company_url: '',
+      company_url: 'https://www.ypcmedia.com/',
       positions: [
         {
           title: 'Software Development Co-op',

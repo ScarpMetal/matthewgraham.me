@@ -1,7 +1,7 @@
 import { Provider } from 'jotai';
 import { Helmet } from 'react-helmet';
 import JsonView, { JsonViewProps } from 'react18-json-view';
-
+import contact from '~/data/contact';
 import experiences from '~/data/experiences';
 import projects from '~/data/projects';
 import DateDisplay from '~/utils/DateDisplay';
@@ -12,7 +12,7 @@ export default function App() {
   useParallax('.parallax-tag', { scale: 0.1 });
 
   const jsonViewProps: JsonViewProps = {
-    src: { experiences, projects },
+    src: { contact, experiences, projects, copyright: { year: new Date().getFullYear(), name: 'Matthew Graham' } },
     theme: 'default',
     dark: true,
     displaySize: 'collapsed',
@@ -31,9 +31,6 @@ export default function App() {
       }
 
       return false;
-    },
-    customizeCollapseStringUI: (str: string) => {
-      return str;
     },
     customizeNode: ({ node }) => {
       console.log(node);

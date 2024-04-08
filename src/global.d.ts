@@ -3,8 +3,28 @@ interface DateDisplayInterface {
 }
 interface JSONBaseType<T> {
   ascii: string[];
-  list: T[];
+  list?: T[];
+  info?: T;
 }
+
+type ContactInfoType = {
+  phone: string;
+  email: string;
+  socials: { [siteKey: string]: string };
+};
+
+type PositionType = {
+  title: string;
+  description: string;
+  start_date: DateDisplayInterface;
+  end_date: DateDisplayInterface;
+};
+
+type ExperienceType = {
+  company_name: string;
+  company_url?: string;
+  positions: PositionType[];
+};
 
 type ProjectType =
   | ({
@@ -18,16 +38,3 @@ type ProjectType =
       start_date: DateDisplayInterface;
       end_date: DateDisplayInterface;
     };
-
-type PositionType = {
-  title: string;
-  description: string;
-  start_date: DateDisplayInterface;
-  end_date: DateDisplayInterface;
-};
-
-type ExperienceType = {
-  company_url: string;
-  company_name: string;
-  positions: PositionType[];
-};
