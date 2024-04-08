@@ -62,9 +62,11 @@ button {
 #root {
   position: relative;
   min-height: 100vh;
-  width: 800px;
+  min-width: 500px;
+  max-width: 800px;
   padding-bottom: 8em;
   overflow: hidden;
+  padding: 0.5em;
 }
 
 .wavy-circle {
@@ -89,4 +91,8 @@ button {
   to {
     rotate: 360deg;
   }
+}
+
+* {
+  box-sizing: border-box;
 }
