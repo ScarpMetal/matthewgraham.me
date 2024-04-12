@@ -12,7 +12,12 @@ export default function App() {
   useParallax('.parallax-tag', { scale: 0.1 });
 
   const jsonViewProps: JsonViewProps = {
-    src: { contact, experiences, projects, copyright: { year: new Date().getFullYear(), name: 'Matthew Graham' } },
+    src: {
+      contact,
+      experiences,
+      projects,
+      copyright: { year: new Date().getFullYear(), name: 'Matthew Graham' },
+    },
     theme: 'default',
     dark: true,
     displaySize: 'collapsed',

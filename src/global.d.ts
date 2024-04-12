@@ -1,3 +1,5 @@
+type Link = `http${string}`;
+
 interface DateDisplayInterface {
   toString(): string;
 }
@@ -11,18 +13,19 @@ type ContactInfoType = {
   phone: string;
   email: string;
   socials: { [siteKey: string]: string };
+  resume: Link;
 };
 
 type PositionType = {
   title: string;
-  description: string;
+  description?: string | string[];
   start_date: DateDisplayInterface;
   end_date: DateDisplayInterface;
 };
 
 type ExperienceType = {
   company_name: string;
-  company_url?: string;
+  company_url?: Link;
   positions: PositionType[];
 };
 
@@ -30,7 +33,7 @@ type ProjectType =
   | ({
       title: string;
       description: string;
-      url?: string;
+      url?: Link;
     } & {
       date: DateDisplayInterface;
     })
