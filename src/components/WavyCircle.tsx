@@ -8,7 +8,7 @@ export default function WavyCircle() {
   const wavyCircleStyle = useAtomValue(wavyCircleStyleAtom);
 
   const style: CSSProperties = useMemo(() => {
-    if (!wavyCircleStyle) return {};
+    if (!wavyCircleStyle) return { left: 0, top: 0, width: 0, height: 0 };
     return wavyCircleStyle;
   }, [wavyCircleStyle]);
 
