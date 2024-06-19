@@ -4,6 +4,7 @@ import MagicButton from '~/components/MagicButton';
 import WavyCircle from '~/components/WavyCircle';
 import cryptleScreenshot from './assets/screenshots/cryptle.png';
 import placeplannerScreenshot from './assets/screenshots/placeplanner.png';
+import ratiocalcScreenshot from './assets/screenshots/ratiocalc.png';
 import typehereScreenshot from './assets/screenshots/typehere.png';
 
 export default function App() {
@@ -27,6 +28,11 @@ export default function App() {
       </div>
       <div className="apps">
         <MagicAppLink title="cryptle" to="https://cryptle.matthewgraham.me/" src={cryptleScreenshot} />
+        <MagicAppLink
+          title="Ratio Calculator"
+          to="https://ratiocalculator.matthewgraham.me/"
+          src={ratiocalcScreenshot}
+        />
         <MagicAppLink title="typehere" to="https://typehere.matthewgraham.me/" src={typehereScreenshot} />
         <MagicAppLink title="/r/place planner" to="https://placeplanner.web.app/" src={placeplannerScreenshot} />
       </div>
