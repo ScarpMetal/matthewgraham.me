@@ -1,19 +1,19 @@
 {
-	"name": "MatthewGraham.me",
-	"short_name": "MG",
-	"icons": [
-		{
-			"src": "./assets/android-chrome-192x192.png",
-			"sizes": "192x192",
-			"type": "image/png"
-		},
-		{
-			"src": "./assets/android-chrome-512x512.png",
-			"sizes": "512x512",
-			"type": "image/png"
-		}
-	],
-	"theme_color": "#5DD9C1",
-	"background_color": "#222739",
-	"display": "standalone"
+    "name": "matthewgraham.me",
+    "short_name": "matthewgraham.me",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#4f3cb7",
+    "background_color": "#4f3cb7",
+    "display": "standalone"
 }
