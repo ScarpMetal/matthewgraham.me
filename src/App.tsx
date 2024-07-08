@@ -11,8 +11,8 @@ export default function App() {
   return (
     <>
       <Helmet>
-        <title>matthewgraham.me</title>
-        <meta name="description" content="View Matthew Graham's projects and work experiences." />
+        <title>Matthew Graham</title>
+        <meta name="description" content="View Matthew Graham's hosted projects, resume, and social media links." />
       </Helmet>
       <WavyCircle />
       <h1 className="title">
